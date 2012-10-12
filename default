@@ -1,0 +1,7 @@
+Alias /analytics /home/nick/workspace/googleAnalytics
+
+<Directory /home/nick/workspace/googleAnalytics>
+	Options FollowSymLinks
+	AllowOverride All
+</Directory>
+
