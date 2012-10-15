@@ -46,72 +46,6 @@ $storage = new apiSessionStorage();
 
 $authHelper = new AuthHelper($client, $storage, THIS_PAGE);
 
-function printArray($array){
-	$ret="";
-	foreach($array as $item){
-		if ($ret!="") $ret.=", ";
-		$ret.=$item;
-	}
-	return $ret;
-}
-
-function getData($service,$profile,$dimensions){
-		$dims=join(',ga:',$dimensions);
-	
-	  $optParams = array(
-      'dimensions' => "ga:$dims",
-      'max-results' => '1');
-	try {
-		$results=$service->data_ga->get("ga:$profile",'2012-01-01','2012-10-10','ga:visits',$optParams);
-		return $results->totalResults;
-	} catch (Exception $e) { 
-		$error=$e->getMessage();
-		if (!(strpos($error,"Invalid request: selected dimensions and metrics cannot be queried together.")===false)) return -1000;
-		print_line("Caught exception: $error" );
-		die;		
- 	}	
-}
-
-$fn_todo=buildPath(dirname(__FILE__),'Data',"todo.json");
-$fn_done=buildPath(dirname(__FILE__),'Data',"done.json");
-$fn_fail=buildPath(dirname(__FILE__),'Data',"fail.json");
-
-$todo=json_decode(file_get_contents($fn_todo),true);
-$done=json_decode(file_get_contents($fn_done),true);
-$fail=json_decode(file_get_contents($fn_fail),true);
-
-if (/**/true/** /false/**/){
-	$tomerge=array();
-	foreach($done as $rows)
-		foreach($rows as $values)
-		{
-			asort($values);
-			if (!in_array($tomerge,$values))
-				$tomerge[]=$values;
-		}
-		
-	for ($i=1;$i<count($tomerge);$i++){
-		for ($j=0;$j<$i;$j++)
-		{
-			$new=array_unique(array_merge($tomerge[$i],$tomerge[$j]));
-			sort($new);
-			if (!in_array($fail,$new)){
-				$size=count($new);
-				if (!in_array($todo[$size],$new))
-					$todo[$size][]=$new;
-			}
-			$bytes=file_put_contents($fn_todo,json_encode($todo));
-		}
-		print_line("Saved File $fn_todo ($bytes)");
-	}		
-	krumo($todo);			
-	die;
-
-	
-}
-
-
-
 // Main controller logic.
 
 if (pg_value('action') == 'revoke') {
@@ -133,37 +67,15 @@ if (pg_value('action') == 'revoke') {
 	$firstWebpropertyId = googleHelper::getFirstId($webproperties);
 	$profiles = $service->management_profiles->listManagementProfiles($firstAccountId,$firstWebpropertyId);
 	$firstProfileId = googleHelper::getFirstId($profiles);
-
 	
-		
-		
-	$time=0;	
-	foreach ($todo as $level=>$test){
-		foreach ($test as $key=>$value){
-			//if (time()<$time) sleep(1);
-			$time++;	
-			$rows=getData($service,$firstProfileId,$value);
-			print_line("Test $level:$key for [".printArray($value)."] returned $rows row(s).");
-			if ($rows>=0){
-				$done[count($test)][$key]=$value;
-				$bytes=file_put_contents($fn_done,json_encode($done));
-			//	print_line("Saved File $fn_done ($bytes)");
-			}
-			if ($rows>=0){
-				asort($value);
-				$fail[]=$value;
-				$bytes=file_put_contents($fn_fail,json_encode($fail));
-			//	print_line("Saved File $fn_done ($bytes)");
-			}
-			{
-				unset($todo[$level][$key]);
-				$bytes=file_put_contents($fn_todo,json_encode($todo));
-				//print_line("Saved File $fn_todo ($bytes)");
-			}
-			if ($time>100) die;						
-		}
-	}	  
-	  
+	$test=safe_DataObject_factory('t_Tests');
+	$test->valid=0;
+	$test->find();
+	while ($test->fetch()){
+		$test->doTest($service,$firstProfileId);	
+	}
+	
+	/*	*/  
   }
   
   // The PHP library will try to update the access token

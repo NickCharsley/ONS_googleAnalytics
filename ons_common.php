@@ -11,7 +11,7 @@
  define("__COMMON__",1);
  ob_start("ob_gzhandler");
  
- error_reporting(E_ALL);
+ error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
     
  error_log("Enter ".__FILE__);
 /************************************************************\
@@ -121,30 +121,34 @@
  * Database Connectivity
 \***********************************************************/
     if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
-    if (file_exists(buildpath($root_path,"app","data",$do_ini))){
+    if (file_exists(buildpath($root_path,"database",$do_ini))){
+    	if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
         include_once("database/utils.php");
+        if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
         
-        $config = parse_ini_file(buildpath($root_path,"app","data",$do_ini), true);
+        $config = parse_ini_file(buildpath($root_path,"database",$do_ini), true);
         if (str_replace("/","\\",__FILE__)==str_replace("/","\\",$_SERVER["SCRIPT_FILENAME"]))
             print_pre($config);
+        if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
         
         foreach($config as $class=>$values) {
             $options = &PEAR::getStaticProperty($class,'options');
             $options = $values;
         }
+        if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
         
         PEARError($db = MDB2::connect($config['DB_DataObject']['database']),"Early out");
         $db->setFetchMode('DB_FETCHMODE_ASSOC');
         set_time_limit(0);
         DB_DataObject::debugLevel(5);
         if (str_replace("/","\\",__FILE__)==str_replace("/","\\",$_SERVER["SCRIPT_FILENAME"])){
-            showload("class");
+            showload("t_dimension");
         }
+        if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
+        
+        DB_DataObject::debugLevel($debug?5:0);
 
-
-        DB_DataObject::debugLevel(0);
-
-        if (isset($_GET['database'])) print_pre($db);
+        if ($debug) print_pre($db);
 
     }
     if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
