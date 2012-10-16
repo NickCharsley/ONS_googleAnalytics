@@ -68,7 +68,7 @@ if (pg_value('action') == 'revoke') {
 	$profiles = $service->management_profiles->listManagementProfiles($firstAccountId,$firstWebpropertyId);
 	$firstProfileId = googleHelper::getFirstId($profiles);
 	
-	$test=safe_DataObject_factory('t_Tests');
+	$test=safe_DataObject_factory('t_Testdimension');
 	$test->valid=0;
 	$test->find();
 	while ($test->fetch()){

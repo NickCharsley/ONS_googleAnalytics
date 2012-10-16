@@ -13,8 +13,10 @@ class doT_tests extends dbRoot
     public $ID;                              // int(4)  primary_key not_null
     public $size;                            // int(4)   not_null
     public $valid;                           // int(4)   not_null
-    public $d1ID;                            // int(4)   not_null
-    public $d2ID;                            // int(4)   not_null
+    public $d1ID;                            // int(4)  unique_key not_null
+    public $d2ID;                            // int(4)  unique_key not_null
+    public $d3ID;                            // int(4)  unique_key
+    public $d4ID;                            // int(4)  unique_key
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doT_tests',$k,$v); }
