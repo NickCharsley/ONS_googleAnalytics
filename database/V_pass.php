@@ -1,15 +1,15 @@
 <?php
 /**
- * Table Definition for v_all
+ * Table Definition for v_pass
  */
 require_once 'dbRoot.php';
 
-class doV_all extends dbRoot 
+class doV_pass extends dbRoot 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'v_all';               // table name
+    public $__table = 'v_pass';              // table name
     public $id;                              // int(4)   not_null
     public $level;                           // int(4)   not_null
     public $valid;                           // int(4)   not_null
@@ -20,7 +20,7 @@ class doV_all extends dbRoot
     public $d5ID;                            // int(4)  
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doV_all',$k,$v); }
+    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doV_pass',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE

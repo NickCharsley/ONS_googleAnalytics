@@ -61,21 +61,23 @@ if (pg_value('action') == 'revoke') {
     $service = new Google_AnalyticsService($client);
  
 	$accounts = $service->management_accounts->listManagementAccounts();
-	//Just take 1st Account :)
-	$firstAccountId=googleHelper::getFirstID($accounts);
-	$webproperties = $service->management_webproperties->listManagementWebproperties($firstAccountId);
-	$firstWebpropertyId = googleHelper::getFirstId($webproperties);
-	$profiles = $service->management_profiles->listManagementProfiles($firstAccountId,$firstWebpropertyId);
-	$firstProfileId = googleHelper::getFirstId($profiles);
+	$profileIds=array();
+	$accountIds=googleHelper::getAllIDs($accounts);
 	
-	$test=safe_DataObject_factory('t_Testdimension');
-	$test->valid=0;
-	$test->find();
-	while ($test->fetch()){
-		$test->doTest($service,$firstProfileId);	
+	foreach($accountIds as $accountId){
+		$webproperties = $service->management_webproperties->listManagementWebproperties($accountId);
+		$webpropertyIds = googleHelper::getAllIDs($webproperties);
+		foreach($webpropertyIds as $webpropertyId){
+			$profiles = $service->management_profiles->listManagementProfiles($accountId,$webpropertyId);
+			$profileIds = array_merge($profileIds,googleHelper::getAllIDs($profiles));
+		}
 	}
+
+	//print_pre($profileIds);
+	//die;
 	
-	/*	*/  
+	//Update Historic Failures
+	  
   }
   
   // The PHP library will try to update the access token

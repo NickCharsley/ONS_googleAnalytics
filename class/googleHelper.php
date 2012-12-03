@@ -15,5 +15,85 @@
 	    return $items[0]->getId();
 	  }
  
+	  static function getAllIDs(&$collection) {
+	  	$ret=array();
+	  	foreach ( $collection->getItems() as $item){
+	  		$ret[]=$item->getId();
+	  	}	  	
+	  	return $ret;
+	  }
+	  
+	  
+	  /**
+	   * Returns the rows of data as an HTML Table.
+	   * @param GaData $results The results from the Core Reporting API.
+	   * @return string The formatted results.
+	   */
+	  static function getRows($results) {	  	
+	  	return $results->getRowsTable();
+	  }
+	   
+	  static function getResults($date,$service,&$profile,$optParams,$metrics){
+	  	$max=7;
+	  	 
+	  	$results=new googleResultsWrapper();
+	  	$aDims=split(",",$optParams['dimensions']);
+	  	$aMets=split(",",$metrics);
+		if (count($aMets)>10){
+	  		$newMets=array();
+	  		for ($i=0;$i<10;$i++){
+	  			$newMets[]=$aMets[$i];
+	  			unset($aMets[$i]);
+	  		}
+	  		$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParams, join(",",$newMets)));
+	  		$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParams, join(",",$aMets  )));
+	  	}
+	  	else {
+	  		$gaResults=$service->data_ga->get("ga:".$profile,$date,$date,$metrics,$optParams);
+	  		$results=new googleResultsWrapper($gaResults);
+	  		if ($gaResults->nextLink<>""){
+	  			$optParams['start-index']+=$optParams['max-results'];
+	  			$gaResults=$service->data_ga->get("ga:".$profile,$date,$date,$metrics,$optParams);
+	  			$results->mergeResults($gaResults);
+//	  			krumo($gaResults);
+//	  			krumo($results);
+	  		}
+	  	}	  	
+	  	//krumo($results);
+	  	return $results;
+	  }
+	  
+	  static function getFilter($columnHeaders,$rows,$index){
+ 			$filters="";
+ 			for($i=0;$i<count($columnHeaders);$i++){
+ 				if ($columnHeaders[$i]->columnType=="DIMENSION"){
+	 				if ($i>0) $filters.=",";
+ 					$filters.=$columnHeaders[$i]->name."==";
+	 				$filters.=$rows[$index][$i];
+ 				}
+ 			}
+ 			return $filters;
+ 		}
+ 		
+ 		static function getMetrics($columnHeaders,$rows,$index){
+ 			$metrics=array();
+ 			for($i=0;$i<count($columnHeaders);$i++){
+ 				if ($columnHeaders[$i]->columnType=="METRIC"){
+ 					$metrics[$columnHeaders[$i]->name]=$rows[$index][$i];
+ 				}
+ 			}
+ 			return $metrics;
+ 		}
+ 		
+ 		static function getDimensions($columnHeaders,$rows,$index){
+ 			$dimensions=array();
+ 			for($i=0;$i<count($columnHeaders);$i++){
+ 				if ($columnHeaders[$i]->columnType=="DIMENSION"){
+ 					$dimensions[$columnHeaders[$i]->name]=$rows[$index][$i];
+ 				}
+ 			}
+ 			return $dimensions;
+ 		}
+ 		
  }
 ?>
