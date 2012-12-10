@@ -58,25 +58,41 @@ $client->setClientId(CLIENT_ID);
 
 $service = new Google_AnalyticsService($client);
 $profile=55368687;
+$date="2012-11-02";
 
-$v=new Vanquis($service, $profile);
+/*Date Dimension*/
 
-$v->getResults("2012-11-01");
-/** /
-$v->getResults("2012-11-02");
-$v->getResults("2012-11-03");
-$v->getResults("2012-11-04");
-$v->getResults("2012-11-05");
-$v->getResults("2012-11-06");
-$v->getResults("2012-11-07");
+$dim=safe_DataObject_factory('dimDate');
+$dim->saveGoogleResults(googleHelper::getResults($date,$service,$profile,$dim->optParams(),$dim->metrics()));
+die;
+/* AdWords Dimensions * /
+/**
+* Addwords Ordered by Degrees of freedom
+* ga:adwordsCustomerID,ga:adDisplayUrl,ga:adTargetingType,ga:adFormat,ga:adSlot,ga:adTargetingOption,ga:adDistributionNetwork,ga:adMatchType,ga:adwordsCampaignID,ga:adGroup,ga:adwordsAdGroupID,ga:adPlacementDomain,ga:adwordsCriteriaID,ga:adwordsCreativeID,ga:adMatchedQuery,ga:adDestinationUrl,ga:adPlacementUrl
+* /
+
+$optParams = array(
+		'dimensions' => "ga:adwordsCustomerID,ga:adDistributionNetwork,ga:adMatchType,ga:adwordsCampaignID,ga:adGroup,ga:adwordsAdGroupID,ga:adwordsCriteriaID,ga:adwordsCreativeID,ga:adDestinationUrl",
+		'max-results' => '1000',
+		'start-index' => 1
+);
+$results=googleHelper::getResults($date,$service,$profile,$optParams);
+$results->saveAdWordsDimension();
+
+/*Fact*/
+
+//Clear fctTable
+$sql="truncate table fctAdwords";
+$db->query($sql);
+
+$fact=safe_DataObject_factory('fctAdwords');
+$fact->saveGoogleResults(googleHelper::getResults($date,$service,$profile,$fact->optParams(),$fact->metrics()));
 /**/
-
-
 
 if ($client->getAccessToken()) {
   $_SESSION['token'] = $client->getAccessToken();
 }
 
-
 pageTime();
+
 ?>

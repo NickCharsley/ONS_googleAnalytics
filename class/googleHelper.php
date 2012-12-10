@@ -33,13 +33,31 @@
 	  	return $results->getRowsTable();
 	  }
 	   
-	  static function getResults($date,$service,&$profile,$optParams,$metrics){
-	  	$max=7;
-	  	 
+	  static function getResults($date,$service,&$profile,$optParams,$metrics='ga:visits'){	  	
 	  	$results=new googleResultsWrapper();
 	  	$aDims=split(",",$optParams['dimensions']);
 	  	$aMets=split(",",$metrics);
-		if (count($aMets)>10){
+	  	if (count($aDims)>7){
+	  		//die("Too Many Dimensions! ".__FILE__.":".__LINE__);
+	  		$newDims=array();
+	  		for ($i=0;$i<7;$i++){
+	  			$newDims[]=$aDims[$i];
+	  			unset($aDims[$i]);
+	  		}
+	  		//Get First 7 for filter
+	  		$optParams['dimensions']=join(",",$newDims);
+	  		$gaFilter=googleHelper::getResults($date, $service, $profile, $optParams);
+	  		//krumo($gaFilter);
+	  		$optParams['dimensions']=join(",",$aDims);
+	  		for($i=0;$i<$gaFilter->rowCount;$i++){
+	  			$optParams['filters']=str_replace(",", ";", $gaFilter->getFilter($i));
+	  			//Need to replace , with ; to be an and in Google Filters
+	  			$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParams,$metrics));
+	  		}
+	  //		krumo($results);
+	  	//	die(__FILE__.":".__LINE__);	  		 
+	  	}
+		else if (count($aMets)>10){
 	  		$newMets=array();
 	  		for ($i=0;$i<10;$i++){
 	  			$newMets[]=$aMets[$i];
@@ -85,8 +103,14 @@
  			return $metrics;
  		}
  		
- 		static function getDimensions($columnHeaders,$rows,$index){
+ 		static function getDimensions($columnHeaders,$rows,$index,$filters=""){ 			
  			$dimensions=array();
+ 			if ($filters!=""){
+	 			foreach(split(",",$filters) as $filter){
+	 				list($name,$value)=split("==",$filter);
+	 				$dimensions[$name]=$value;
+	 			}
+ 			}
  			for($i=0;$i<count($columnHeaders);$i++){
  				if ($columnHeaders[$i]->columnType=="DIMENSION"){
  					$dimensions[$columnHeaders[$i]->name]=$rows[$index][$i];
