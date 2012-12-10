@@ -1395,3 +1395,23 @@ Stack trace:
 [10-Dec-2012 09:54:01 UTC] Exit C:\Users\nick\workspace\googleAnalytics\database\dbRoot.php
 [10-Dec-2012 09:54:01 UTC] ons_autoload(googleHelper)
 [10-Dec-2012 09:54:02 UTC] ons_autoload(googleResultsWrapper)
+[10-Dec-2012 11:47:36 UTC] Enter C:\Users\nick\workspace\common\database\utils.php
+[10-Dec-2012 11:47:36 UTC] Exit C:\Users\nick\workspace\common\database\utils.php
+[10-Dec-2012 11:47:36 UTC] ons_autoload(MDB2)
+[10-Dec-2012 11:47:37 UTC] ons_autoload(DB_DataObject)
+[10-Dec-2012 11:47:37 UTC] ons_autoload(DB\DataObject)
+[10-Dec-2012 11:47:37 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[10-Dec-2012 11:47:37 UTC] PHP Warning:  file_get_contents(C:\Users\nick\workspace\googleAnalytics\Data\6368006f26fe7ffd9ed89d98ccfc7cd277417177-privatekey.p12): failed to open stream: No such file or directory in C:\Users\nick\workspace\ONS_googleAnalytics\saLandings.php on line 50
+[10-Dec-2012 11:47:37 UTC] PHP Stack trace:
+[10-Dec-2012 11:47:37 UTC] PHP   1. {main}() C:\Users\nick\workspace\ONS_googleAnalytics\saLandings.php:0
+[10-Dec-2012 11:47:37 UTC] PHP   2. file_get_contents() C:\Users\nick\workspace\ONS_googleAnalytics\saLandings.php:50
+[10-Dec-2012 11:47:37 UTC] ons_autoload(Google_AnalyticsService)
+[10-Dec-2012 11:47:37 UTC] ons_autoload(Vanquis)
+[10-Dec-2012 11:48:47 UTC] Enter C:\Users\nick\workspace\common\database\utils.php
+[10-Dec-2012 11:48:47 UTC] Exit C:\Users\nick\workspace\common\database\utils.php
+[10-Dec-2012 11:48:47 UTC] ons_autoload(MDB2)
+[10-Dec-2012 11:48:48 UTC] ons_autoload(DB_DataObject)
+[10-Dec-2012 11:48:48 UTC] ons_autoload(DB\DataObject)
+[10-Dec-2012 11:48:48 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[10-Dec-2012 11:48:48 UTC] ons_autoload(Google_AnalyticsService)
+[10-Dec-2012 11:48:48 UTC] ons_autoload(Vanquis)

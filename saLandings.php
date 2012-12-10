@@ -29,7 +29,7 @@ const SERVICE_ACCOUNT_NAME = '940966921181@developer.gserviceaccount.com';
 
 // Make sure you keep your key.p12 file in a secure location, and isn't
 // readable by others.
-define('KEY_FILE',buildpath('C:','Users','nick','workspace','googleAnalytics','Data','6368006f26fe7ffd9ed89d98ccfc7cd277417177-privatekey.p12'));
+define('KEY_FILE',buildpath(dirname(__FILE__),'Data','6368006f26fe7ffd9ed89d98ccfc7cd277417177-privatekey.p12'));
 
 define('THIS_PAGE',basename(__FILE__));
 
