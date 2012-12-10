@@ -3,3 +3,4 @@
 *.pyo
 *.p12
 php_error.log
+.project
