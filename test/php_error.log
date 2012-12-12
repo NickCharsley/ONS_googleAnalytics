@@ -431,3 +431,155 @@ Stack trace:
 [12-Dec-2012 08:22:17 UTC] ons_autoload(googleHelper)
 [12-Dec-2012 08:22:18 UTC] ons_autoload(googleResultsWrapper)
 [12-Dec-2012 08:25:42 UTC] SSL certificate problem, verify that the CA cert is OK. Retrying with the CA cert bundle from google-api-php-client.
+[12-Dec-2012 08:30:35 UTC] ons_autoload(PEAR)
+[12-Dec-2012 08:30:35 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 08:30:35 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 08:30:35 UTC] ons_autoload(MDB2)
+[12-Dec-2012 08:30:36 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 08:30:36 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 08:30:36 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 08:30:36 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 08:30:36 UTC] ons_autoload(Vanquis)
+[12-Dec-2012 08:30:36 UTC] Enter C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 08:30:36 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 08:30:36 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 08:30:37 UTC] ons_autoload(googleResultsWrapper)
+[12-Dec-2012 08:31:15 UTC] ons_autoload(PEAR_Exception)
+[12-Dec-2012 08:31:15 UTC] ons_autoload(PEAR\Exception)
+[12-Dec-2012 08:31:52 UTC] ons_autoload(PEAR)
+[12-Dec-2012 08:31:52 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 08:31:52 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 08:31:52 UTC] ons_autoload(MDB2)
+[12-Dec-2012 08:31:53 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 08:31:53 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 08:31:53 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 08:31:53 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 08:31:53 UTC] ons_autoload(Vanquis)
+[12-Dec-2012 08:31:53 UTC] Enter C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 08:31:53 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 08:31:53 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 08:31:54 UTC] ons_autoload(googleResultsWrapper)
+[12-Dec-2012 08:32:43 UTC] ons_autoload(PEAR_Exception)
+[12-Dec-2012 08:32:43 UTC] ons_autoload(PEAR\Exception)
+[12-Dec-2012 08:33:01 UTC] ons_autoload(PEAR)
+[12-Dec-2012 08:33:01 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 08:33:01 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 08:33:01 UTC] ons_autoload(MDB2)
+[12-Dec-2012 08:33:02 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 08:33:02 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 08:33:02 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 08:33:02 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 08:33:02 UTC] ons_autoload(Vanquis)
+[12-Dec-2012 08:33:02 UTC] Enter C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 08:33:02 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 08:33:02 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 08:33:03 UTC] ons_autoload(googleResultsWrapper)
+[12-Dec-2012 08:33:10 UTC] ons_autoload(PEAR_Exception)
+[12-Dec-2012 08:33:10 UTC] ons_autoload(PEAR\Exception)
+[12-Dec-2012 09:09:49 UTC] ons_autoload(PEAR)
+[12-Dec-2012 09:09:49 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 09:09:49 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 09:09:49 UTC] ons_autoload(MDB2)
+[12-Dec-2012 09:09:50 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 09:09:50 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 09:09:50 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 09:09:50 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 09:09:50 UTC] ons_autoload(Vanquis)
+[12-Dec-2012 09:09:50 UTC] Enter C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 09:09:50 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 09:09:50 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 09:09:51 UTC] ons_autoload(googleResultsWrapper)
+[12-Dec-2012 09:09:53 UTC] ons_autoload(PEAR_Exception)
+[12-Dec-2012 09:09:53 UTC] ons_autoload(PEAR\Exception)
+[12-Dec-2012 09:11:36 UTC] ons_autoload(PEAR)
+[12-Dec-2012 09:11:36 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 09:11:36 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 09:11:36 UTC] ons_autoload(MDB2)
+[12-Dec-2012 09:11:37 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 09:11:37 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 09:11:37 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 09:11:37 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 09:11:37 UTC] ons_autoload(Vanquis)
+[12-Dec-2012 09:11:37 UTC] Enter C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 09:11:37 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 09:11:37 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 09:11:38 UTC] ons_autoload(googleResultsWrapper)
+[12-Dec-2012 09:11:43 UTC] ons_autoload(PEAR_Exception)
+[12-Dec-2012 09:11:43 UTC] ons_autoload(PEAR\Exception)
+[12-Dec-2012 09:13:50 UTC] ons_autoload(PEAR)
+[12-Dec-2012 09:13:50 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 09:13:50 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 09:13:50 UTC] ons_autoload(MDB2)
+[12-Dec-2012 09:13:51 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 09:13:51 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 09:13:51 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 09:13:51 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 09:13:51 UTC] ons_autoload(Vanquis)
+[12-Dec-2012 09:13:51 UTC] Enter C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 09:13:51 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 09:13:51 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 09:13:52 UTC] ons_autoload(googleResultsWrapper)
+[12-Dec-2012 09:13:57 UTC] ons_autoload(PEAR_Exception)
+[12-Dec-2012 09:13:57 UTC] ons_autoload(PEAR\Exception)
+[12-Dec-2012 09:17:26 UTC] ons_autoload(PEAR)
+[12-Dec-2012 09:17:26 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 09:17:26 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 09:17:26 UTC] ons_autoload(MDB2)
+[12-Dec-2012 09:17:27 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 09:17:27 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 09:17:27 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 09:17:27 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 09:17:27 UTC] ons_autoload(Vanquis)
+[12-Dec-2012 09:17:27 UTC] Enter C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 09:17:27 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 09:17:27 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 09:17:28 UTC] ons_autoload(googleResultsWrapper)
+[12-Dec-2012 10:22:39 UTC] ons_autoload(PEAR)
+[12-Dec-2012 10:22:39 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 10:22:39 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 10:22:39 UTC] ons_autoload(MDB2)
+[12-Dec-2012 10:22:40 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 10:22:40 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 10:22:40 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 10:22:40 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 10:22:40 UTC] ons_autoload(Vanquis)
+[12-Dec-2012 10:22:40 UTC] Enter C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 10:22:40 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\database\dbRoot.php
+[12-Dec-2012 10:22:40 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 10:22:41 UTC] ons_autoload(googleResultsWrapper)
+[12-Dec-2012 11:37:17 UTC] ons_autoload(PEAR)
+[12-Dec-2012 11:37:17 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 11:37:17 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 11:37:17 UTC] ons_autoload(MDB2)
+[12-Dec-2012 11:37:19 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 11:37:19 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 11:37:19 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 11:37:21 UTC] ons_autoload(PEAR)
+[12-Dec-2012 11:37:21 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 11:37:21 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 11:37:21 UTC] ons_autoload(MDB2)
+[12-Dec-2012 11:37:22 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 11:37:22 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 11:37:22 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 11:37:22 UTC] PHP Notice:  Undefined index: code in C:\Users\nick\workspace\ONS_googleAnalytics\script\authHelper.php on line 80
+[12-Dec-2012 11:37:22 UTC] PHP Stack trace:
+[12-Dec-2012 11:37:22 UTC] PHP   1. {main}() C:\Users\nick\workspace\ONS_googleAnalytics\google.php:0
+[12-Dec-2012 11:37:22 UTC] PHP   2. AuthHelper->authenticate() C:\Users\nick\workspace\ONS_googleAnalytics\google.php:55
+[12-Dec-2012 11:38:50 UTC] ons_autoload(PEAR)
+[12-Dec-2012 11:38:50 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 11:38:50 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 11:38:50 UTC] ons_autoload(MDB2)
+[12-Dec-2012 11:38:51 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 11:38:51 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 11:38:51 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 11:38:51 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 11:38:52 UTC] ons_autoload(googleHelper)
+[12-Dec-2012 11:39:42 UTC] ons_autoload(PEAR)
+[12-Dec-2012 11:39:42 UTC] Enter C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 11:39:42 UTC] Exit C:\Users\nick\workspace\ONS_Common\database\utils.php
+[12-Dec-2012 11:39:42 UTC] ons_autoload(MDB2)
+[12-Dec-2012 11:39:43 UTC] ons_autoload(DB_DataObject)
+[12-Dec-2012 11:39:43 UTC] ons_autoload(DB\DataObject)
+[12-Dec-2012 11:39:43 UTC] Exit C:\Users\nick\workspace\ONS_googleAnalytics\ons_common.php
+[12-Dec-2012 11:39:43 UTC] ons_autoload(Google_AnalyticsService)
+[12-Dec-2012 11:39:44 UTC] ons_autoload(googleHelper)

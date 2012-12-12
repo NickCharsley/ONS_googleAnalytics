@@ -4,8 +4,7 @@
     class Vanquis {
     	private $service;
     	private $profile;
-    		
-    	
+    		    	
     	function __construct($service,$profile){
     		$this->service=$service;
     		$this->profile=$profile;
@@ -63,15 +62,15 @@
     	function waterfall($date){
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension*/
-//    		$this->getDimensionOnly($date, "Date");
+    		$this->getDimensionOnly($date, "Date");
     		/*Visitor Dimension*/
-//    		$this->getDimensionOnly($date, "Visitor");
+    		$this->getDimensionOnly($date, "Visitor");
     		/*Session Dimension*/
-//    		$this->getDimensionOnly($date,"Session");
+    		$this->getDimensionOnly($date,"Session");
     		/*Host Dimensions*/
     		$this->getDimensionOnly($date, "HostName");
     		/*Page Dimensions*/
-//			$this->getDimensionOnly($date, "PagePath");    		 
+			$this->getDimensionOnly($date, "PagePath");    		 
 //			$this->getDimensionOnly($date, "LandingPagePath");
 //			$this->getDimensionOnly($date, "ExitPagePath");
 			/*Fact Table*/

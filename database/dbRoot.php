@@ -79,7 +79,7 @@ class dbRoot extends DB_DataObject {
 		ob_flush();		flush();		
 		
 		foreach ($results->matrix as $row){
-			$fact=safe_DataObject_factory($this->__table);
+			$fact=safe_DataObject_factory($this->__table);			
 			//Get Un-linked Dimensions
 			foreach($row['Dimensions'] as $dimName=>$dimValue){
 				$dimName=ucfirst(str_replace("ga:", "", $dimName));
@@ -94,7 +94,7 @@ class dbRoot extends DB_DataObject {
 				}				
 			}
 			$action=($fact->find(true))?"update":"insert";
-				
+			//krumo($fact);
 			foreach($row['Metrics'] as $metName=>$metValue){
 				$metName=ucfirst(str_replace("ga:", "", $metName));
 				$fact->$metName=$metValue;
