@@ -64,9 +64,11 @@
 		if (strpos($_SERVER["SERVER_SOFTWARE"],"Ubuntu")===false){
         	$ips=";";
         	$fps="\\";
-        	if (strtolower($_SERVER["COMPUTERNAME"])=="tdvsvr0165"){
-        		$common_path='C:\phpsites\ons_common';	        
-        		$do_ini='do_tdvsvr0165.ini';
+        	if (isset($_SERVER["COMPUTERNAME"])){
+	        	if (strtolower($_SERVER["COMPUTERNAME"])=="tdvsvr0165"){
+	        		$common_path='C:\phpsites\ons_common';	        
+	        		$do_ini='do_tdvsvr0165.ini';
+	        	}
         	}
 		} else {
 			$common_path='/home/nick/workspace/common';

@@ -62,13 +62,17 @@ $accounts = $service->management_accounts->listManagementAccounts();
 $profileIds=array();
 $accountIds=googleHelper::getAllIDs($accounts);
 
+$doProfile=safe_DataObject_factory("dimProfile");
+
 foreach($accountIds as $accountId){
 	$webproperties = $service->management_webproperties->listManagementWebproperties($accountId);
 	$webpropertyIds = googleHelper::getAllIDs($webproperties);
 	foreach($webpropertyIds as $webpropertyId){
 		$profiles = $service->management_profiles->listManagementProfiles($accountId,$webpropertyId);
 		$profileIds = array_merge($profileIds,googleHelper::getAllIDs($profiles));
-		Krumo($profiles);
+		
+		$doProfile->saveGoogleResults($profiles);
+		
 	}
 }
 
