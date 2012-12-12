@@ -52,7 +52,7 @@
     $mobile=(strpos($system,"wewin")===false);
     $local=true;
     ini_set('log_errors',"on");
-    $common_path='C:\Users\nick\workspace\common';
+    $common_path='C:\Users\nick\workspace\ons_common';
 
     if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
 
@@ -116,7 +116,8 @@
     include_once("script/utils.php");
     include_once("const.php");
     ini_set('error_log',buildPath($root_path,"test","php_error.log"));
-    ini_set('max_execution_time',30000); 
+    ini_set('max_execution_time',30000);
+    PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'PEAR_ErrorToPEAR_Exception');
 /***********************************************************\
  * Database Connectivity
 \***********************************************************/

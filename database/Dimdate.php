@@ -27,6 +27,10 @@ class doDimdate extends dbRoot
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     
+    function keyDimensions(){
+    	return array("ga:Date");
+    }    
+    
     function insert(){
     	$this->filldata();
     	return parent::insert();
@@ -53,3 +57,4 @@ class doDimdate extends dbRoot
     
     
 }
+?>

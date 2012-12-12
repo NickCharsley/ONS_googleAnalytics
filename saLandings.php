@@ -61,17 +61,9 @@ $profile=55368687;
 
 $v=new Vanquis($service, $profile);
 
-$v->getResults("2012-11-01");
-/** /
-$v->getResults("2012-11-02");
-$v->getResults("2012-11-03");
-$v->getResults("2012-11-04");
-$v->getResults("2012-11-05");
-$v->getResults("2012-11-06");
-$v->getResults("2012-11-07");
-/**/
-
-
+//$v->waterfall("2012-11-26");
+$v->waterfall("2012-11-27");
+//$v->waterfall("2012-11-28");
 
 if ($client->getAccessToken()) {
   $_SESSION['token'] = $client->getAccessToken();

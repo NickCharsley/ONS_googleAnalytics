@@ -19,6 +19,9 @@ class doDimvisitor extends dbRoot
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    function keyDimensions(){
+    	return array("ga:VisitCount");
+    }
     
     function insert(){
     	$this->filldata();

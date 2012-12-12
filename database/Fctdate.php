@@ -12,34 +12,14 @@ class doFctdate extends dbRoot
     public $__table = 'fctdate';             // table name
     public $ID;                              // int(4)  primary_key not_null
     public $Date;                            // int(4)  unique_key not_null
-    public $EventsPerVisitWithEvent;         // float  
-    public $VisitsWithEvent;                 // int(4)  
-    public $AvgEventValue;                   // float  
-    public $EventValue;                      // float  
-    public $UniqueEvents;                    // int(4)  
-    public $TotalEvents;                     // int(4)  
     public $Visits;                          // int(4)  
     public $Visitors;                        // int(4)  
     public $NewVisits;                       // int(4)  
-    public $PercentNewVisits;                // float  
     public $Bounces;                         // int(4)  
-    public $CostPerConversion;               // float  
-    public $CostPerGoalConversion;           // float  
-    public $CostPerTransaction;              // float  
-    public $CTR;                             // float  
-    public $CPC;                             // float  
-    public $CPM;                             // float  
-    public $AdCost;                          // float  
-    public $AdClicks;                        // int(4)  
-    public $Impressions;                     // int(4)  
     public $EntranceBounceRate;              // float  
     public $VisitBounceRate;                 // float  
     public $TimeOnSite;                      // float  
-    public $AvgTimeOnSite;                   // float  
     public $OrganicSearches;                 // int(4)  
-    public $RPC;                             // float  
-    public $ROI;                             // float  
-    public $Margin;                          // float  
     public $GoalValuePerVisit;               // float  
     public $GoalStartsAll;                   // int(4)  
     public $GoalCompletionsAll;              // int(4)  
@@ -66,7 +46,6 @@ class doFctdate extends dbRoot
     public $Goal3ConversionRate;             // float  
     public $Goal3AbandonRate;                // float  
     public $Entrances;                       // int(4)  
-    public $EntranceRate;                    // float  
     public $Pageviews;                       // int(4)  
     public $PageviewsPerVisit;               // float  
     public $UniquePageviews;                 // int(4)  
@@ -74,28 +53,10 @@ class doFctdate extends dbRoot
     public $AvgTimeOnPage;                   // float  
     public $Exits;                           // int(4)  
     public $ExitRate;                        // float  
-    public $PageLoadTime;                    // float  
-    public $PageLoadSample;                  // float  
-    public $AvgPageLoadTime;                 // float  
-    public $DomainLookupTime;                // float  
-    public $AvgDomainLookupTime;             // float  
-    public $PageDownloadTime;                // float  
-    public $AvgPageDownloadTime;             // float  
-    public $RedirectionTime;                 // float  
-    public $AvgRedirectionTime;              // float  
-    public $ServerConnectionTime;            // float  
-    public $AvgServerConnectionTime;         // float  
-    public $ServerResponseTime;              // float  
-    public $AvgServerResponseTime;           // float  
-    public $SpeedMetricsSample;              // float  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctdate',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
-    
-    function metrics(){
-    	return "ga:exceptions,ga:fatalExceptions";//parent::metrics();//.",ga:socialInteractions,ga:uniqueSocialInteractions,ga:socialInteractionsPerVisit";
-    }
 }

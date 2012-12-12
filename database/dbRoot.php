@@ -63,21 +63,45 @@ class dbRoot extends DB_DataObject {
 			"ga:goalconversionrateall","ga:goalabandonsall","ga:goalabandonrateall"	
 			);
 	
+	function findDimensionID($row){
+		foreach($row['Dimensions'] as $dimName=>$dimValue){
+			$dimName=ucfirst(str_replace("ga:", "", $dimName));
+			$this->$dimName=$dimValue;
+		}
+		$this->find(true);
+		return $this->ID; 
+	}
+	
 	function saveGoogleResults($results=null){
+		print_line("Saving ".$this->__table);
+		
 		krumo($results);
-		DB_DataObject::debugLevel(0);
+		ob_flush();		flush();		
+		
 		foreach ($results->matrix as $row){
 			$fact=safe_DataObject_factory($this->__table);
+			//Get Un-linked Dimensions
 			foreach($row['Dimensions'] as $dimName=>$dimValue){
 				$dimName=ucfirst(str_replace("ga:", "", $dimName));
 				$fact->$dimName=$dimValue;
-			}			$action=($fact->find(true))?"update":"insert";
+			}			
+			//Get Linked Dimensions This may be heavy load on DB!
+			$extra="";
+			foreach (array_keys($this->links()) as $extra){
+				if (substr($extra,0,3)=="dim"){
+					$doExtra=safe_DataObject_factory($extra);
+					$fact->$extra=$doExtra->findDimensionID($row);	
+				}				
+			}
+			$action=($fact->find(true))?"update":"insert";
 				
 			foreach($row['Metrics'] as $metName=>$metValue){
 				$metName=ucfirst(str_replace("ga:", "", $metName));
 				$fact->$metName=$metValue;
 			}
 			$fact->$action();
+			//if($extra!="") die(__FILE__.":".__LINE__);
+			//ob_flush();			flush();
 		}
 		//Krumo($fact);		
 	}
@@ -85,30 +109,41 @@ class dbRoot extends DB_DataObject {
 	function optParams($mrgParams=array()){
 		$Dims=$this->dimensions();
 		if (isset($mrgParams['dimensions'])){
-			$Dims=join(",",array_unique(array_merge(split(",",$Dims),split(",",$mrgParams['dimensions']))));
+			$Dims=join(",",array_unique(array_merge($Dims,split(",",$mrgParams['dimensions']))));
 		}
+		else $Dims=join(",",array_unique($Dims));
 		
 		$ret= array(
 			'dimensions' => $Dims,
-			'max-results' => '1000',		
+			'max-results' => '2000',		
 			'start-index' => 1
 		);
 		return $ret;
 	}
 	
-	function dimensions(){
-		$dims=split(",",join(",ga:",array_keys($this->table())));
+	function keyDimensions(){
+		return array();
+	}
+	
+	protected function dimensions(){
+		$dims=array_keys($this->table());
 		$res=array();
+		
 		for ($i=0;$i<count($dims);$i++){
-			if (in_array(strtolower($dims[$i]), $this->dims,true))				
-				$res[]=$dims[$i];
+			if (in_array(strtolower("ga:".$dims[$i]), $this->dims,true))				
+				$res[]="ga:".$dims[$i];
+		}
+		foreach (array_keys($this->links()) as $extra){
+			if (substr($extra,0,3)=="dim"){
+				$doExtra=safe_DataObject_factory($extra);
+				$res=array_unique(array_merge($res,$doExtra->keyDimensions()));
+			}
 		}
 		if (count($res)==0){
-			$dims="ga:date";
+			$dims[]="ga:Date";
 		}
 		else {
-			$dims=join(",",$res);		
-			if (strpos(':date',$dims)==0) $dims="ga:date,$dims";
+			$dims=array_unique(array_merge(array("ga:Date"),$res));
 		}
 		return $dims;
 	}

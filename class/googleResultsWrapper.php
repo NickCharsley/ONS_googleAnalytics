@@ -166,10 +166,10 @@
  		function saveAdwordFact(){
  			$this->saveFact("fctAdwords");
  		} 		
- 		
+ 		/*
  		function saveFact($table){
  			krumo($this);
- 			DB_DataObject::debugLevel(0);
+ 			DB_DataObject::debugLevel(5);
  			foreach ($this->matrix as $row){
  				$fact=safe_DataObject_factory($table);
  				foreach($row['Dimensions'] as $dimName=>$dimValue){
@@ -188,7 +188,7 @@
  				//die;
  			}
  		}
- 		
+ 		*/
  		
  		function mergeResults($results){
  			if (is_a($results, 'googleResultsWrapper')){
