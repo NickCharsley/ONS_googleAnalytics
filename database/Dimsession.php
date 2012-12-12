@@ -10,14 +10,19 @@ class doDimsession extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimsession';          // table name
-    public $VisitLength;                     // int(4)  unique_key
     public $ID;                              // int(4)  primary_key not_null
+    public $VisitLength;                     // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimsession',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    function keyDimensions(){
+    	return array("ga:VisitLength");
+    }
+    
+    
     function insert(){
     	$this->filldata();
     	return parent::insert();
@@ -36,6 +41,5 @@ class doDimsession extends dbRoot
     		$this->ID=$this->VisitLength;
     	}
     }
-    
 }
 ?>
