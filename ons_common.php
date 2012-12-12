@@ -58,16 +58,21 @@
 
     if (strpos($system,'.local')>0
         or !(strpos($system,'localhost')===false)
-            or !(strpos($system,'nick-xps')===false)) {
+            or !(strpos($system,'nick-xps')===false)
+				or !(strpos($system,'tdvsvr0165')===false)){				
+		$do_ini='do_nick-xps.ini';
 		if (strpos($_SERVER["SERVER_SOFTWARE"],"Ubuntu")===false){
         	$ips=";";
         	$fps="\\";
+        	if (strtolower($_SERVER["COMPUTERNAME"])=="tdvsvr0165"){
+        		$common_path='C:\phpsites\ons_common';	        
+        		$do_ini='do_tdvsvr0165.ini';
+        	}
 		} else {
 			$common_path='/home/nick/workspace/common';
 	        ini_set("include_path",ini_get("include_path").$ips."/usr/share/php/PEAR");
         }
-        $local=true;
-        $do_ini='do_nick-xps.ini';
+        $local=true;        
         $web=true;
     } else if (!(strpos($system,'dovelane')===false)) {
         $do_ini='do_bytenig.ini';
