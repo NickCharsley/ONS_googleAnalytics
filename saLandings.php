@@ -76,10 +76,6 @@ foreach($accountIds as $accountId){
 	}
 }
 
-Krumo($profileIds);
-die;
-
-
 
 $profile=55368687;
 

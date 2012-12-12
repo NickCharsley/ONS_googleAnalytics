@@ -24,7 +24,6 @@ class doDimprofile extends dbRoot
     ###END_AUTOCODE
     
     function saveGoogleResults($results){
-    	Krumo($results);
     	foreach ($results->items as $row){
     		$fact=safe_DataObject_factory($this->__table);
     		$fact->ID=$row->id;

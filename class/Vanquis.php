@@ -46,8 +46,8 @@
     
     	private function getFactResults($date,$fctName){
     		$fct=safe_DataObject_factory("fct$fctName");
-    		Krumo($fct->optParams());
-    		Krumo($fct->metrics());
+    		//Krumo($fct->optParams());
+    		//Krumo($fct->metrics());
     		$res=googleHelper::getResults($date,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
     		//Krumo($res);
     		$fct->saveGoogleResults($res);
