@@ -58,10 +58,11 @@ $client->setClientId(CLIENT_ID);
 
 $service = new Google_AnalyticsService($client);
 
+/*Get all Profiles Visible to the Service Account* /
 $accounts = $service->management_accounts->listManagementAccounts();
 $profileIds=array();
 $accountIds=googleHelper::getAllIDs($accounts);
-
+ 
 $doProfile=safe_DataObject_factory("dimProfile");
 
 foreach($accountIds as $accountId){
@@ -76,14 +77,14 @@ foreach($accountIds as $accountId){
 	}
 }
 
-
-$profile=55368687;
+/**/
+$profile=61943476;
 
 $v=new Vanquis($service, $profile);
 
-$v->waterfall("2012-11-26");
-$v->waterfall("2012-11-27");
-$v->waterfall("2012-11-28");
+$v->LoansHistory("2012-10-09");
+//$v->waterfall("2012-11-27");
+//$v->waterfall("2012-11-28");
 
 if ($client->getAccessToken()) {
   $_SESSION['token'] = $client->getAccessToken();

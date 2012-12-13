@@ -46,8 +46,8 @@
     
     	private function getFactResults($date,$fctName){
     		$fct=safe_DataObject_factory("fct$fctName");
-    		//Krumo($fct->optParams());
-    		//Krumo($fct->metrics());
+    		Krumo($fct->optParams());flush();ob_flush();
+    		//Krumo($fct->metrics());ob_flush();flush();
     		$res=googleHelper::getResults($date,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
     		//Krumo($res);
     		$fct->saveGoogleResults($res);
@@ -77,5 +77,30 @@
     		$this->getFactResults($date, "Form");
     	}
     	
+		function LoansHistory($date){
+    		//DB_DataObject::debugLevel(5);
+    		/*Date Dimension*/
+	    		$this->getDimensionOnly($date, "Date");
+    		/*Visitor Dimension*/
+    			$this->getDimensionOnly($date, "Visitor");
+    		/*Session Dimension*/
+    			$this->getDimensionOnly($date,"Session");
+    		/*Host Dimensions*/
+    			$this->getDimensionOnly($date, "HostName");
+    		/*Page Dimensions*/
+				$this->getDimensionOnly($date, "LandingPagePath");
+    		/* Network Dimension */
+    			$this->getDimensionOnly($date,"Network");
+    		/* Geo Dimension */
+    			$this->getDimensionOnly($date,"Geo");
+    		/* System Dimension */
+    			$this->getDimensionOnly($date,"System");
+			/* Platform Dimension */
+    			$this->getDimensionOnly($date,"Platform");
+
+			/*Fact Table*/
+    			$this->getFactResults($date, "LoanHistory");
+    	}
+		
     }
 ?>

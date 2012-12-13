@@ -79,7 +79,8 @@ class dbRoot extends DB_DataObject {
 		ob_flush();		flush();		
 		
 		foreach ($results->matrix as $row){
-			$fact=safe_DataObject_factory($this->__table);			
+			$fact=safe_DataObject_factory($this->__table);
+			$fact->dimProfile=$results->dimProfile;			
 			//Get Un-linked Dimensions
 			foreach($row['Dimensions'] as $dimName=>$dimValue){
 				$dimName=ucfirst(str_replace("ga:", "", $dimName));

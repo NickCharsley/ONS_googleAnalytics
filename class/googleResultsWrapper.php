@@ -13,6 +13,7 @@
  		public $matrix=array();
  		public $filter=array();
  		public $rowCount=0;
+		public $dimProfile;
  		
  		
  		function __construct($results=null){

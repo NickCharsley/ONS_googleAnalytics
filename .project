@@ -3,7 +3,7 @@
 	<name>ONS_googleAnalytics</name>
 	<comment></comment>
 	<projects>
-		<project>common</project>
+		<project>ONS_common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

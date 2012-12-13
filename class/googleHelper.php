@@ -35,6 +35,7 @@
 	   
 	  static function getResults($date,$service,&$profile,$optParams,$metrics='ga:visits'){	  	
 	  	$results=new googleResultsWrapper();
+		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
 	  	$aMets=split(",",$metrics);
 	  	if (count($aDims)>7){
