@@ -3,11 +3,10 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2012 at 03:04 PM
+-- Generation Time: Dec 13, 2012 at 11:03 AM
 -- Server version: 5.5.27-log
 -- PHP Version: 5.4.7
 
-SET FOREIGN_KEY_CHECKS=0;
 SET time_zone = "+00:00";
 
 
@@ -25,9 +24,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `dimadwords`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimadwords`;
 CREATE TABLE IF NOT EXISTS "dimadwords" (
   "ID" int(11) NOT NULL,
   "AdGroup" varchar(45) DEFAULT NULL,
@@ -56,9 +54,8 @@ CREATE TABLE IF NOT EXISTS "dimadwords" (
 --
 -- Table structure for table `dimdate`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimdate`;
 CREATE TABLE IF NOT EXISTS "dimdate" (
   "ID" int(11) NOT NULL,
   "Date" date DEFAULT NULL,
@@ -79,6 +76,7 @@ CREATE TABLE IF NOT EXISTS "dimdate" (
 --
 -- Stand-in structure for view `dimexitpagepath`
 --
+DROP VIEW IF EXISTS `dimexitpagepath`;
 CREATE TABLE IF NOT EXISTS `dimexitpagepath` (
 `ID` int(11)
 ,`ExitPagePath` varchar(4096)
@@ -88,9 +86,8 @@ CREATE TABLE IF NOT EXISTS `dimexitpagepath` (
 --
 -- Table structure for table `dimgeo`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimgeo`;
 CREATE TABLE IF NOT EXISTS "dimgeo" (
   "ID" int(11) NOT NULL,
   "Latitude" decimal(9,6) NOT NULL,
@@ -101,28 +98,28 @@ CREATE TABLE IF NOT EXISTS "dimgeo" (
   "SubContinent" varchar(45) NOT NULL,
   PRIMARY KEY ("ID"),
   UNIQUE KEY "dimGeo_indx" ("Latitude","Longitude","City","Country")
-) AUTO_INCREMENT=174 ;
+) AUTO_INCREMENT=237 ;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `dimhostname`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimhostname`;
 CREATE TABLE IF NOT EXISTS "dimhostname" (
   "ID" int(11) NOT NULL,
   "Hostname" varchar(512) NOT NULL,
   PRIMARY KEY ("ID"),
   UNIQUE KEY "indx_dimHostName" ("Hostname")
-) AUTO_INCREMENT=2 ;
+) AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `dimlandingpagepath`
 --
+DROP VIEW IF EXISTS `dimlandingpagepath`;
 CREATE TABLE IF NOT EXISTS `dimlandingpagepath` (
 `ID` int(11)
 ,`LandingPagePath` varchar(4096)
@@ -132,40 +129,37 @@ CREATE TABLE IF NOT EXISTS `dimlandingpagepath` (
 --
 -- Table structure for table `dimnetwork`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimnetwork`;
 CREATE TABLE IF NOT EXISTS "dimnetwork" (
   "ID" int(11) NOT NULL,
   "NetworkDomain" varchar(45) NOT NULL,
-  "NetworkLocation" varchar(45) NOT NULL,
+  "NetworkLocation" varchar(512) NOT NULL,
   PRIMARY KEY ("ID"),
   UNIQUE KEY "indx_dimNetwork" ("NetworkDomain","NetworkLocation")
-) AUTO_INCREMENT=199 ;
+) AUTO_INCREMENT=258 ;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `dimpagepath`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimpagepath`;
 CREATE TABLE IF NOT EXISTS "dimpagepath" (
   "ID" int(11) NOT NULL,
   "PagePath" varchar(4096) NOT NULL,
   "PageType" varchar(45) NOT NULL DEFAULT 'Unknown',
   PRIMARY KEY ("ID")
-) AUTO_INCREMENT=529 ;
+) AUTO_INCREMENT=657 ;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `dimpagetracking`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimpagetracking`;
 CREATE TABLE IF NOT EXISTS "dimpagetracking" (
   "ID" int(11) NOT NULL,
   "Hostname" varchar(45) NOT NULL,
@@ -182,11 +176,31 @@ CREATE TABLE IF NOT EXISTS "dimpagetracking" (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dimprofile`
---
--- Creation: Dec 12, 2012 at 01:50 PM
+-- Table structure for table `dimplatform`
 --
 
+DROP TABLE IF EXISTS `dimplatform`;
+CREATE TABLE IF NOT EXISTS "dimplatform" (
+  "ID" int(11) NOT NULL,
+  "Browser" varchar(45) NOT NULL,
+  "BrowserVersion" varchar(45) NOT NULL,
+  "OperatingSystem" varchar(45) NOT NULL,
+  "OperatingSystemVersion" varchar(45) NOT NULL,
+  "IsMobile" varchar(45) NOT NULL,
+  "MobileDeviceBranding" varchar(45) NOT NULL,
+  "MobileDeviceModel" varchar(45) NOT NULL,
+  "MobileInputSelector" varchar(45) NOT NULL,
+  "MobileDeviceInfo" varchar(45) NOT NULL,
+  PRIMARY KEY ("ID")
+) AUTO_INCREMENT=45 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dimprofile`
+--
+
+DROP TABLE IF EXISTS `dimprofile`;
 CREATE TABLE IF NOT EXISTS "dimprofile" (
   "ID" int(11) NOT NULL,
   "ProfileName" varchar(45) NOT NULL DEFAULT 'Unknown',
@@ -202,9 +216,8 @@ CREATE TABLE IF NOT EXISTS "dimprofile" (
 --
 -- Table structure for table `dimsession`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimsession`;
 CREATE TABLE IF NOT EXISTS "dimsession" (
   "ID" int(11) NOT NULL,
   "VisitLength" int(11) NOT NULL,
@@ -216,9 +229,8 @@ CREATE TABLE IF NOT EXISTS "dimsession" (
 --
 -- Table structure for table `dimsocialtraffic`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimsocialtraffic`;
 CREATE TABLE IF NOT EXISTS "dimsocialtraffic" (
   "ID" int(11) NOT NULL,
   "SocialNetwork" varchar(45) DEFAULT NULL,
@@ -231,9 +243,8 @@ CREATE TABLE IF NOT EXISTS "dimsocialtraffic" (
 --
 -- Table structure for table `dimsystem`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimsystem`;
 CREATE TABLE IF NOT EXISTS "dimsystem" (
   "ID" int(11) NOT NULL,
   "FlashVersion" varchar(45) NOT NULL,
@@ -243,16 +254,15 @@ CREATE TABLE IF NOT EXISTS "dimsystem" (
   "ScreenResolution" varchar(45) NOT NULL,
   PRIMARY KEY ("ID"),
   UNIQUE KEY "indx_dimSystem" ("FlashVersion","JavaEnabled","Language","ScreenColors","ScreenResolution")
-) AUTO_INCREMENT=204 ;
+) AUTO_INCREMENT=107 ;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `dimtraffic`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimtraffic`;
 CREATE TABLE IF NOT EXISTS "dimtraffic" (
   "ID" int(11) NOT NULL,
   "ReferralPath" varchar(45) DEFAULT NULL,
@@ -270,9 +280,8 @@ CREATE TABLE IF NOT EXISTS "dimtraffic" (
 --
 -- Table structure for table `dimvisitor`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `dimvisitor`;
 CREATE TABLE IF NOT EXISTS "dimvisitor" (
   "ID" int(11) NOT NULL,
   "VisitCount" int(11) DEFAULT NULL,
@@ -286,9 +295,8 @@ CREATE TABLE IF NOT EXISTS "dimvisitor" (
 --
 -- Table structure for table `fctadwords`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `fctadwords`;
 CREATE TABLE IF NOT EXISTS "fctadwords" (
   "ID" int(11) NOT NULL,
   "Date" int(11) DEFAULT NULL,
@@ -379,9 +387,8 @@ CREATE TABLE IF NOT EXISTS "fctadwords" (
 --
 -- Table structure for table `fctdate`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `fctdate`;
 CREATE TABLE IF NOT EXISTS "fctdate" (
   "ID" int(11) NOT NULL,
   "Date" int(11) NOT NULL,
@@ -436,11 +443,11 @@ CREATE TABLE IF NOT EXISTS "fctdate" (
 --
 -- Table structure for table `fctform`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `fctform`;
 CREATE TABLE IF NOT EXISTS "fctform" (
   "ID" int(11) NOT NULL,
+  "dimProfile" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimVisitor" int(11) NOT NULL,
   "dimSession" int(11) NOT NULL,
@@ -458,22 +465,22 @@ CREATE TABLE IF NOT EXISTS "fctform" (
   "TimeOnSite" int(11) NOT NULL DEFAULT '0',
   "Visits" int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY ("ID"),
-  UNIQUE KEY "indx_fctForm" ("dimDate","dimVisitor","dimSession","dimHostName","dimPagePath"),
+  UNIQUE KEY "indx_fctForm" ("dimProfile","dimDate","dimVisitor","dimSession","dimPagePath","dimHostName"),
   KEY "fk_fctForm_dimDate_idx" ("dimDate"),
   KEY "fk_fctForm_dimVisitor_idx" ("dimVisitor"),
   KEY "fk_fctForm_dimSession_idx" ("dimSession"),
   KEY "fk_fctForm_dimHostName_idx" ("dimHostName"),
-  KEY "fk_fctForm_dimPagePath_idx" ("dimPagePath")
-) AUTO_INCREMENT=5334 ;
+  KEY "fk_fctForm_dimPagePath_idx" ("dimPagePath"),
+  KEY "fk_fctForm_dimProfile_idx" ("dimProfile")
+) AUTO_INCREMENT=1716 ;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `fctgeo`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `fctgeo`;
 CREATE TABLE IF NOT EXISTS "fctgeo" (
   "ID" int(11) NOT NULL,
   "Date" int(11) NOT NULL,
@@ -557,11 +564,53 @@ CREATE TABLE IF NOT EXISTS "fctgeo" (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fctnetwork`
---
--- Creation: Dec 12, 2012 at 01:50 PM
+-- Table structure for table `fctloanhistory`
 --
 
+DROP TABLE IF EXISTS `fctloanhistory`;
+CREATE TABLE IF NOT EXISTS "fctloanhistory" (
+  "ID" int(11) NOT NULL,
+  "dimProfile" int(11) NOT NULL,
+  "dimDate" int(11) NOT NULL,
+  "dimLandingPagePath" int(11) NOT NULL,
+  "dimVisitor" int(11) NOT NULL,
+  "dimSession" int(11) NOT NULL,
+  "dimNetwork" int(11) NOT NULL,
+  "dimHostName" int(11) NOT NULL,
+  "dimSystem" int(11) NOT NULL,
+  "dimGeo" int(11) NOT NULL,
+  "dimPlatform" int(11) NOT NULL,
+  "Visitors" int(11) NOT NULL DEFAULT '0',
+  "NewVisits" int(11) NOT NULL DEFAULT '0',
+  "Bounces" int(11) NOT NULL DEFAULT '0',
+  "OrganicSearches" int(11) NOT NULL DEFAULT '0',
+  "Entrances" int(11) NOT NULL DEFAULT '0',
+  "Pageviews" int(11) NOT NULL DEFAULT '0',
+  "UniquePageviews" int(11) NOT NULL DEFAULT '0',
+  "TimeOnPage" float NOT NULL DEFAULT '0',
+  "Exits" int(11) NOT NULL DEFAULT '0',
+  "TimeOnSite" int(11) NOT NULL DEFAULT '0',
+  "Visits" int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY ("ID"),
+  KEY "fk_fkt_idx" ("dimDate"),
+  KEY "fctloanhistory_dimProfile_idx" ("dimProfile"),
+  KEY "fk_fctloanhistory_idx" ("dimLandingPagePath"),
+  KEY "fk_fctloanhistory_dimVisitors_idx" ("dimVisitor"),
+  KEY "fk_fctloanhistory__idx" ("dimSession"),
+  KEY "fk_fctloanhistory_dimNetwork_idx" ("dimNetwork"),
+  KEY "fk_fctloanhistory_dimHostname_idx" ("dimHostName"),
+  KEY "fk_fctloanhistory_dimSystem_idx" ("dimSystem"),
+  KEY "fk_fctloanhistory_dimPlatform_idx" ("dimPlatform"),
+  KEY "fk_fctloanhistory_dimGeo_idx" ("dimGeo")
+) AUTO_INCREMENT=138 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fctnetwork`
+--
+
+DROP TABLE IF EXISTS `fctnetwork`;
 CREATE TABLE IF NOT EXISTS "fctnetwork" (
   "ID" int(11) NOT NULL,
   "Date" int(11) NOT NULL,
@@ -638,16 +687,15 @@ CREATE TABLE IF NOT EXISTS "fctnetwork" (
   UNIQUE KEY "indx_fctNetwork" ("Date","NetworkDomain","NetworkLocation"),
   KEY "fk_fctNetwork_dimDate_idx" ("Date"),
   KEY "fk_fctNetwork_dimNetwork_idx" ("NetworkDomain","NetworkLocation")
-) AUTO_INCREMENT=199 ;
+) AUTO_INCREMENT=202 ;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `fctsession`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `fctsession`;
 CREATE TABLE IF NOT EXISTS "fctsession" (
   "ID" int(11) NOT NULL,
   "Date" int(11) NOT NULL,
@@ -730,9 +778,8 @@ CREATE TABLE IF NOT EXISTS "fctsession" (
 --
 -- Table structure for table `fctsystem`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `fctsystem`;
 CREATE TABLE IF NOT EXISTS "fctsystem" (
   "ID" int(11) NOT NULL,
   "Date" int(11) NOT NULL,
@@ -818,9 +865,8 @@ CREATE TABLE IF NOT EXISTS "fctsystem" (
 --
 -- Table structure for table `fctvisitor`
 --
--- Creation: Dec 12, 2012 at 01:50 PM
---
 
+DROP TABLE IF EXISTS `fctvisitor`;
 CREATE TABLE IF NOT EXISTS "fctvisitor" (
   "ID" int(11) NOT NULL,
   "Date" int(11) NOT NULL,
@@ -931,6 +977,7 @@ ALTER TABLE `fctdate`
 -- Constraints for table `fctform`
 --
 ALTER TABLE `fctform`
+  ADD CONSTRAINT "fk_fctForm_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctForm_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctForm_dimHostName" FOREIGN KEY ("dimHostName") REFERENCES "dimhostname" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctForm_dimPagePath" FOREIGN KEY ("dimPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -943,6 +990,21 @@ ALTER TABLE `fctform`
 ALTER TABLE `fctgeo`
   ADD CONSTRAINT "fk_fctGeo_dimDate" FOREIGN KEY ("Date") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctGeo_dimGeo" FOREIGN KEY ("Latitude", "Longitude", "City", "Country") REFERENCES "dimgeo" ("Latitude", "Longitude", "City", "Country") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `fctloanhistory`
+--
+ALTER TABLE `fctloanhistory`
+  ADD CONSTRAINT "fk_fctloanhistory_dimGeo" FOREIGN KEY ("dimGeo") REFERENCES "dimgeo" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimHostname" FOREIGN KEY ("dimHostName") REFERENCES "dimhostname" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimLandingPage" FOREIGN KEY ("dimLandingPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimNetwork" FOREIGN KEY ("dimNetwork") REFERENCES "dimnetwork" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimPlatform" FOREIGN KEY ("dimPlatform") REFERENCES "dimplatform" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimSession" FOREIGN KEY ("dimSession") REFERENCES "dimsession" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimSystem" FOREIGN KEY ("dimSystem") REFERENCES "fctsystem" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctloanhistory_dimVisitor" FOREIGN KEY ("dimVisitor") REFERENCES "dimvisitor" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `fctnetwork`
@@ -970,7 +1032,6 @@ ALTER TABLE `fctsystem`
 ALTER TABLE `fctvisitor`
   ADD CONSTRAINT "fk_fctVisitor_dimDate" FOREIGN KEY ("Date") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctVisitor_dimVisitor" FOREIGN KEY ("VisitCount") REFERENCES "dimvisitor" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
-SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
