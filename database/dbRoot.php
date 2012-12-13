@@ -89,7 +89,7 @@ class dbRoot extends DB_DataObject {
 			//Get Linked Dimensions This may be heavy load on DB!
 			$extra="";
 			foreach (array_keys($this->links()) as $extra){
-				if (substr($extra,0,3)=="dim"){
+				if ($extra!="dimProfile" and substr($extra,0,3)=="dim"){
 					$doExtra=safe_DataObject_factory($extra);
 					$fact->$extra=$doExtra->findDimensionID($row);	
 				}				

@@ -33,7 +33,7 @@
 	  	return $results->getRowsTable();
 	  }
 	   
-	  static function getResults($date,$service,&$profile,$optParams,$metrics='ga:visits'){	  	
+	  static function getResults($date,$service,$profile,$optParams,$metrics='ga:visits'){	  	
 	  	$results=new googleResultsWrapper();
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
