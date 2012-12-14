@@ -82,7 +82,9 @@ $profile=61943476;
 
 $v=new Vanquis($service, $profile);
 
-$v->LoansHistory("2012-10-09");
+$v->ProfileDates();
+//$v->LoanHistory("2012-10-01");
+//$v->Device("2012-10-01");
 //$v->waterfall("2012-11-27");
 //$v->waterfall("2012-11-28");
 

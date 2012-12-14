@@ -77,7 +77,11 @@
     		$this->getFactResults($date, "Form");
     	}
     	
-		function LoansHistory($date){
+		function ProfileDates(){
+			$this->getDimensionResults(NULL, "Date");
+		}
+		
+		function LoanHistory($date){
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension*/
 	    		$this->getDimensionOnly($date, "Date");
@@ -101,6 +105,32 @@
 			/*Fact Table*/
     			$this->getFactResults($date, "LoanHistory");
     	}
-		
+
+		function Device($date){
+    		//DB_DataObject::debugLevel(5);
+    		/*Date Dimension*/
+	    		$this->getDimensionOnly($date, "Date");
+    		/*Visitor Dimension*/
+    			$this->getDimensionOnly($date, "Visitor");
+    		/*Session Dimension*/
+    			$this->getDimensionOnly($date,"Session");
+    		/*Host Dimensions*/
+    			$this->getDimensionOnly($date, "HostName");
+    		/*Page Dimensions*/
+				$this->getDimensionOnly($date, "LandingPagePath");
+    		/* Network Dimension */
+    			$this->getDimensionOnly($date,"Network");
+    		/* Geo Dimension */
+    			$this->getDimensionOnly($date,"Geo");
+    		/* System Dimension */
+    			$this->getDimensionOnly($date,"System");
+			/* Platform Dimension */
+    			$this->getDimensionOnly($date,"Platform");
+
+			/*Fact Table*/
+    			$this->getFactResults($date, "Device");
+    	}
+    	
+				
     }
 ?>

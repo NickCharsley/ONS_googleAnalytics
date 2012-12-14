@@ -68,13 +68,17 @@
 	  		$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParams, join(",",$aMets  )));
 	  	}
 	  	else {
-	  		$gaResults=$service->data_ga->get("ga:".$profile,$date,$date,$metrics,$optParams);
+	  		
+	  		$startdate=isset($date)?$date:'2010-01-01';			
+			$enddate  =isset($date)?$date:date('Y-m-d');
+			
+	  		$gaResults=$service->data_ga->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
 	  		$results=new googleResultsWrapper($gaResults);
 	  		if ($gaResults->nextLink<>""){
 	  			$optParams['start-index']+=$optParams['max-results'];
-	  			$gaResults=$service->data_ga->get("ga:".$profile,$date,$date,$metrics,$optParams);
+	  			$gaResults=$service->data_ga->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
 	  			$results->mergeResults($gaResults);
-//	  			krumo($gaResults);
+	  			krumo($gaResults);
 //	  			krumo($results);
 	  		}
 	  	}	  	
