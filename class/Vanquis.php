@@ -46,7 +46,7 @@
     
     	private function getFactResults($date,$fctName){
     		$fct=safe_DataObject_factory("fct$fctName");
-    		Krumo($fct->optParams());flush();ob_flush();
+    		//Krumo($fct->optParams());flush();ob_flush();
     		//Krumo($fct->metrics());ob_flush();flush();
     		$res=googleHelper::getResults($date,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
     		//Krumo($res);
@@ -81,7 +81,17 @@
 			$this->getDimensionResults(NULL, "Date");
 		}
 		
-		function LoanHistory($date){
+		function LoanHistory($date=NULL){
+			if ($date==null){
+				global $db;
+				$sql="select fd.dimDate from fctDate fd left join fctLoanHistory fl on fd.dimprofile=fl.dimProfile ".
+					 "and fd.dimDate=fl.dimDate where fd.visits>0 and fd.dimProfile={$this->profile} limit 1,1;";
+				$res=$db->query($sql);
+				$oDate=new DateTime($res->fetchOne());
+				$date=$oDate->format("Y-m-d");								
+			}			
+			print_line("LoanHistory($date)");
+			flush_buffers();			
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension*/
 	    		$this->getDimensionOnly($date, "Date");

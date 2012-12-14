@@ -80,10 +80,13 @@ foreach($accountIds as $accountId){
 /**/
 $profile=61943476;
 
+
+
+
 $v=new Vanquis($service, $profile);
 
-$v->ProfileDates();
-//$v->LoanHistory("2012-10-01");
+//$v->ProfileDates();
+$v->LoanHistory();
 //$v->Device("2012-10-01");
 //$v->waterfall("2012-11-27");
 //$v->waterfall("2012-11-28");
