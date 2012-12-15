@@ -117,7 +117,7 @@ order by fd.dimdate
     			$this->getDimensionResults($date,"Session");
     		/*Host Dimensions */
     			$this->getDimensionResults($date, "HostName");
-    		/*Page Dimensions*/
+    		/*Page Dimensions */
 				$this->getDimensionResults($date, "LandingPagePath");
     		/* Network Dimension */
     			$this->getDimensionResults($date,"Network");
@@ -130,7 +130,7 @@ order by fd.dimdate
 			/* Mobile Dimension */
     			$this->getDimensionResults($date,"Mobile");
     			
-			/*Fact Table*/
+			/*Fact Table* /
     			$this->getFactResults($date, "LoanHistory");
 			/**/
     	}
