@@ -100,7 +100,7 @@ where fd.visits>0
 and fd.dimProfile=61943476
 and fl.dimdate is null
 order by fd.dimdate
-limit 0,1;
+;
 ";
 				$res=$db->query($sql);
 				$oDate=new DateTime($res->fetchOne());
