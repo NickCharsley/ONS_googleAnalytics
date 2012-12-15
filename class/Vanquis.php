@@ -111,26 +111,26 @@ order by fd.dimdate
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension */
 	    		$this->getDimensionResults($date, "Date");
-    		/*Visitor Dimension */
+    		/*Visitor Dimension * /
     			$this->getDimensionResults($date, "Visitor");
-    		/*Session Dimension */
+    		/*Session Dimension * /
     			$this->getDimensionResults($date,"Session");
-    		/*Host Dimensions */
+    		/*Host Dimensions * /
     			$this->getDimensionResults($date, "HostName");
-    		/*Page Dimensions*/
+    		/*Page Dimensions* /
 				$this->getDimensionResults($date, "LandingPagePath");
-    		/* Network Dimension */
+    		/* Network Dimension * /
     			$this->getDimensionResults($date,"Network");
-    		/* Geo Dimension */
+    		/* Geo Dimension * /
     			$this->getDimensionResults($date,"Geo");
-    		/* System Dimension */
+    		/* System Dimension * /
     			$this->getDimensionResults($date,"System");
-			/* Platform Dimension */
+			/* Platform Dimension * /
     			$this->getDimensionResults($date,"Platform");
-			/* Mobile Dimension */
+			/* Mobile Dimension * /
     			$this->getDimensionResults($date,"Mobile");
     			
-			/*Fact Table*/
+			/*Fact Table* /
     			$this->getFactResults($date, "LoanHistory");
 			/**/
     	}
