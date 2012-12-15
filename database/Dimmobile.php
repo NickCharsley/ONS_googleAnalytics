@@ -26,10 +26,10 @@ class doDimmobile extends dbRoot
     function filldata(){
     	if ($this->IsMobile=='No'){
 	    	//Special Handeling if IsMobile="No"!!!
-			$this->MobileDeviceBranding="N/A";
-    		$this->MobileDeviceModel="N/A";
-    		$this->MobileInputSelector="N/A";
-    		$this->MobileDeviceInfo="N/A";    		
+			$this->MobileDeviceBranding="(not set)";
+    		$this->MobileDeviceModel="(not set)";
+    		$this->MobileInputSelector="(not set)";
+    		$this->MobileDeviceInfo="(not set)";    		
     	}
 	}
     
