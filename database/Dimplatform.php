@@ -15,11 +15,6 @@ class doDimplatform extends dbRoot
     public $BrowserVersion;                  // varchar(45)   not_null
     public $OperatingSystem;                 // varchar(45)   not_null
     public $OperatingSystemVersion;          // varchar(45)   not_null
-    public $IsMobile;                        // varchar(45)   not_null
-    public $MobileDeviceBranding;            // varchar(45)   not_null
-    public $MobileDeviceModel;               // varchar(45)   not_null
-    public $MobileInputSelector;             // varchar(45)   not_null
-    public $MobileDeviceInfo;                // varchar(45)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimplatform',$k,$v); }
@@ -27,7 +22,7 @@ class doDimplatform extends dbRoot
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     function keyDimensions(){
-    	return array("ga:Browser","ga:BrowserVersion","ga:OperatingSystem","ga:OperatingSystemVersion","ga:IsMobile","ga:MobileDeviceBranding","ga:MobileDeviceModel","ga:MobileInputSelector","ga:MobileDeviceInfo");
+    	return array("ga:Browser","ga:BrowserVersion","ga:OperatingSystem","ga:OperatingSystemVersion");
     }
     
 }

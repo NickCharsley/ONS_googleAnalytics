@@ -11,76 +11,24 @@ class doFctvisitor extends dbRoot
 
     public $__table = 'fctvisitor';          // table name
     public $ID;                              // int(4)  primary_key not_null
-    public $Date;                            // int(4)  unique_key not_null
-    public $VisitCount;                      // int(4)  unique_key not_null
-    public $DaysSinceLastVisit;              // int(4)  unique_key not_null
-    public $EventsPerVisitWithEvent;         // float  
-    public $VisitsWithEvent;                 // int(4)  
-    public $AvgEventValue;                   // float  
-    public $EventValue;                      // float  
-    public $UniqueEvents;                    // int(4)  
-    public $TotalEvents;                     // int(4)  
-    public $Visits;                          // int(4)  
-    public $Visitors;                        // int(4)  
-    public $NewVisits;                       // int(4)  
-    public $PercentNewVisits;                // float  
-    public $Bounces;                         // int(4)  
-    public $EntranceBounceRate;              // float  
-    public $VisitBounceRate;                 // float  
-    public $TimeOnSite;                      // float  
-    public $AvgTimeOnSite;                   // float  
-    public $OrganicSearches;                 // int(4)  
-    public $RPC;                             // float  
-    public $ROI;                             // float  
-    public $Margin;                          // float  
-    public $GoalValuePerVisit;               // float  
-    public $GoalStartsAll;                   // int(4)  
-    public $GoalCompletionsAll;              // int(4)  
-    public $GoalAbandonsAll;                 // int(4)  
-    public $GoalValueAll;                    // float  
-    public $GoalConversionRateAll;           // float  
-    public $GoalAbandonRateAll;              // float  
-    public $Goal1Starts;                     // int(4)  
-    public $Goal1Completions;                // int(4)  
-    public $Goal1Abandons;                   // int(4)  
-    public $Goal1Value;                      // float  
-    public $Goal1ConversionRate;             // float  
-    public $Goal1AbandonRate;                // float  
-    public $Goal2Starts;                     // int(4)  
-    public $Goal2Completions;                // int(4)  
-    public $Goal2Abandons;                   // int(4)  
-    public $Goal2Value;                      // float  
-    public $Goal2ConversionRate;             // float  
-    public $Goal2AbandonRate;                // float  
-    public $Goal3Starts;                     // int(4)  
-    public $Goal3Completions;                // int(4)  
-    public $Goal3Abandons;                   // int(4)  
-    public $Goal3Value;                      // float  
-    public $Goal3ConversionRate;             // float  
-    public $Goal3AbandonRate;                // float  
-    public $Entrances;                       // int(4)  
-    public $EntranceRate;                    // float  
-    public $Pageviews;                       // int(4)  
-    public $PageviewsPerVisit;               // float  
-    public $UniquePageviews;                 // int(4)  
-    public $TimeOnPage;                      // float  
-    public $AvgTimeOnPage;                   // float  
-    public $Exits;                           // int(4)  
-    public $ExitRate;                        // float  
-    public $PageLoadTime;                    // float  
-    public $PageLoadSample;                  // float  
-    public $AvgPageLoadTime;                 // float  
-    public $DomainLookupTime;                // float  
-    public $AvgDomainLookupTime;             // float  
-    public $PageDownloadTime;                // float  
-    public $AvgPageDownloadTime;             // float  
-    public $RedirectionTime;                 // float  
-    public $AvgRedirectionTime;              // float  
-    public $ServerConnectionTime;            // float  
-    public $AvgServerConnectionTime;         // float  
-    public $ServerResponseTime;              // float  
-    public $AvgServerResponseTime;           // float  
-    public $SpeedMetricsSample;              // float  
+    public $dimDate;                         // int(4)  unique_key not_null
+    public $dimProfile;                      // int(4)  unique_key not_null
+    public $dimVisitor;                      // int(4)  unique_key not_null
+    public $Visits;                          // int(4)   not_null
+    public $Visitors;                        // int(4)   not_null
+    public $NewVisits;                       // int(4)   not_null
+    public $Bounces;                         // int(4)   not_null
+    public $TimeOnSite;                      // float   not_null
+    public $OrganicSearches;                 // int(4)   not_null
+    public $GoalStartsAll;                   // int(4)   not_null
+    public $GoalCompletionsAll;              // int(4)   not_null
+    public $GoalAbandonsAll;                 // int(4)   not_null
+    public $GoalValueAll;                    // float   not_null
+    public $Entrances;                       // int(4)   not_null
+    public $Pageviews;                       // int(4)   not_null
+    public $UniquePageviews;                 // int(4)   not_null
+    public $TimeOnPage;                      // float   not_null
+    public $Exits;                           // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctvisitor',$k,$v); }

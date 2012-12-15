@@ -30,17 +30,7 @@ class doDimdate extends dbRoot
     function keyDimensions(){
     	return array("ga:Date");
     }    
-    
-    function insert(){
-    	$this->filldata();
-    	return parent::insert();
-    }
-    
-    function update($do=false){
-    	$this->filldata();
-    	return parent::update($do);
-    }
-    
+          
     function filldata(){
     	$date=null;
     	if (isset($this->ID)){

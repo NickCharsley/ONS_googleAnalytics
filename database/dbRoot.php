@@ -22,7 +22,7 @@ class dbRoot extends DB_DataObject {
 			"ga:city","ga:continent","ga:country","ga:date","ga:day","ga:dayofweek","ga:dayssincelastvisit","ga:daystotransaction",
 			"ga:eventaction","ga:eventcategory","ga:eventlabel","ga:exitpagepath","ga:flashversion","ga:hassocialsourcereferral",
 			"ga:hostname","ga:hour","ga:ismobile","ga:javaenabled","ga:keyword","ga:landingpagepath","ga:language","ga:latitude",
-			"ga:longitude","ga:medium","ga:metro","ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector",
+			"ga:longitude","ga:medium","ga:metro",
 			"ga:month","ga:networkdomain","ga:networklocation","ga:nextpagepath","ga:nthday","ga:nthmonth","ga:nthweek","ga:operatingsystem",
 			"ga:operatingsystemversion","ga:pagedepth","ga:pagepath","ga:pagepathlevel1","ga:pagepathlevel2","ga:pagepathlevel3",
 			"ga:pagepathlevel4","ga:pagetitle","ga:previouspagepath","ga:productcategory","ga:productname","ga:productsku",
@@ -63,6 +63,20 @@ class dbRoot extends DB_DataObject {
 			"ga:goalconversionrateall","ga:goalabandonsall","ga:goalabandonrateall"	
 			);
 	
+	protected $mobile=array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
+
+	function insert(){
+    	$this->filldata();
+    	return parent::insert();
+    }
+    
+    function update($do=false){
+    	$this->filldata();
+    	return parent::update($do);
+    }
+	
+	
+		
 	function findDimensionID($row){
 		foreach($row['Dimensions'] as $dimName=>$dimValue){
 			$dimName=ucfirst(str_replace("ga:", "", $dimName));
@@ -72,11 +86,12 @@ class dbRoot extends DB_DataObject {
 		return $this->ID; 
 	}
 	
+	function filldata(){		
+	}
+	
 	function saveGoogleResults($results=null){
 		print_line("Saving ".$this->__table);
 		
-		krumo($results);
-		ob_flush();		flush();		
 		
 		foreach ($results->matrix as $row){
 			$fact=safe_DataObject_factory($this->__table);
@@ -129,15 +144,15 @@ class dbRoot extends DB_DataObject {
 	protected function dimensions(){
 		$dims=array_keys($this->table());
 		$res=array();
-		
+		$extras=array_keys($this->links());
 		for ($i=0;$i<count($dims);$i++){
 			if (in_array(strtolower("ga:".$dims[$i]), $this->dims,true))				
 				$res[]="ga:".$dims[$i];
-		}
-		foreach (array_keys($this->links()) as $extra){
-			if (substr($extra,0,3)=="dim"){
-				$doExtra=safe_DataObject_factory($extra);
-				$res=array_unique(array_merge($res,$doExtra->keyDimensions()));
+			else if (substr($dims[$i],0,3)=='dim'){
+				if (in_array($dims[$i],$extras)){
+					$doExtra=safe_DataObject_factory($dims[$i]);
+					$res=array_unique(array_merge($res,$doExtra->keyDimensions()));	
+				}
 			}
 		}
 		if (count($res)==0){

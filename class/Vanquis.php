@@ -14,7 +14,12 @@
     	private function getDimensionResults($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
     		$fct=safe_DataObject_factory("fct$dimName");
-    		
+			/** /
+			krumo($fct->optParams());
+			krumo($dim->optParams($fct->optParams()));
+			krumo($fct->metrics());
+    		flush_buffers();
+			/**/
      		$res=googleHelper::getResults($date,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
     		
     		$dim->saveGoogleResults($res);
@@ -46,10 +51,12 @@
     
     	private function getFactResults($date,$fctName){
     		$fct=safe_DataObject_factory("fct$fctName");
-    		//Krumo($fct->optParams());flush();ob_flush();
-    		//Krumo($fct->metrics());ob_flush();flush();
+//    		Krumo($fct->optParams());
+//    		Krumo($fct->metrics());
+			flush_buffers();
     		$res=googleHelper::getResults($date,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
-    		//Krumo($res);
+//    		Krumo($res);
+			flush_buffers();
     		$fct->saveGoogleResults($res);
     	}    	
     	
@@ -84,8 +91,17 @@
 		function LoanHistory($date=NULL){
 			if ($date==null){
 				global $db;
-				$sql="select fd.dimDate from fctDate fd left join fctLoanHistory fl on fd.dimprofile=fl.dimProfile ".
-					 "and fd.dimDate=fl.dimDate where fd.visits>0 and fd.dimProfile={$this->profile} limit 1,1;";
+				$sql="select fd.dimDate,fl.dimdate 
+from fctDate fd 
+left join fctLoanHistory fl
+on fd.dimprofile=fl.dimProfile
+and fd.dimDate=fl.dimDate
+where fd.visits>0 
+and fd.dimProfile=61943476
+and fl.dimdate is null
+order by fd.dimdate
+limit 0,1;
+";
 				$res=$db->query($sql);
 				$oDate=new DateTime($res->fetchOne());
 				$date=$oDate->format("Y-m-d");								
@@ -93,27 +109,30 @@
 			print_line("LoanHistory($date)");
 			flush_buffers();			
     		//DB_DataObject::debugLevel(5);
-    		/*Date Dimension*/
-	    		$this->getDimensionOnly($date, "Date");
-    		/*Visitor Dimension*/
-    			$this->getDimensionOnly($date, "Visitor");
-    		/*Session Dimension*/
-    			$this->getDimensionOnly($date,"Session");
-    		/*Host Dimensions*/
-    			$this->getDimensionOnly($date, "HostName");
+    		/*Date Dimension */
+	    		$this->getDimensionResults($date, "Date");
+    		/*Visitor Dimension */
+    			$this->getDimensionResults($date, "Visitor");
+    		/*Session Dimension */
+    			$this->getDimensionResults($date,"Session");
+    		/*Host Dimensions */
+    			$this->getDimensionResults($date, "HostName");
     		/*Page Dimensions*/
-				$this->getDimensionOnly($date, "LandingPagePath");
+				$this->getDimensionResults($date, "LandingPagePath");
     		/* Network Dimension */
-    			$this->getDimensionOnly($date,"Network");
+    			$this->getDimensionResults($date,"Network");
     		/* Geo Dimension */
-    			$this->getDimensionOnly($date,"Geo");
+    			$this->getDimensionResults($date,"Geo");
     		/* System Dimension */
-    			$this->getDimensionOnly($date,"System");
+    			$this->getDimensionResults($date,"System");
 			/* Platform Dimension */
-    			$this->getDimensionOnly($date,"Platform");
-
+    			$this->getDimensionResults($date,"Platform");
+			/* Mobile Dimension */
+    			$this->getDimensionResults($date,"Mobile");
+    			
 			/*Fact Table*/
     			$this->getFactResults($date, "LoanHistory");
+			/**/
     	}
 
 		function Device($date){

@@ -13,14 +13,15 @@ class doFctloanhistory extends dbRoot
     public $ID;                              // int(4)  primary_key not_null
     public $dimProfile;                      // int(4)   not_null
     public $dimDate;                         // int(4)   not_null
-    public $dimLandingPagePath;              // int(4)   not_null
+    public $dimHostName;                     // int(4)   not_null
+    public $dimNetwork;                      // int(4)   not_null
     public $dimVisitor;                      // int(4)   not_null
     public $dimSession;                      // int(4)   not_null
-    public $dimNetwork;                      // int(4)   not_null
-    public $dimHostName;                     // int(4)   not_null
-    public $dimSystem;                       // int(4)   not_null
     public $dimGeo;                          // int(4)   not_null
+    public $dimSystem;                       // int(4)   not_null
     public $dimPlatform;                     // int(4)   not_null
+    public $dimLandingPagePath;              // int(4)   not_null
+    public $dimMobile;                       // int(4)   not_null
     public $Visitors;                        // int(4)   not_null
     public $NewVisits;                       // int(4)   not_null
     public $Bounces;                         // int(4)   not_null
