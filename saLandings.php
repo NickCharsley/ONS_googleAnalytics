@@ -58,7 +58,7 @@ $client->setClientId(CLIENT_ID);
 
 $service = new Google_AnalyticsService($client);
 
-/*Get all Profiles Visible to the Service Account* /
+/*Get all Profiles Visible to the Service Account*/
 $accounts = $service->management_accounts->listManagementAccounts();
 $profileIds=array();
 $accountIds=googleHelper::getAllIDs($accounts);
@@ -78,15 +78,13 @@ foreach($accountIds as $accountId){
 }
 
 /**/
-$profile=61943476;
+$vp=new Vanquis($service,55368687);
+$vl->ProfileDates();
 
+$vl=new Vanquis($service, 61943476);
+$vl->ProfileDates();
+$vl->LoanHistory();
 
-
-
-$v=new Vanquis($service, $profile);
-
-//$v->ProfileDates();
-$v->LoanHistory();
 //$v->Device("2012-10-01");
 //$v->waterfall("2012-11-27");
 //$v->waterfall("2012-11-28");

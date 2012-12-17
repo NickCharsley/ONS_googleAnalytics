@@ -10,7 +10,7 @@ GO
 IF  EXISTS (
 	SELECT * 
 	FROM sys.objects 
-	WHERE object_id = OBJECT_ID(N'[dbo].[fctaddwords]') 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctadwords]') 
 	AND type in (N'U'))
 DROP TABLE [dbo].[fctadwords]
 GO
@@ -127,19 +127,8 @@ CREATE table dbo.fctdate (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimDate (dimDate),
-  KEY fk_fctDate_dimDate_idx (dimDate),
-  KEY fk_fctDate_dimProfile_idx (dimProfile)
+  PRIMARY KEY (ID)
 ) ;
-
---
--- RELATIONS FOR table dbo.fctdate:
---   dimDate
---       dimdate -> ID
---   dimProfile
---       dimprofile -> ID
---
 
 -- --------------------------------------------------------
 
@@ -148,8 +137,14 @@ CREATE table dbo.fctdate (
 --
 -- Creation: Dec 13, 2012 at 07:21 PM
 --
-
-DROP table dbo.fctdevice;
+GO
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctdevice]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctdevice]
+GO
 CREATE table dbo.fctdevice (
   ID int NOT NULL identity,
   dimDate int NOT NULL,
@@ -161,36 +156,8 @@ CREATE table dbo.fctdevice (
   dimNetwork int NOT NULL,
   dimVisitor int NOT NULL,
   Visits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  KEY fk_fctDevice_dimDate_idx (dimDate),
-  KEY fk_fctDevice_dimHour_idx (dimHour),
-  KEY fk_fctDevice_dimProfile_idx (dimProfile),
-  KEY fk_fctDevice_dimGeo_idx (dimGeo),
-  KEY fk_fctDevice_dimPlatform_idx (dimPlatform),
-  KEY fk_fctDevice_dimSystem_idx (dimSystem),
-  KEY fk_fctDevice_dim_idx (dimNetwork),
-  KEY fk_fctDevice_dimVisitor_idx (dimVisitor)
+  PRIMARY KEY (ID)
 ) ;
-
---
--- RELATIONS FOR table dbo.fctdevice:
---   dimDate
---       dimdate -> ID
---   dimGeo
---       dimgeo -> ID
---   dimHour
---       dimhour -> ID
---   dimNetwork
---       dimnetwork -> ID
---   dimPlatform
---       dimplatform -> ID
---   dimProfile
---       dimprofile -> ID
---   dimSystem
---       dimsystem -> ID
---   dimVisitor
---       dimvisitor -> ID
---
 
 -- --------------------------------------------------------
 
@@ -199,8 +166,15 @@ CREATE table dbo.fctdevice (
 --
 -- Creation: Dec 12, 2012 at 01:50 PM
 --
+GO
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctform]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctform]
+GO
 
-DROP table dbo.fctform;
 CREATE table dbo.fctform (
   ID int NOT NULL identity,
   dimProfile int NOT NULL,
@@ -220,31 +194,8 @@ CREATE table dbo.fctform (
   Exits int NOT NULL DEFAULT '0',
   TimeOnSite int NOT NULL DEFAULT '0',
   Visits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_fctForm (dimProfile,dimDate,dimVisitor,dimSession,dimPagePath,dimHostName),
-  KEY fk_fctForm_dimDate_idx (dimDate),
-  KEY fk_fctForm_dimVisitor_idx (dimVisitor),
-  KEY fk_fctForm_dimSession_idx (dimSession),
-  KEY fk_fctForm_dimHostName_idx (dimHostName),
-  KEY fk_fctForm_dimPagePath_idx (dimPagePath),
-  KEY fk_fctForm_dimProfile_idx (dimProfile)
+  PRIMARY KEY (ID)
 ) ;
-
---
--- RELATIONS FOR table dbo.fctform:
---   dimDate
---       dimdate -> ID
---   dimHostName
---       dimhostname -> ID
---   dimPagePath
---       dimpagepath -> ID
---   dimProfile
---       dimprofile -> ID
---   dimSession
---       dimsession -> ID
---   dimVisitor
---       dimvisitor -> ID
---
 
 -- --------------------------------------------------------
 
@@ -253,8 +204,15 @@ CREATE table dbo.fctform (
 --
 -- Creation: Dec 12, 2012 at 01:50 PM
 --
+GO
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctgeo]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctgeo]
+GO
 
-DROP table dbo.fctgeo;
 CREATE table dbo.fctgeo (
   ID int NOT NULL identity,
   dimDate int NOT NULL,
@@ -275,11 +233,7 @@ CREATE table dbo.fctgeo (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimGeo (dimDate,dimProfile,dimGeo),
-  KEY fk_fctGeo_dimDate_idx (dimDate),
-  KEY fk_fctGeo_dimProfile_idx (dimProfile),
-  KEY fk_fctGeo_dimGeo_idx (dimGeo)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -299,8 +253,14 @@ CREATE table dbo.fctgeo (
 --
 -- Creation: Dec 14, 2012 at 03:09 PM
 --
-
-DROP table dbo.fcthostname;
+GO
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fcthostname]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fcthostname]
+GO
 CREATE table dbo.fcthostname (
   ID int NOT NULL identity,
   dimDate int NOT NULL,
@@ -321,11 +281,7 @@ CREATE table dbo.fcthostname (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimHostname (dimDate,dimProfile,dimHostname),
-  KEY fk_fctHostname_dimDate_idx (dimDate),
-  KEY fk_fctHostname_dimProfile_idx (dimProfile),
-  KEY fk_fctHostname_dimHostname_idx (dimHostname)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -345,8 +301,14 @@ CREATE table dbo.fcthostname (
 --
 -- Creation: Dec 14, 2012 at 03:15 PM
 --
-
-DROP table dbo.fctlandingpagepath;
+GO
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctlandingpagepath]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctlandingpagepath]
+GO
 CREATE table dbo.fctlandingpagepath (
   ID int NOT NULL identity,
   dimDate int NOT NULL,
@@ -367,11 +329,7 @@ CREATE table dbo.fctlandingpagepath (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimLandingPagePath (dimDate,dimProfile,dimLandingPagePath),
-  KEY fk_fctLandingPagePath_dimDate_idx (dimDate),
-  KEY fk_fctLandingPagePath_dimProfile_idx (dimProfile),
-  KEY fk_fctLandingPagePath_dimLandingPagePath_idx (dimLandingPagePath)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -501,18 +459,7 @@ CREATE table dbo.fctloanhistory (
   Goal20Completions int NOT NULL DEFAULT '0',
   Goal20Abandons int NOT NULL DEFAULT '0',
   Goal20Value float NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  KEY fk_fkt_idx (dimDate),
-  KEY fctloanhistory_dimProfile_idx (dimProfile),
-  KEY fk_fctloanhistory_dimLandingPagePath_idx (dimLandingPagePath),
-  KEY fk_fctloanhistory_dimVisitors_idx (dimVisitor),
-  KEY fk_fctloanhistory_dimSession_idx (dimSession),
-  KEY fk_fctloanhistory_dimNetwork_idx (dimNetwork),
-  KEY fk_fctloanhistory_dimHostname_idx (dimHostName),
-  KEY fk_fctloanhistory_dimSystem_idx (dimSystem),
-  KEY fk_fctloanhistory_dimPlatform_idx (dimPlatform),
-  KEY fk_fctloanhistory_dimGeo_idx (dimGeo),
-  KEY fk_fctloanhistory_dimMobile_idx (dimMobile)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -612,11 +559,7 @@ CREATE table dbo.fctnetwork (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimNetwork (dimDate,dimProfile,dimNetwork),
-  KEY fk_fctNetwork_dimDate_idx (dimDate),
-  KEY fk_fctNetwork_dimProfile_idx (dimProfile),
-  KEY fk_fctNetwork_dimNetwork_idx (dimNetwork)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -658,11 +601,7 @@ CREATE table dbo.fctplatform (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimPlatform (dimDate,dimProfile,dimPlatform),
-  KEY fk_fctPlatform_dimDate_idx (dimDate),
-  KEY fk_fctPlatform_dimProfile_idx (dimProfile),
-  KEY fk_fctPlatform_dimPlatform_idx (dimPlatform)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -704,11 +643,7 @@ CREATE table dbo.fctsession (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimSession (dimDate,dimProfile,dimSession),
-  KEY fk_fctSession_dimDate_idx (dimDate),
-  KEY fk_fctSession_dimProfile_idx (dimProfile),
-  KEY fk_fctSession_dimSession_idx (dimSession)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -750,11 +685,7 @@ CREATE table dbo.fctsystem (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimSystem (dimDate,dimProfile,dimSystem),
-  KEY fk_fctSystem_dimDate_idx (dimDate),
-  KEY fk_fctSystem_dimProfile_idx (dimProfile),
-  KEY fk_fctSystem_dimSystem_idx (dimSystem)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -796,11 +727,7 @@ CREATE table dbo.fctvisitor (
   UniquePageviews int NOT NULL DEFAULT '0',
   TimeOnPage float NOT NULL DEFAULT '0',
   Exits int NOT NULL DEFAULT '0',
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimDate (dimDate,dimProfile,dimVisitor),
-  KEY fk_fctVisitor_dimDate_idx (dimDate),
-  KEY fk_fctVisitor_dimProfile_idx (dimProfile),
-  KEY fk_fctVisitor_dimVisitor_idx (dimVisitor)
+  PRIMARY KEY (ID)
 ) ;
 
 --
@@ -818,19 +745,33 @@ CREATE table dbo.fctvisitor (
 --
 -- Structure for view 'dimexitpagepath'
 --
-DROP table dbo."dimexitpagepath";
+GO
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW workcommer.dimexitpagepath AS select workcommer.dimpagepath.ID AS ID,workcommer.dimpagepath.PagePath AS ExitPagePath from workcommer.dimpagepath;
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimexitpagepath]'))
+DROP VIEW [dbo].[dimexitpagepath]
+GO
+create VIEW dbo.dimexitpagepath 
+AS 
+select ID AS ID,PagePath AS ExitPagePath 
+from dbo.dimpagepath;
 
 -- --------------------------------------------------------
 
 --
 -- Structure for view 'dimlandingpagepath'
 --
-DROP table dbo."dimlandingpagepath";
+GO
 
-CREATE ALGORITHM=UNDEFINED DEFINER=root@localhost SQL SECURITY DEFINER VIEW workcommer.dimlandingpagepath AS select workcommer.dimpagepath.ID AS ID,workcommer.dimpagepath.PagePath AS LandingPagePath from workcommer.dimpagepath;
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimlandingpagepath]'))
+DROP VIEW [dbo].[dimlandingpagepath]
+GO
 
+go
+create VIEW dbo.dimlandingpagepath 
+AS 
+select ID AS ID,PagePath AS LandingPagePath 
+from dbo.dimpagepath;
+go
 
 -- --------------------------------------------------------
 
@@ -947,7 +888,13 @@ CREATE table dbo.dimhostname (
 -- Creation: Dec 13, 2012 at 07:25 PM
 --
 
-DROP table dbo.dimhour;
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[dimhour]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[dimhour]
+GO
 CREATE table dbo.dimhour (
   ID int NOT NULL,
   "Hour" varchar(2) NOT NULL,
@@ -989,8 +936,7 @@ CREATE table dbo.dimnetwork (
   ID int NOT NULL identity,
   NetworkDomain varchar(45) NOT NULL,
   NetworkLocation varchar(512) NOT NULL,
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimNetwork (NetworkDomain,NetworkLocation)
+  PRIMARY KEY (ID)
 ) ;
 
 -- --------------------------------------------------------
@@ -1027,8 +973,8 @@ CREATE table dbo.dimpagetracking (
   ExitPagePath varchar(45) NOT NULL,
   PreviousPagePath varchar(45) NOT NULL,
   NextPagePath varchar(45) NOT NULL,
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimPageTracking (Hostname,PagePath,LandingPagePath,SecondPagePath,ExitPagePath,PreviousPagePath,NextPagePath)
+  PRIMARY KEY (ID)
+
 ) ;
 
 -- --------------------------------------------------------
@@ -1115,8 +1061,8 @@ CREATE table dbo.dimsystem (
   "Language" varchar(45) NOT NULL,
   ScreenColors varchar(45) NOT NULL,
   ScreenResolution varchar(45) NOT NULL,
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimSystem (FlashVersion,JavaEnabled,"Language",ScreenColors,ScreenResolution)
+  PRIMARY KEY (ID)
+
 ) ;
 
 -- --------------------------------------------------------
@@ -1136,8 +1082,8 @@ CREATE table dbo.dimtraffic (
   "Medium" varchar(45) DEFAULT NULL,
   Keyword varchar(45) DEFAULT NULL,
   AdContent varchar(45) DEFAULT NULL,
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_dimTraffic (ReferralPath,Campaign,"Source","Medium",Keyword,AdContent)
+  PRIMARY KEY (ID)
+
 ) ;
 
 -- --------------------------------------------------------
@@ -1153,8 +1099,8 @@ CREATE table dbo.dimvisitor (
   ID int NOT NULL,
   VisitCount int DEFAULT NULL,
   VisitorType varchar(45) DEFAULT NULL,
-  PRIMARY KEY (ID),
-  UNIQUE KEY indx_VisitCount (VisitCount)
+  PRIMARY KEY (ID)
+  
 ) ;
 
 --
@@ -1164,122 +1110,117 @@ CREATE table dbo.dimvisitor (
 --
 -- Constraints for table dbo."fctdate"
 --
-ALTER table dbo."fctdate"
-  ADD CONSTRAINT fk_fctDate_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctDate_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER table dbo."fctdate"  ADD CONSTRAINT fk_fctDate_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID);
+ALTER table dbo."fctdate"  ADD CONSTRAINT fk_fctDate_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID);
 
 --
 -- Constraints for table dbo."fctdevice"
 --
-ALTER table dbo."fctdevice"
-  ADD CONSTRAINT fk_fctDevice_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctDevice_dimGeo FOREIGN KEY (dimGeo) REFERENCES dimgeo (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctDevice_dimHour FOREIGN KEY (dimHour) REFERENCES dimhour (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctDevice_dimNetwork FOREIGN KEY (dimNetwork) REFERENCES dimnetwork (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctDevice_dimPlatform FOREIGN KEY (dimPlatform) REFERENCES dimplatform (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctDevice_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctDevice_dimSystem FOREIGN KEY (dimSystem) REFERENCES dimsystem (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctDevice_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctdevice"  ADD CONSTRAINT fk_fctDevice_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctdevice"  ADD CONSTRAINT fk_fctDevice_dimGeo FOREIGN KEY (dimGeo) REFERENCES dimgeo (ID) ;
+ALTER table dbo."fctdevice"  ADD CONSTRAINT fk_fctDevice_dimHour FOREIGN KEY (dimHour) REFERENCES dimhour (ID) ;
+ALTER table dbo."fctdevice"  ADD CONSTRAINT fk_fctDevice_dimNetwork FOREIGN KEY (dimNetwork) REFERENCES dimnetwork (ID) ;
+ALTER table dbo."fctdevice"  ADD CONSTRAINT fk_fctDevice_dimPlatform FOREIGN KEY (dimPlatform) REFERENCES dimplatform (ID) ;
+ALTER table dbo."fctdevice"  ADD CONSTRAINT fk_fctDevice_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctdevice"  ADD CONSTRAINT fk_fctDevice_dimSystem FOREIGN KEY (dimSystem) REFERENCES dimsystem (ID) ;
+ALTER table dbo."fctdevice"  ADD CONSTRAINT fk_fctDevice_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID);
 
 --
 -- Constraints for table dbo."fctform"
 --
-ALTER table dbo."fctform"
-  ADD CONSTRAINT fk_fctForm_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctForm_dimHostName FOREIGN KEY (dimHostName) REFERENCES dimhostname (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctForm_dimPagePath FOREIGN KEY (dimPagePath) REFERENCES dimpagepath (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctForm_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctForm_dimSession FOREIGN KEY (dimSession) REFERENCES dimsession (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctForm_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctform"  ADD CONSTRAINT fk_fctForm_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctform"  ADD CONSTRAINT fk_fctForm_dimHostName FOREIGN KEY (dimHostName) REFERENCES dimhostname (ID) ;
+ALTER table dbo."fctform"  ADD CONSTRAINT fk_fctForm_dimPagePath FOREIGN KEY (dimPagePath) REFERENCES dimpagepath (ID) ;
+ALTER table dbo."fctform"  ADD CONSTRAINT fk_fctForm_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctform"  ADD CONSTRAINT fk_fctForm_dimSession FOREIGN KEY (dimSession) REFERENCES dimsession (ID) ;
+ALTER table dbo."fctform"  ADD CONSTRAINT fk_fctForm_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID);
 
 --
 -- Constraints for table dbo."fctgeo"
 --
-ALTER table dbo."fctgeo"
-  ADD CONSTRAINT fk_fctGeo_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctGeo_dimGeo FOREIGN KEY (dimGeo) REFERENCES dimgeo (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctGeo_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctgeo"  ADD CONSTRAINT fk_fctGeo_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctgeo"  ADD CONSTRAINT fk_fctGeo_dimGeo FOREIGN KEY (dimGeo) REFERENCES dimgeo (ID) ;
+ALTER table dbo."fctgeo"  ADD CONSTRAINT fk_fctGeo_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID);
 
 --
 -- Constraints for table dbo."fcthostname"
 --
-ALTER table dbo."fcthostname"
-  ADD CONSTRAINT fk_fctHostname_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctHostname_dimHostname FOREIGN KEY (dimHostname) REFERENCES dimhostname (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctHostname_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER table dbo."fcthostname"  ADD CONSTRAINT fk_fctHostname_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fcthostname"  ADD CONSTRAINT fk_fctHostname_dimHostname FOREIGN KEY (dimHostname) REFERENCES dimhostname (ID) ;
+ALTER table dbo."fcthostname"  ADD CONSTRAINT fk_fctHostname_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID);
 
 --
 -- Constraints for table dbo."fctlandingpagepath"
 --
-ALTER table dbo."fctlandingpagepath"
-  ADD CONSTRAINT fk_fctLandingPagePath_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctLandingPagePath_dimLandingPagePath FOREIGN KEY (dimLandingPagePath) REFERENCES dimpagepath (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctLandingPagePath_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctlandingpagepath"  ADD CONSTRAINT fk_fctLandingPagePath_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctlandingpagepath"  ADD CONSTRAINT fk_fctLandingPagePath_dimLandingPagePath FOREIGN KEY (dimLandingPagePath) REFERENCES dimpagepath (ID) ;
+ALTER table dbo."fctlandingpagepath"  ADD CONSTRAINT fk_fctLandingPagePath_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID);
 
 --
 -- Constraints for table dbo."fctloanhistory"
 --
-ALTER table dbo."fctloanhistory"
-  ADD CONSTRAINT fk_fctloanhistory_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimGeo FOREIGN KEY (dimGeo) REFERENCES dimgeo (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimHostname FOREIGN KEY (dimHostName) REFERENCES dimhostname (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimLandingPage FOREIGN KEY (dimLandingPagePath) REFERENCES dimpagepath (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimMobile FOREIGN KEY (dimMobile) REFERENCES dimmobile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimNetwork FOREIGN KEY (dimNetwork) REFERENCES dimnetwork (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimPlatform FOREIGN KEY (dimPlatform) REFERENCES dimplatform (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimSession FOREIGN KEY (dimSession) REFERENCES dimsession (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimSystem FOREIGN KEY (dimSystem) REFERENCES dimsystem (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctloanhistory_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimGeo FOREIGN KEY (dimGeo) REFERENCES dimgeo (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimHostname FOREIGN KEY (dimHostName) REFERENCES dimhostname (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimLandingPage FOREIGN KEY (dimLandingPagePath) REFERENCES dimpagepath (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimMobile FOREIGN KEY (dimMobile) REFERENCES dimmobile (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimNetwork FOREIGN KEY (dimNetwork) REFERENCES dimnetwork (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimPlatform FOREIGN KEY (dimPlatform) REFERENCES dimplatform (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimSession FOREIGN KEY (dimSession) REFERENCES dimsession (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimSystem FOREIGN KEY (dimSystem) REFERENCES dimsystem (ID) ;
+ALTER table dbo."fctloanhistory"  ADD CONSTRAINT fk_fctloanhistory_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID);
 
 --
 -- Constraints for table dbo."fctmobile"
 --
-ALTER table dbo."fctmobile"
-  ADD CONSTRAINT fk_fctMobile_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctMobile_dimMobile FOREIGN KEY (dimMobile) REFERENCES dimmobile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctMobile_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctmobile"  ADD CONSTRAINT fk_fctMobile_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctmobile"  ADD CONSTRAINT fk_fctMobile_dimMobile FOREIGN KEY (dimMobile) REFERENCES dimmobile (ID) ;
+ALTER table dbo."fctmobile"  ADD CONSTRAINT fk_fctMobile_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID);
 
 --
 -- Constraints for table dbo."fctnetwork"
 --
-ALTER table dbo."fctnetwork"
-  ADD CONSTRAINT fk_fctNetwork_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctNetwork_dimNetwork FOREIGN KEY (dimNetwork) REFERENCES dimnetwork (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctNetwork_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctnetwork"  ADD CONSTRAINT fk_fctNetwork_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctnetwork"  ADD CONSTRAINT fk_fctNetwork_dimNetwork FOREIGN KEY (dimNetwork) REFERENCES dimnetwork (ID) ;
+ALTER table dbo."fctnetwork"  ADD CONSTRAINT fk_fctNetwork_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID);
 
 --
 -- Constraints for table dbo."fctplatform"
 --
-ALTER table dbo."fctplatform"
-  ADD CONSTRAINT fk_fctPlatform_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctPlatform_dimPlatform FOREIGN KEY (dimPlatform) REFERENCES dimplatform (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctPlatform_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctplatform"  ADD CONSTRAINT fk_fctPlatform_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctplatform"  ADD CONSTRAINT fk_fctPlatform_dimPlatform FOREIGN KEY (dimPlatform) REFERENCES dimplatform (ID) ;
+ALTER table dbo."fctplatform"  ADD CONSTRAINT fk_fctPlatform_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID);
 
 --
 -- Constraints for table dbo."fctsession"
 --
-ALTER table dbo."fctsession"
-  ADD CONSTRAINT fk_fctSession_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctSession_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctSession_dimVisitor FOREIGN KEY (dimSession) REFERENCES dimsession (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctsession"  ADD CONSTRAINT fk_fctSession_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctsession"  ADD CONSTRAINT fk_fctSession_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctsession"  ADD CONSTRAINT fk_fctSession_dimVisitor FOREIGN KEY (dimSession) REFERENCES dimsession (ID);
 
 --
 -- Constraints for table dbo."fctsystem"
 --
-ALTER table dbo."fctsystem"
-  ADD CONSTRAINT fk_fctSystem_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctSystem_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctSystem_dimSystem FOREIGN KEY (dimSystem) REFERENCES dimsystem (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER table dbo."fctsystem"  ADD CONSTRAINT fk_fctSystem_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctsystem"  ADD CONSTRAINT fk_fctSystem_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctsystem"  ADD CONSTRAINT fk_fctSystem_dimSystem FOREIGN KEY (dimSystem) REFERENCES dimsystem (ID);
 
 --
 -- Constraints for table dbo."fctvisitor"
 --
-ALTER table dbo."fctvisitor"
-  ADD CONSTRAINT fk_fctVisitor_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctVisitor_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT fk_fctVisitor_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ALTER table dbo."fctvisitor"  ADD CONSTRAINT fk_fctVisitor_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctvisitor"  ADD CONSTRAINT fk_fctVisitor_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctvisitor"  ADD CONSTRAINT fk_fctVisitor_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID);
+

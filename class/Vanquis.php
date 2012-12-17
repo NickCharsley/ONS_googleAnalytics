@@ -99,8 +99,8 @@ and fd.dimDate=fl.dimDate
 where fd.visits>0 
 and fd.dimProfile=61943476
 and fl.dimdate is null
-order by fd.dimdate
-;
+and fd.dimDate<((YEAR(getdate())*100+MONTH(getdate()))*100+DAY(getdate()))
+order by fd.dimdate;
 ";
 				$res=$db->query($sql);
 				$oDate=new DateTime($res->fetchOne());
@@ -130,7 +130,7 @@ order by fd.dimdate
 			/* Mobile Dimension */
     			$this->getDimensionResults($date,"Mobile");
     			
-			/*Fact Table* /
+			/*Fact Table*/
     			$this->getFactResults($date, "LoanHistory");
 			/**/
     	}

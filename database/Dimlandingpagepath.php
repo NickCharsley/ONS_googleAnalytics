@@ -18,6 +18,10 @@ class doDimlandingpagepath extends dbRoot
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    function keys(){
+    	return array("ID");
+    }
+    
     function keyDimensions(){
     	return array("ga:LandingPagePath");
     }
