@@ -79,7 +79,7 @@ foreach($accountIds as $accountId){
 
 /**/
 $vp=new Vanquis($service,55368687);
-$vl->ProfileDates();
+$vp->ProfileDates();
 
 $vl=new Vanquis($service, 61943476);
 $vl->ProfileDates();
