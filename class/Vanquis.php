@@ -26,7 +26,9 @@
     		$fct->saveGoogleResults($res);
     	}
     	
-    	function getResults($date){    		
+    	function getResults($date=NULL){
+			if (!isset($date)) $date=date("Y-m-d",time()-86400);
+			    		
     		/*Date Dimension*/
     			$this->getDimensionResults($date, "Date");
     		/*Visitor Dimension*/
@@ -66,7 +68,9 @@
     		$dim->saveGoogleResults($res);
     	}    	 
     	
-    	function waterfall($date){
+    	function waterfall($date=NULL){
+			if (!isset($date)) $date=date("Y-m-d",time()-86400);
+			
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension*/
     		$this->getDimensionOnly($date, "Date");
@@ -89,23 +93,8 @@
 		}
 		
 		function LoanHistory($date=NULL){
-			if ($date==null){
-				global $db;
-				$sql="select fd.dimDate,fl.dimdate 
-from fctDate fd 
-left join fctLoanHistory fl
-on fd.dimprofile=fl.dimProfile
-and fd.dimDate=fl.dimDate
-where fd.visits>0 
-and fd.dimProfile=61943476
-and fl.dimdate is null
-and fd.dimDate<((YEAR(getdate())*100+MONTH(getdate()))*100+DAY(getdate()))
-order by fd.dimdate;
-";
-				$res=$db->query($sql);
-				$oDate=new DateTime($res->fetchOne());
-				$date=$oDate->format("Y-m-d");								
-			}			
+			if (!isset($date)) $date=date("Y-m-d",time()-86400);			
+			
 			print_line("LoanHistory($date)");
 			flush_buffers();			
     		//DB_DataObject::debugLevel(5);
@@ -135,7 +124,9 @@ order by fd.dimdate;
 			/**/
     	}
 
-		function Device($date){
+		function Device($date=NULL){
+			if (!isset($date)) $date=date("Y-m-d",time()-86400);
+			
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension*/
 	    		$this->getDimensionOnly($date, "Date");
@@ -159,7 +150,47 @@ order by fd.dimdate;
 			/*Fact Table*/
     			$this->getFactResults($date, "Device");
     	}
+
+		function adWords($date=NULL){
+			if (!isset($date)) $date=date("Y-m-d",time()-86400);			
+			
+			print_line("adWords($date)");
+			flush_buffers();	
+			/*Date Dimension */
+	    		$this->getDimensionResults($date, "Date");
+    		/*AdWords Dimension(s) */
+	    		$this->getDimensionResults($date, "Adwords_one");
+				$this->getDimensionResults($date, "Adwords_two");
+    				
+		}
+
     	
-				
-    }
+		function google($date=NULL){
+			if (!isset($date)) $date=date("Y-m-d",time()-86400);			
+			
+			print_line("google($date)");
+			flush_buffers();			
+    		/*Date Dimension */
+	    		$this->getDimensionResults($date, "Date");
+    		/*Visitor Dimension */
+    			$this->getDimensionResults($date, "Visitor");
+    		/*Session Dimension */
+    			$this->getDimensionResults($date,"Session");
+    		/*Host Dimensions */
+    			$this->getDimensionResults($date, "HostName");
+    		/*Page Dimensions */
+				$this->getDimensionResults($date, "LandingPagePath");
+    		/* Network Dimension */
+    			$this->getDimensionResults($date,"Network");
+    		/* Geo Dimension */
+    			$this->getDimensionResults($date,"Geo");
+    		/* System Dimension */
+    			$this->getDimensionResults($date,"System");
+			/* Platform Dimension */
+    			$this->getDimensionResults($date,"Platform");
+			/* Mobile Dimension */
+    			$this->getDimensionResults($date,"Mobile");			 
+			/**/
+		}
+}
 ?>
