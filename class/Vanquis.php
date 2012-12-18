@@ -4,8 +4,10 @@
     class Vanquis {
     	private $service;
     	private $profile;
+		private $client;
     		    	
-    	function __construct($service,$profile){
+    	function __construct($client,$service,$profile){
+    		$this->client=$client;
     		$this->service=$service;
     		$this->profile=$profile;
     	}    	
@@ -20,10 +22,11 @@
 			krumo($fct->metrics());
     		flush_buffers();
 			/**/
-     		$res=googleHelper::getResults($date,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
+     		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
     		
     		$dim->saveGoogleResults($res);
     		$fct->saveGoogleResults($res);
+
     	}
     	
     	function getResults($date=NULL){
@@ -56,15 +59,15 @@
 //    		Krumo($fct->optParams());
 //    		Krumo($fct->metrics());
 			flush_buffers();
-    		$res=googleHelper::getResults($date,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
+    		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
 //    		Krumo($res);
 			flush_buffers();
-    		$fct->saveGoogleResults($res);
+    		$fct->saveGoogleResults($res);			
     	}    	
     	
     	private function getDimensionOnly($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
-    		$res=googleHelper::getResults($date,$this->service,$this->profile,$dim->optParams());  	
+    		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$dim->optParams());  	
     		$dim->saveGoogleResults($res);
     	}    	 
     	
@@ -129,26 +132,27 @@
 			
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension*/
-	    		$this->getDimensionOnly($date, "Date");
+	    		$this->getDimensionResults($date, "Date");
     		/*Visitor Dimension*/
-    			$this->getDimensionOnly($date, "Visitor");
+    			$this->getDimensionResults($date, "Visitor");
     		/*Session Dimension*/
-    			$this->getDimensionOnly($date,"Session");
+    			$this->getDimensionResults($date,"Session");
     		/*Host Dimensions*/
-    			$this->getDimensionOnly($date, "HostName");
+    			$this->getDimensionResults($date, "HostName");
     		/*Page Dimensions*/
-				$this->getDimensionOnly($date, "LandingPagePath");
+				$this->getDimensionResults($date, "LandingPagePath");
     		/* Network Dimension */
-    			$this->getDimensionOnly($date,"Network");
+    			$this->getDimensionResults($date,"Network");
     		/* Geo Dimension */
-    			$this->getDimensionOnly($date,"Geo");
+    			$this->getDimensionResults($date,"Geo");
     		/* System Dimension */
-    			$this->getDimensionOnly($date,"System");
+    			$this->getDimensionResults($date,"System");
 			/* Platform Dimension */
-    			$this->getDimensionOnly($date,"Platform");
+    			$this->getDimensionResults($date,"Platform");
 
 			/*Fact Table*/
     			$this->getFactResults($date, "Device");
+			/**/
     	}
 
 		function adWords($date=NULL){

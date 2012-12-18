@@ -33,7 +33,7 @@
 	  	return $results->getRowsTable();
 	  }
 	   
-	  static function getResults($date,$service,$profile,$optParams,$metrics='ga:visits'){	  	
+	  static function getResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){	  	
 	  	$results=new googleResultsWrapper();
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
@@ -47,13 +47,13 @@
 	  		}
 	  		//Get First 7 for filter
 	  		$optParams['dimensions']=join(",",$newDims);
-	  		$gaFilter=googleHelper::getResults($date, $service, $profile, $optParams);
+	  		$gaFilter=googleHelper::getResults($date,$client,$service,$profile, $optParams);
 	  		//krumo($gaFilter);
 	  		$optParams['dimensions']=join(",",$aDims);
 	  		for($i=0;$i<$gaFilter->rowCount;$i++){
 	  			$optParams['filters']=str_replace(",", ";", $gaFilter->getFilter($i));
 	  			//Need to replace , with ; to be an 'and' in Google Filters
-	  			$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParams,$metrics));
+	  			$results->mergeResults(googleHelper::getResults($date,$client,$service,$profile, $optParams,$metrics));
 	  		}
 	  //		krumo($results);
 	  	//	die(__FILE__.":".__LINE__);	  		 
@@ -64,8 +64,8 @@
 	  			$newMets[]=$aMets[$i];
 	  			unset($aMets[$i]);
 	  		}
-	  		$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParams, join(",",$newMets)));
-	  		$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParams, join(",",$aMets  )));
+	  		$results->mergeResults(googleHelper::getResults($date,$client,$service,$profile, $optParams, join(",",$newMets)));
+	  		$results->mergeResults(googleHelper::getResults($date,$client,$service,$profile, $optParams, join(",",$aMets  )));
 	  	}
 		else if (strpos($optParams['dimensions'],"ga:IsMobile")) {
 			/**
@@ -96,8 +96,8 @@
 			$newDims=array_merge($newDims,array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"));			
 			$optParamsYes['dimensions']=join(",",$newDims);
 
-			$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParamsNo, $metrics));
-	  		$results->mergeResults(googleHelper::getResults($date, $service, $profile, $optParamsYes, $metrics));
+			$results->mergeResults(googleHelper::getResults($date,$client,$service,$profile, $optParamsNo, $metrics));
+	  		$results->mergeResults(googleHelper::getResults($date,$client,$service,$profile, $optParamsYes, $metrics));
 			
 		}
 	  	else {
@@ -117,6 +117,11 @@
 	  		}
 	  	}	  	
 	  	//krumo($results);
+		if ($client->getAccessToken()) {
+			$_SESSION['token'] = $client->getAccessToken();
+		}
+	  	
+	  	
 	  	return $results;
 	  }
 	  

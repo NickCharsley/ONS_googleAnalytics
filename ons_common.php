@@ -61,7 +61,7 @@
             or !(strpos($system,'nick-xps')===false)
 				or !(strpos($system,'tdvsvr0165')===false)){				
 		$do_ini='do_nick-xps.ini';
-		if (strpos($_SERVER["SERVER_SOFTWARE"],"Ubuntu")===false){
+		if (strpos((isset($_SERVER["SERVER_SOFTWARE"])?$_SERVER["SERVER_SOFTWARE"]:""),"Ubuntu")===false){
         	$ips=";";
         	$fps="\\";
         	if (isset($_SERVER["COMPUTERNAME"])){
