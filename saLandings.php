@@ -58,7 +58,7 @@ $client->setClientId(CLIENT_ID);
 
 $service = new Google_AnalyticsService($client);
 
-/*Get all Profiles Visible to the Service Account*/
+/*Get all Profiles Visible to the Service Account* /
 $accounts = $service->management_accounts->listManagementAccounts();
 $profileIds=array();
 $accountIds=googleHelper::getAllIDs($accounts);
@@ -70,28 +70,49 @@ foreach($accountIds as $accountId){
 	$webpropertyIds = googleHelper::getAllIDs($webproperties);
 	foreach($webpropertyIds as $webpropertyId){
 		$profiles = $service->management_profiles->listManagementProfiles($accountId,$webpropertyId);
-		$profileIds = array_merge($profileIds,googleHelper::getAllIDs($profiles));
-		
-		$doProfile->saveGoogleResults($profiles);
-		
+		$profileIds = array_merge($profileIds,googleHelper::getAllIDs($profiles));		
+		$doProfile->saveGoogleResults($profiles);		
 	}
 }
 
-/**/
+/** /
 $vp=new Vanquis($service,55368687);
-$vl->ProfileDates();
 
+$vp->adWords();
+/**/
 $vl=new Vanquis($service, 61943476);
-$vl->ProfileDates();
+
+//$vl->ProfileDates();
 $vl->LoanHistory();
 
 //$v->Device("2012-10-01");
 //$v->waterfall("2012-11-27");
 //$v->waterfall("2012-11-28");
-
+/**/
 if ($client->getAccessToken()) {
   $_SESSION['token'] = $client->getAccessToken();
 }
+
+/*
+ if ($date==null){
+				global $db;
+				$sql="select fd.dimDate,fl.dimdate 
+from fctDate fd 
+left join fctLoanHistory fl
+on fd.dimprofile=fl.dimProfile
+and fd.dimDate=fl.dimDate
+where fd.visits>0 
+and fd.dimProfile=61943476
+and fl.dimdate is null
+and fd.dimDate<((YEAR(getdate())*100+MONTH(getdate()))*100+DAY(getdate()))
+order by fd.dimdate;
+";
+				$res=$db->query($sql);
+				$oDate=new DateTime($res->fetchOne());
+				$date=$oDate->format("Y-m-d");								
+			}			
+	
+ */
 
 
 pageTime();
