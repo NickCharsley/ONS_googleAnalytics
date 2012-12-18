@@ -9,6 +9,8 @@
  include_once 'ons_common.php';
  
  class googleHelper {
+ 	static $counter=0;
+	static $version="";
  
 	 static function getFirstId(&$collection) {
 	    $items = $collection->getItems();
@@ -32,6 +34,11 @@
 	  static function getRows($results) {	  	
 	  	return $results->getRowsTable();
 	  }
+	   
+	  static function resetCount($version=""){
+	  	googleHelper::$counter=0;
+		googleHelper::$version=$version;
+	  } 
 	   
 	  static function getResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){	  	
 	  	$results=new googleResultsWrapper();
@@ -93,7 +100,12 @@
 			}
 			
 			//Add Extra Dimensions to Yes Branch
-			$newDims=array_merge($newDims,array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"));			
+			
+			
+			$newDims=array_merge($newDims,array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"));
+			//Should Sort it again :)
+			usort($newDims,'dimCmp');			
+						
 			$optParamsYes['dimensions']=join(",",$newDims);
 
 			$results->mergeResults(googleHelper::getResults($date,$client,$service,$profile, $optParamsNo, $metrics));
@@ -104,7 +116,9 @@
 	  		
 	  		$startdate=isset($date)?$date:'2010-01-01';			
 			$enddate  =isset($date)?$date:date('Y-m-d');
-			
+			googleHelper::$counter++;
+			debug_error_log("Google Analytics call ".googleHelper::$version.":".googleHelper::$counter." (ga:$profile,$startdate,$enddate,$metrics)");
+			debug_error_log($optParams);			
 	  		$gaResults=$service->data_ga->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
 	  		$results=new googleResultsWrapper($gaResults);
   			//krumo($gaResults);

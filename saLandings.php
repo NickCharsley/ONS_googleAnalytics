@@ -77,12 +77,14 @@ foreach($accountIds as $accountId){
 
 /** /
 $vp=new Vanquis($client,$service,55368687);
-$vp->Device();
+//$vp->Device();
 //$vp->LoanHistory();
-//$vp->ProfileDates();
+$vp->ProfileDates();
 //$vp->adWords();
-/**/
+/** /
 $vl=new Vanquis($client,$service, 61943476);
+$date=NULL;
+/** /
 $sql="select fd.dimDate,fl.dimdate 
 from fctDate fd 
 left join fctLoanHistory fl
@@ -97,16 +99,21 @@ order by fd.dimdate;
 $res=$db->query($sql);
 $oDate=new DateTime($res->fetchOne());
 $date=$oDate->format("Y-m-d");								
-
-
-
-//$vl->ProfileDates();
-$vl->LoanHistory($date);
+/** /
+$vl->ProfileDates();
+//$vl->LoanHistory($date);
 
 //$v->Device("2012-10-01");
 //$v->waterfall("2012-11-27");
 //$v->waterfall("2012-11-28");
 /**/
+$nick=new Vanquis($client,$service,42209706);
+/**/
+
+//$nick->ProfileDates();
+
+$nick->LoanHistory('2012-01-29');
+
 if ($client->getAccessToken()) {
   $_SESSION['token'] = $client->getAccessToken();
 }

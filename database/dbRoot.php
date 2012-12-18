@@ -14,6 +14,8 @@
 //************************************************
 //TODO:any generic code for dbRoot.php goes here
 class dbRoot extends DB_DataObject {
+	static $f2t=array();
+	static $degrees=array();
 
 	protected $dims=array("ga:adcontent","ga:addestinationurl","ga:addisplayurl","ga:date","ga:addistributionnetwork","ga:adformat","ga:adgroup",
 			"ga:admatchtype","ga:admatchedquery","ga:adplacementdomain","ga:adplacementurl","ga:adslot","ga:adslotposition",
@@ -161,6 +163,11 @@ class dbRoot extends DB_DataObject {
 		else {
 			$dims=array_unique(array_merge(array("ga:Date"),$res));
 		}
+		/**/
+		//krumo($dims);
+		usort($dims,'dimCmp');
+		//krumo($dims);
+		/**/		
 		return $dims;
 	}
 	
@@ -174,7 +181,55 @@ class dbRoot extends DB_DataObject {
 		$mets=join(",",$res);
 		return ($mets<>"")?$mets:"ga:visits";
 	}
+
+	static function degreesOfFreedom($field){
+		if (!isset(dbRoot::$degrees[$field])){
+			if ($field=="ga:Date"){
+				dbRoot::$degrees[$field]=1;
+			}
+			else {
+				global $db;
+				$table=dbRoot::fieldInTable($field);
+				//print_line("$field in $table");
+				$sql="select count(distinct ".str_replace("ga:","", $field).") from $table";
+				$res=$db->query($sql);
+				dbRoot::$degrees[$field]=$res->fetchOne();
+			}
+		}
+		return dbRoot::$degrees[$field];							
+	}	
 	
+	static function fieldInTable($find){
+		if (count(dbRoot::$f2t)==0){
+			$opts=PEAR::getStaticProperty('DB_DataObject','options');
+			$ini=buildpath($opts['schema_location'],safe_DataObject_factory("dimDate")->database().'.ini');
+			$config = parse_ini_file($ini,true);
+			//krumo($config);
+			foreach($config as $table=>$fields){
+				if (strpos($table,"__keys")==0)
+					foreach(array_keys($fields) as $field){
+						dbRoot::$f2t['ga:'.strtolower($field)]=$table;
+					}
+			}
+		}
+		return dbRoot::$f2t[strtolower($find)];
+	}
+}
+
+
+
+function dimCmp($a, $b)
+{
+		
+	$freedom_a=dbRoot::degreesOfFreedom($a);
+	$freedom_b=dbRoot::degreesOfFreedom($b);
+	
+	//print_line("Comparing $a to $b ($freedom_a : $freedom_b)");
+	
+    if ($freedom_a == $freedom_b) {
+        return 0;
+    }
+    return ($freedom_a < $freedom_b) ? -1 : 1;
 }
 
 if (class_exists('gtk',false)) {

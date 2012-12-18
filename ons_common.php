@@ -9,7 +9,7 @@
  *
  */
  define("__COMMON__",1);
- ob_start("ob_gzhandler");
+ //ob_start("ob_gzhandler");
  
  error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
     

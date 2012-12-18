@@ -10,8 +10,7 @@
     		$this->client=$client;
     		$this->service=$service;
     		$this->profile=$profile;
-    	}    	
-    	
+    	}    	    	
     	
     	private function getDimensionResults($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
@@ -22,6 +21,7 @@
 			krumo($fct->metrics());
     		flush_buffers();
 			/**/
+			googleHelper::resetCount($dimName);
      		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
     		
     		$dim->saveGoogleResults($res);
@@ -59,6 +59,7 @@
 //    		Krumo($fct->optParams());
 //    		Krumo($fct->metrics());
 			flush_buffers();
+			googleHelper::resetCount($fctName);
     		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
 //    		Krumo($res);
 			flush_buffers();
@@ -67,6 +68,7 @@
     	
     	private function getDimensionOnly($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
+			googleHelper::resetCount($dimName);
     		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$dim->optParams());  	
     		$dim->saveGoogleResults($res);
     	}    	 
