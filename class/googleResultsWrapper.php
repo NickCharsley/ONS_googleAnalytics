@@ -15,26 +15,8 @@
  		public $rowCount=0;
 		public $dimProfile;
  		
- 		
- 		function __construct($results=null){
- 			if (isset($results)){
- 				$rows=$results->getRows();
- 				$columnHeaders=$results->getColumnHeaders();
- 				$basefilter=str_replace(";",",", $results->query->filters);
- 				
- 				$this->rowCount=count($rows);
-				for($i=0;$i<count($rows);$i++){					 
-					$filter=($basefilter==""?"":"$basefilter,").googleHelper::getFilter($columnHeaders,$rows,$i);
-					$this->filter[$i]=$filter;
-					$this->matrix[$filter]['Metrics']   =googleHelper::getMetrics($columnHeaders, $rows, $i);
-					$this->matrix[$filter]['Dimensions']=googleHelper::getDimensions($columnHeaders, $rows, $i,$basefilter);
-				}
-				$this->rowCount=count($this->matrix);
-				
-//				krumo($results);							
- 			} 			
- 		}
- 	   
+		private function __construct(){} 		
+ /*	   
  		function saveDateDimension(){
  			foreach ($this->matrix as $row){
  				$dimDate=safe_DataObject_factory("dimDate");
@@ -56,7 +38,8 @@
  				}
  			}	
  		}
- 		
+*/
+/*
  		function saveVisitorDimension(){
  			foreach ($this->matrix as $row){
  				$dimVisitor=safe_DataObject_factory("dimVisitor");
@@ -69,7 +52,8 @@
  				} 				
  			}
  		}
- 		
+*/
+/* 		
  		function saveGeoDimension(){
  			foreach ($this->matrix as $row){
  				$dimGeo=safe_DataObject_factory("dimGeo");
@@ -86,7 +70,8 @@
 				}
  			}
  		}
- 		
+*/
+/* 		
  		function saveNetworkDimension(){
  			foreach ($this->matrix as $row){
  				$dimNet=safe_DataObject_factory("dimNetwork");
@@ -95,7 +80,8 @@
  				if (!$dimNet->find(true)) $dimNet->insert(); 					
  			}
  		}
-
+*/
+/*
  		function saveSystemDimension(){
  			foreach ($this->matrix as $row){
  				$dimSystem=safe_DataObject_factory("dimSystem");
@@ -107,7 +93,8 @@
  				if (!$dimSystem->find(true)) $dimSystem->insert();
  			}
  		}
- 		 		
+*/
+/* 		 		
  		function savePageTrackingDimension(){
  			krumo($this); 		
  			foreach ($this->matrix as $row){
@@ -122,7 +109,8 @@
  				if (!$dimPage->find(true)) $dimPage->insert();
  			}
  		} 		 			 		
-
+*/
+/*
  		function saveTrafficDimensionOne(){
  			krumo($this);
  			foreach ($this->matrix as $row){
@@ -136,7 +124,8 @@
  				if (!$dimTraffic->find(true)) $dimTraffic->insert(); 				
  			}
  		} 	
- 				
+*/
+/* 				
  		function saveTrafficDimensionTwo(){
  			krumo($this);
  			foreach ($this->matrix as $row){
@@ -146,7 +135,8 @@
  				if (!$dimTraffic->find(true)) $dimTraffic->insert();
  			}
  		} 		
-
+*/
+/*
  		function saveAdWordsDimension(){
  			krumo($this);
  			foreach ($this->matrix as $row){
@@ -158,16 +148,20 @@
  				if (!$dim->find(true)) $dim->insert();
  			}
  		}
+*/
+/*
  		function saveEventDimension(){
  			krumo($this);
  			foreach ($this->matrix as $row){
  			}
  		}
- 		
+*/
+/* 		
  		function saveAdwordFact(){
  			$this->saveFact("fctAdwords");
  		} 		
- 		/*
+*/
+/*
  		function saveFact($table){
  			krumo($this);
  			DB_DataObject::debugLevel(5);
@@ -189,7 +183,7 @@
  				//die;
  			}
  		}
- 		*/
+*/
  		
  		function mergeResults($results){
  			if (is_a($results, 'googleResultsWrapper')){
@@ -241,7 +235,7 @@
  			}
  			return $this->filter[$index];
  		} 		
- 		
+/* 		
  		function getRowsTable() {
  			krumo($this);
  			die("Bad Die".__FILE__.":".__LINE__);
@@ -276,5 +270,6 @@
  			 
  			return $table;
  		}
+ */
  }
 ?>

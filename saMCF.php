@@ -77,51 +77,18 @@ foreach($accountIds as $accountId){
 
 /** /
 $vp=new Vanquis($client,$service,55368687);
-//$vp->Device();
-//$vp->LoanHistory();
-$vp->ProfileDates();
-//$vp->adWords();
-/** /
+$vp->testMCF();
+/**/
 $vl=new Vanquis($client,$service, 61943476);
-$date=NULL;
-/** /
-$sql="select fd.dimDate,fl.dimdate 
-from fctDate fd 
-left join fctLoanHistory fl
-on fd.dimprofile=fl.dimProfile
-and fd.dimDate=fl.dimDate
-where fd.visits>0 
-and fd.dimProfile=61943476
-and fl.dimdate is null
-and fd.dimDate<((YEAR(getdate())*100+MONTH(getdate()))*100+DAY(getdate()))
-order by fd.dimdate;
-";
-$res=$db->query($sql);
-$oDate=new DateTime($res->fetchOne());
-$date=$oDate->format("Y-m-d");								
-/** /
-$vl->ProfileDates();
-//$vl->LoanHistory($date);
-
-//$v->Device("2012-10-01");
-//$v->waterfall("2012-11-27");
-//$v->waterfall("2012-11-28");
+$vl->testMCF();
 /**/
 $nick=new Vanquis($client,$service,42209706);
+$nick->testMCF();
+
 /**/
-
-//$nick->ProfileDates();
-
-$nick->LoanHistory('2012-01-29');
-
 if ($client->getAccessToken()) {
   $_SESSION['token'] = $client->getAccessToken();
 }
-
-/*
-			}			
-	
- */
 
 
 pageTime();

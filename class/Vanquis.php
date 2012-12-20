@@ -11,8 +11,22 @@
     		$this->service=$service;
     		$this->profile=$profile;
     	}    	    	
-    	
-    	private function getDimensionResults($date,$dimName){
+
+    	private function getGADimensionOnly($date,$dimName){
+    		$dim=safe_DataObject_factory("dim$dimName");
+			googleHelper::resetCount($dimName);
+    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams());  	
+    		$dim->saveGoogleResults($res);
+    	}    	 
+
+    	private function getMCFDimensionOnly($date,$dimName){
+    		$dim=safe_DataObject_factory("dim$dimName");
+			googleHelper::resetCount($dimName);
+    		$res=googleHelper::getMCFResults($date,$this->client,$this->service,$this->profile,$dim->optParams());  	
+    		$dim->saveGoogleResults($res);
+    	}    	 
+    					
+    	private function getGADimensionResults($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
     		$fct=safe_DataObject_factory("fct$dimName");
 			/** /
@@ -22,181 +36,239 @@
     		flush_buffers();
 			/**/
 			googleHelper::resetCount($dimName);
-     		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
+     		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
     		
     		$dim->saveGoogleResults($res);
     		$fct->saveGoogleResults($res);
 
     	}
     	
-    	function getResults($date=NULL){
-			if (!isset($date)) $date=date("Y-m-d",time()-86400);
-			    		
-    		/*Date Dimension*/
-    			$this->getDimensionResults($date, "Date");
-    		/*Visitor Dimension*/
-    			$this->getDimensionResults($date, "Visitor");
-    		/*Session Dimension*/
-    			$this->getDimensionResults($date,"Session");
-    		/* Network Dimension */
-    			$this->getDimensionResults($date,"Network");
-    		/* Geo Dimension */
-    			$this->getDimensionResults($date,"Geo");
-    		/* System Dimension */
-    			$this->getDimensionResults($date,"System");
-    		/* Page Tracking Dimension */
-    			//$this->getDimensionResults($date,"PageTracking");
-    		/* Event Dimension */
-    			//$this->getDimensionResults($date,"Event");
-    		/* Traffic Sources Dimension(s) */
-    			//$this->getDimensionResults($date,"Traffic");
-    		/* AdWords Dimensions */
-    			//$this->getDimensionResults($date,"Adwords");
-    	}
-    
-    	private function getFactResults($date,$fctName){
+    	private function getGAFactResults($date,$fctName){
     		$fct=safe_DataObject_factory("fct$fctName");
 //    		Krumo($fct->optParams());
 //    		Krumo($fct->metrics());
 			flush_buffers();
 			googleHelper::resetCount($fctName);
-    		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
+    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
 //    		Krumo($res);
 			flush_buffers();
     		$fct->saveGoogleResults($res);			
     	}    	
     	
-    	private function getDimensionOnly($date,$dimName){
-    		$dim=safe_DataObject_factory("dim$dimName");
-			googleHelper::resetCount($dimName);
-    		$res=googleHelper::getResults($date,$this->client,$this->service,$this->profile,$dim->optParams());  	
-    		$dim->saveGoogleResults($res);
-    	}    	 
+		private function factLoaded($fctName,$date=null){
+			if (!isset($date)) return false;
+			$fct=safe_DataObject_factory("fct$fctName");
+			$fct->dimDate=str_replace("-", "", $date);
+			$fct->dimProfile=$this->profile;
+			return $fct->find();
+		}
+
+    	function getResults($date=NULL){
+			if (!isset($date)) 
+			{
+				$date=date("Y-m-d",time()-86400);
+				if ($this->factLoaded("Date",$date)) {
+					debug_print (__FUNCTION__."($date) already loaded");
+					return true;
+				}
+			}
+			    		
+    		/*Date Dimension*/
+    			$this->getGADimensionResults($date, "Date");
+    		/*Visitor Dimension*/
+    			$this->getGADimensionResults($date, "Visitor");
+    		/*Session Dimension*/
+    			$this->getGADimensionResults($date,"Session");
+    		/* Network Dimension */
+    			$this->getGADimensionResults($date,"Network");
+    		/* Geo Dimension */
+    			$this->getGADimensionResults($date,"Geo");
+    		/* System Dimension */
+    			$this->getGADimensionResults($date,"System");
+    		/* Page Tracking Dimension */
+    			//$this->getGADimensionResults($date,"PageTracking");
+    		/* Event Dimension */
+    			//$this->getGADimensionResults($date,"Event");
+    		/* Traffic Sources Dimension(s) */
+    			//$this->getGADimensionResults($date,"Traffic");
+    		/* AdWords Dimensions */
+    			//$this->getGADimensionResults($date,"Adwords");
+    	}
+
     	
     	function waterfall($date=NULL){
-			if (!isset($date)) $date=date("Y-m-d",time()-86400);
+			if (!isset($date)) 
+			{
+				$date=date("Y-m-d",time()-86400);
+				if ($this->factLoaded("Form",$date)) {
+					debug_print (__FUNCTION__."($date) already loaded");
+					return true;
+				}
+			}
 			
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension*/
-    		$this->getDimensionOnly($date, "Date");
+    		$this->getGADimensionOnly($date, "Date");
     		/*Visitor Dimension*/
-    		$this->getDimensionOnly($date, "Visitor");
+    		$this->getGADimensionOnly($date, "Visitor");
     		/*Session Dimension*/
-    		$this->getDimensionOnly($date,"Session");
+    		$this->getGADimensionOnly($date,"Session");
     		/*Host Dimensions*/
-    		$this->getDimensionOnly($date, "HostName");
+    		$this->getGADimensionOnly($date, "HostName");
     		/*Page Dimensions*/
-			$this->getDimensionOnly($date, "PagePath");    		 
-//			$this->getDimensionOnly($date, "LandingPagePath");
-//			$this->getDimensionOnly($date, "ExitPagePath");
+			$this->getGADimensionOnly($date, "PagePath");    		 
+//			$this->getGADimensionOnly($date, "LandingPagePath");
+//			$this->getGADimensionOnly($date, "ExitPagePath");
 			/*Fact Table*/
-    		$this->getFactResults($date, "Form");
+    		$this->getGAFactResults($date, "Form");
     	}
     	
 		function ProfileDates(){
-			$this->getDimensionResults(NULL, "Date");
+			$this->getGADimensionResults(NULL, "Date");
 		}
 		
 		function LoanHistory($date=NULL){
-			if (!isset($date)) $date=date("Y-m-d",time()-86400);			
+			if (!isset($date)) 
+			{
+				$date=date("Y-m-d",time()-86400);
+				if ($this->factLoaded("LoanHistory",$date)) {
+					debug_print (__FUNCTION__."($date) already loaded");
+					return true;
+				}
+			}			
 			
 			print_line("LoanHistory($date)");
 			flush_buffers();			
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension */
-	    		$this->getDimensionResults($date, "Date");
+	    		$this->getGADimensionResults($date, "Date");
     		/*Visitor Dimension */
-    			$this->getDimensionResults($date, "Visitor");
+    			$this->getGADimensionResults($date, "Visitor");
     		/*Session Dimension */
-    			$this->getDimensionResults($date,"Session");
+    			$this->getGADimensionResults($date,"Session");
     		/*Host Dimensions */
-    			$this->getDimensionResults($date, "HostName");
+    			$this->getGADimensionResults($date, "HostName");
     		/*Page Dimensions */
-				$this->getDimensionResults($date, "LandingPagePath");
+				$this->getGADimensionResults($date, "LandingPagePath");
     		/* Network Dimension */
-    			$this->getDimensionResults($date,"Network");
+    			$this->getGADimensionResults($date,"Network");
     		/* Geo Dimension */
-    			$this->getDimensionResults($date,"Geo");
+    			$this->getGADimensionResults($date,"Geo");
     		/* System Dimension */
-    			$this->getDimensionResults($date,"System");
+    			$this->getGADimensionResults($date,"System");
 			/* Platform Dimension */
-    			$this->getDimensionResults($date,"Platform");
+    			$this->getGADimensionResults($date,"Platform");
 			/* Mobile Dimension */
-    			$this->getDimensionResults($date,"Mobile");
+    			$this->getGADimensionResults($date,"Mobile");
     			
 			/*Fact Table*/
-    			$this->getFactResults($date, "LoanHistory");
+    			$this->getGAFactResults($date, "LoanHistory");
 			/**/
     	}
 
 		function Device($date=NULL){
-			if (!isset($date)) $date=date("Y-m-d",time()-86400);
+			
+			if (!isset($date)) 
+			{
+				$date=date("Y-m-d",time()-86400);
+				if ($this->factLoaded("Device",$date)) {
+					debug_print (__FUNCTION__."($date) already loaded");
+					return true;
+				}
+			}
 			
     		//DB_DataObject::debugLevel(5);
     		/*Date Dimension*/
-	    		$this->getDimensionResults($date, "Date");
+	    		$this->getGADimensionResults($date, "Date");
     		/*Visitor Dimension*/
-    			$this->getDimensionResults($date, "Visitor");
+    			$this->getGADimensionResults($date, "Visitor");
     		/*Session Dimension*/
-    			$this->getDimensionResults($date,"Session");
+    			$this->getGADimensionResults($date,"Session");
     		/*Host Dimensions*/
-    			$this->getDimensionResults($date, "HostName");
+    			$this->getGADimensionResults($date, "HostName");
     		/*Page Dimensions*/
-				$this->getDimensionResults($date, "LandingPagePath");
+				$this->getGADimensionResults($date, "LandingPagePath");
     		/* Network Dimension */
-    			$this->getDimensionResults($date,"Network");
+    			$this->getGADimensionResults($date,"Network");
     		/* Geo Dimension */
-    			$this->getDimensionResults($date,"Geo");
+    			$this->getGADimensionResults($date,"Geo");
     		/* System Dimension */
-    			$this->getDimensionResults($date,"System");
+    			$this->getGADimensionResults($date,"System");
 			/* Platform Dimension */
-    			$this->getDimensionResults($date,"Platform");
+    			$this->getGADimensionResults($date,"Platform");
 
 			/*Fact Table*/
-    			$this->getFactResults($date, "Device");
+    			$this->getGAFactResults($date, "Device");
 			/**/
     	}
 
 		function adWords($date=NULL){
-			if (!isset($date)) $date=date("Y-m-d",time()-86400);			
+			if (!isset($date)) 
+			{
+				$date=date("Y-m-d",time()-86400);
+				if ($this->factLoaded("Adwords_one",$date)) {
+					debug_print (__FUNCTION__."($date) already loaded");
+					return true;
+				}
+			}			
 			
 			print_line("adWords($date)");
 			flush_buffers();	
 			/*Date Dimension */
-	    		$this->getDimensionResults($date, "Date");
+	    		$this->getGADimensionResults($date, "Date");
     		/*AdWords Dimension(s) */
-	    		$this->getDimensionResults($date, "Adwords_one");
-				$this->getDimensionResults($date, "Adwords_two");
+	    		$this->getGADimensionResults($date, "Adwords_one");
+				$this->getGADimensionResults($date, "Adwords_two");
     				
 		}
 
     	
 		function google($date=NULL){
-			if (!isset($date)) $date=date("Y-m-d",time()-86400);			
+			if (!isset($date)) 
+			{
+				$date=date("Y-m-d",time()-86400);
+				if ($this->factLoaded("Date",$date)) {
+					debug_print (__FUNCTION__."($date) already loaded");
+					return true;
+				}
+			}			
 			
 			print_line("google($date)");
 			flush_buffers();			
     		/*Date Dimension */
-	    		$this->getDimensionResults($date, "Date");
+	    		$this->getGADimensionResults($date, "Date");
     		/*Visitor Dimension */
-    			$this->getDimensionResults($date, "Visitor");
+    			$this->getGADimensionResults($date, "Visitor");
     		/*Session Dimension */
-    			$this->getDimensionResults($date,"Session");
+    			$this->getGADimensionResults($date,"Session");
     		/*Host Dimensions */
-    			$this->getDimensionResults($date, "HostName");
+    			$this->getGADimensionResults($date, "HostName");
     		/*Page Dimensions */
-				$this->getDimensionResults($date, "LandingPagePath");
+				$this->getGADimensionResults($date, "LandingPagePath");
     		/* Network Dimension */
-    			$this->getDimensionResults($date,"Network");
+    			$this->getGADimensionResults($date,"Network");
     		/* Geo Dimension */
-    			$this->getDimensionResults($date,"Geo");
+    			$this->getGADimensionResults($date,"Geo");
     		/* System Dimension */
-    			$this->getDimensionResults($date,"System");
+    			$this->getGADimensionResults($date,"System");
 			/* Platform Dimension */
-    			$this->getDimensionResults($date,"Platform");
+    			$this->getGADimensionResults($date,"Platform");
 			/* Mobile Dimension */
-    			$this->getDimensionResults($date,"Mobile");			 
+    			$this->getGADimensionResults($date,"Mobile");			 
 			/**/
+		}
+		
+		
+		function testMCF($date=null){
+			googleHelper::resetCount("MCF");
+			
+			$optParams= array(
+				'dimensions' => "mcf:basicChannelGroupingPath",
+				'max-results' => '2000',		
+				'start-index' => 1
+				);			
+    		$res=googleHelper::getMCFResults($date,$this->client,$this->service,$this->profile,$optParams);  	
+    		krumo($res);			
 		}
 }
 ?>

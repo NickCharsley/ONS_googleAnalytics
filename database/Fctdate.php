@@ -12,7 +12,7 @@ class doFctdate extends dbRoot
     public $__table = 'fctdate';             // table name
     public $ID;                              // int(4)  primary_key not_null
     public $dimDate;                         // int(4)  unique_key not_null
-    public $dimProfile;                      // int(4)   not_null
+    public $dimProfile;                      // int(4)  unique_key not_null
     public $Visits;                          // int(4)   not_null
     public $Visitors;                        // int(4)   not_null
     public $NewVisits;                       // int(4)   not_null

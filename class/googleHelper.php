@@ -39,13 +39,117 @@
 	  	googleHelper::$counter=0;
 		googleHelper::$version=$version;
 	  } 
-	   
-	  static function getResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){	  	
-	  	$results=new googleResultsWrapper();
+/*
+	  static function getResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){
+	  	 krumo::backtrace();
+	  	 return getGAResults($date,$client,$service,$profile,$optParams,$metrics);
+	  }
+*/	   
+	  static function getGAResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){	  	
+	  	$results=new googleGAResultsWrapper();
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
 	  	$aMets=split(",",$metrics);
 	  	if (count($aDims)>7){
+	  		//die("Too Many Dimensions! ".__FILE__.":".__LINE__);
+	  		$newDims=array();
+	  		for ($i=0;$i<7;$i++){
+	  			$newDims[]=$aDims[$i];
+	  			unset($aDims[$i]);
+	  		}
+	  		//Get First 7 for filter
+	  		$optParams['dimensions']=join(",",$newDims);
+	  		$gaFilter=googleHelper::getGAResults($date,$client,$service,$profile, $optParams);
+	  		//krumo($gaFilter);
+	  		$optParams['dimensions']=join(",",$aDims);
+	  		for($i=0;$i<$gaFilter->rowCount;$i++){
+	  			$optParams['filters']=str_replace(",", ";", $gaFilter->getFilter($i));
+	  			//Need to replace , with ; to be an 'and' in Google Filters
+	  			$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams,$metrics));
+	  		}
+	  //		krumo($results);
+	  	//	die(__FILE__.":".__LINE__);	  		 
+	  	}
+		else if (count($aMets)>10){
+	  		$newMets=array();
+	  		for ($i=0;$i<10;$i++){
+	  			$newMets[]=$aMets[$i];
+	  			unset($aMets[$i]);
+	  		}
+	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams, join(",",$newMets)));
+	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams, join(",",$aMets  )));
+	  	}
+		else if (strpos($optParams['dimensions'],"ga:IsMobile")) {
+			/**
+			 * IsMobile is odd so we filter it and then Merge
+			 * But on the Yes side we gather all the other Dimensions
+			 */
+			//Remove IsMobile from Dimensions
+			$newDims=array();
+	  		foreach (split(",",$optParams['dimensions']) as $dim){
+	  			if ($dim!="ga:IsMobile") $newDims[]=$dim;	  			
+	  		}
+	  		$optParams['dimensions']=join(",",$newDims); 
+			
+			$optParamsNo=$optParams;
+			$optParamsYes=$optParams;
+			
+			//Add IsMobile to Filters
+			if (isset($optParams['filters'])){
+				$optParamsNo['filters'].=";ga:IsMobile==No";;
+				$optParamsYes['filters'].=";ga:IsMobile==Yes";				
+			}
+			else {
+				$optParamsNo['filters'] ="ga:IsMobile==No";
+				$optParamsYes['filters']="ga:IsMobile==Yes";				
+			}
+			
+			//Add Extra Dimensions to Yes Branch
+			
+			
+			$newDims=array_merge($newDims,array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"));
+			//Should Sort it again :)
+			usort($newDims,'dimCmp');			
+						
+			$optParamsYes['dimensions']=join(",",$newDims);
+
+			$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsNo, $metrics));
+	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsYes, $metrics));
+			
+		}
+	  	else {
+	  		
+	  		$startdate=isset($date)?$date:'2010-01-01';			
+			$enddate  =isset($date)?$date:date('Y-m-d');
+			googleHelper::$counter++;
+			debug_error_log("Google Analytics (GA) call ".googleHelper::$version.":".googleHelper::$counter." (ga:$profile,$startdate,$enddate,$metrics)");
+			debug_error_log($optParams);			
+	  		$gaResults=$service->data_ga->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
+	  		$results=new googleGAResultsWrapper($gaResults);
+  			//krumo($gaResults);
+  			//krumo($results);
+			//flush_buffers();									
+	  		if ($gaResults->nextLink<>""){
+	  			$optParams['start-index']+=$optParams['max-results'];
+	  			$gaResults=$service->data_ga->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
+	  			$results->mergeResults($gaResults);
+	  		}
+	  	}	  	
+	  	//krumo($results);
+		if ($client->getAccessToken()) {
+			$_SESSION['token'] = $client->getAccessToken();
+		}
+	  	
+	  	
+	  	return $results;
+	  }
+
+	  static function getMCFResults($date,$client,$service,$profile,$optParams,$metrics='mcf:totalConversions'){	  	
+	  	$results=new googleMCfResultsWrapper();
+		$results->dimProfile=$profile;
+	  	$aDims=split(",",$optParams['dimensions']);
+	  	$aMets=split(",",$metrics);
+	  	if (false){//count($aDims)>7){
 	  		//die("Too Many Dimensions! ".__FILE__.":".__LINE__);
 	  		$newDims=array();
 	  		for ($i=0;$i<7;$i++){
@@ -65,7 +169,7 @@
 	  //		krumo($results);
 	  	//	die(__FILE__.":".__LINE__);	  		 
 	  	}
-		else if (count($aMets)>10){
+		else if (false){//count($aMets)>10){
 	  		$newMets=array();
 	  		for ($i=0;$i<10;$i++){
 	  			$newMets[]=$aMets[$i];
@@ -74,7 +178,7 @@
 	  		$results->mergeResults(googleHelper::getResults($date,$client,$service,$profile, $optParams, join(",",$newMets)));
 	  		$results->mergeResults(googleHelper::getResults($date,$client,$service,$profile, $optParams, join(",",$aMets  )));
 	  	}
-		else if (strpos($optParams['dimensions'],"ga:IsMobile")) {
+		else if (false){//strpos($optParams['dimensions'],"ga:IsMobile")) {
 			/**
 			 * IsMobile is odd so we filter it and then Merge
 			 * But on the Yes side we gather all the other Dimensions
@@ -114,15 +218,16 @@
 		}
 	  	else {
 	  		
-	  		$startdate=isset($date)?$date:'2010-01-01';			
+	  		$startdate=isset($date)?$date:'2005-01-01';			
 			$enddate  =isset($date)?$date:date('Y-m-d');
 			googleHelper::$counter++;
-			debug_error_log("Google Analytics call ".googleHelper::$version.":".googleHelper::$counter." (ga:$profile,$startdate,$enddate,$metrics)");
+			debug_error_log("Google Analytics (MCF) call ".googleHelper::$version.":".googleHelper::$counter." (ga:$profile,$startdate,$enddate,$metrics)");
 			debug_error_log($optParams);			
-	  		$gaResults=$service->data_ga->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
-	  		$results=new googleResultsWrapper($gaResults);
-  			//krumo($gaResults);
-  			//krumo($results);
+	  		$gaResults=$service->data_mcf->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
+	  		krumo($gaResults);
+  			$results=new googleMCFResultsWrapper($gaResults);
+  			krumo($results);
+			//die(__FILE__.":".__LINE__);
 			//flush_buffers();									
 	  		if ($gaResults->nextLink<>""){
 	  			$optParams['start-index']+=$optParams['max-results'];
@@ -134,8 +239,7 @@
 		if ($client->getAccessToken()) {
 			$_SESSION['token'] = $client->getAccessToken();
 		}
-	  	
-	  	
+	  		  	
 	  	return $results;
 	  }
 	  
