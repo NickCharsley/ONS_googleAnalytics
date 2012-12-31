@@ -19,7 +19,7 @@
 				}
 				$this->rowCount=count($this->matrix);
 				
-//				krumo($results);							
+				krumo($results);							
  			} 			
  		}
 

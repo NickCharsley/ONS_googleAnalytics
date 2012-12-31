@@ -66,14 +66,22 @@ $vl=new Vanquis($client,$service, 61943476);
 $vl->Device();
 /**/
 $nick=new Vanquis($client,$service,67348193);
-$nick->ProfileDates();
-$nick->getResults();
+$nick->getResults(date('Y-m-d'));
 
 /**/
 if ($client->getAccessToken()) {
   $_SESSION['token'] = $client->getAccessToken();
 }
 
+$fcts=array("Date","Visitor","Session","Network","Geo","System","Event","Customvar");
+foreach ($fcts as $fct){
+	$doFact=safe_DataObject_factory("fct$fct");
+	$doFact->dimProfile=67348193;
+	$doFact->dimDate=date('Ymd');
+	$doFact->find();
+	
+	showTable($doFact);	
+}
 
 pageTime();
 ?>

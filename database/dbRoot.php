@@ -36,7 +36,11 @@ class dbRoot extends DB_DataObject {
 			"ga:socialinteractionnetwork","ga:socialinteractionnetworkaction","ga:socialinteractiontarget","ga:socialinteractions",
 			"ga:socialinteractionspervisit","ga:socialnetwork","ga:source","ga:subcontinent","ga:transactionid","ga:uniquesocialinteractions",
 			"ga:userdefinedvalue","ga:usertimingcategory","ga:usertiminglabel","ga:usertimingvariable","ga:visitcount","ga:visitlength",
-			"ga:visitortype","ga:visitstotransaction","ga:week","ga:year");
+			"ga:visitortype","ga:visitstotransaction","ga:week","ga:year",
+			"ga:customvarname1","ga:customvarvalue1","ga:customvarname2","ga:customvarvalue2","ga:customvarname3","ga:customvarvalue3",
+			"ga:customvarname4","ga:customvarvalue4","ga:customvarname5","ga:customvarvalue5","ga:customvarname6","ga:customvarvalue6",
+			"ga:customvarname7","ga:customvarvalue7","ga:customvarname8","ga:customvarvalue8","ga:customvarname9","ga:customvarvalue9"			
+			);
 	
 	protected $mets=array("ga:cpc","ga:cpm","ga:ctr","ga:roi","ga:rpc","ga:adclicks","ga:adcost","ga:appviews","ga:appviewspervisit",
 			"ga:avgdomainlookuptime","ga:avgeventvalue","ga:avgpagedownloadtime","ga:avgpageloadtime","ga:avgredirectiontime",
@@ -68,6 +72,7 @@ class dbRoot extends DB_DataObject {
 	protected $mobile=array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
 
 	function insert(){
+		//krumo($this);
     	$this->filldata();
     	return parent::insert();
     }
@@ -147,6 +152,8 @@ class dbRoot extends DB_DataObject {
 		$dims=array_keys($this->table());
 		$res=array();
 		$extras=array_keys($this->links());
+		//krumo($dims);
+		//krumo($extras);
 		for ($i=0;$i<count($dims);$i++){
 			if (in_array(strtolower("ga:".$dims[$i]), $this->dims,true))				
 				$res[]="ga:".$dims[$i];
@@ -157,8 +164,9 @@ class dbRoot extends DB_DataObject {
 				}
 			}
 		}
+		//krumo($res);
 		if (count($res)==0){
-			$dims[]="ga:Date";
+			$dims=array("ga:Date");
 		}
 		else {
 			$dims=array_unique(array_merge(array("ga:Date"),$res));
@@ -211,13 +219,20 @@ class dbRoot extends DB_DataObject {
 						dbRoot::$f2t['ga:'.strtolower($field)]=$table;
 					}
 			}
+			//krumo(dbRoot::$f2t);
 		}
 		return dbRoot::$f2t[strtolower($find)];
 	}
 }
 
-
-
+/*
+ * This function Grabs the number of Degrees of freedom (AKA Number of Distinct Occurnces) of
+ * the fields listed in the Array and then orders them in assending order.
+ * 
+ * The upshot of this is that when there are more than 7 dimensions the first call will return
+ * the smallest number of rows to be turned into filters and so the full results can be returned
+ * in as few calls to google analytics as possible.
+ */
 function dimCmp($a, $b)
 {
 		

@@ -144,7 +144,9 @@
 	  	return $results;
 	  }
 
-	  static function getMCFResults($date,$client,$service,$profile,$optParams,$metrics='mcf:totalConversions'){	  	
+	  static function getMCFResults($date,$client,$service,$profile,$optParams){
+	  	$metrics='mcf:totalConversions,mcf:totalConversionValue,mcf:assistedConversions,mcf:assistedValue,mcf:firstInteractionConversions,mcf:firstInteractionValue,mcf:lastInteractionConversions,mcf:lastInteractionValue';
+	  	  	
 	  	$results=new googleMCfResultsWrapper();
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
@@ -224,8 +226,7 @@
 			debug_error_log("Google Analytics (MCF) call ".googleHelper::$version.":".googleHelper::$counter." (ga:$profile,$startdate,$enddate,$metrics)");
 			debug_error_log($optParams);			
 	  		$gaResults=$service->data_mcf->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
-	  		krumo($gaResults);
-  			$results=new googleMCFResultsWrapper($gaResults);
+	  		$results=new googleMCFResultsWrapper($gaResults);
   			krumo($results);
 			//die(__FILE__.":".__LINE__);
 			//flush_buffers();									
@@ -249,7 +250,29 @@
  				if ($columnHeaders[$i]->columnType=="DIMENSION"){
 	 				if ($i>0) $filters.=",";
  					$filters.=$columnHeaders[$i]->name."==";
-	 				$filters.=$rows[$index][$i];
+ 					$value=(is_a($rows[$index], "Google_McfDataRows"))?$rows[$index]->$i:$rows[$index][$i]; 					
+ 					switch ($columnHeaders[$i]->dataType) {
+						case 'STRING':
+							$filters.=$value;		 
+							break;		
+						case 'MCF_SEQUENCE':
+							$filters.='{';
+							for($j=0;$j<count($value['conversionPathValue']);$j++){
+								//Can we filter on this if so How?								
+								$filters.="conversionPathValue:$j:{";
+								$filters.=$value['conversionPathValue'][$j]['interactionType'];								
+								$filters.=":";
+								$filters.=$value['conversionPathValue'][$j]['nodeValue'];
+								$filters.="}";	
+							}
+							$filters.='}';
+							break;											 
+						default:
+							krumo($columnHeaders[$i]->dataType);
+							krumo($value);
+							die(__FILE__.':'.__LINE__);
+							break;
+					 }
  				}
  			}
  			return $filters;

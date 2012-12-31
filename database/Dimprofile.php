@@ -24,6 +24,7 @@ class doDimprofile extends dbRoot
     ###END_AUTOCODE
     
     function saveGoogleResults($results){
+    	if (is_a($results, "googleGAResultsWrapper")) return;
     	foreach ($results->items as $row){
     		$fact=safe_DataObject_factory($this->__table);
     		$fact->ID=$row->id;

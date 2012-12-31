@@ -74,15 +74,17 @@ foreach($accountIds as $accountId){
 		$doProfile->saveGoogleResults($profiles);		
 	}
 }
+/** /
+print_pre($_COOKIE);
 
 /** /
 $vp=new Vanquis($client,$service,55368687);
 $vp->testMCF();
-/**/
+/** /
 $vl=new Vanquis($client,$service, 61943476);
 $vl->testMCF();
 /**/
-$nick=new Vanquis($client,$service,42209706);
+$nick=new Vanquis($client,$service,42506344);//42209706);
 $nick->testMCF();
 
 /**/

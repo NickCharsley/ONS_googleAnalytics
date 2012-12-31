@@ -58,22 +58,29 @@ $client->setClientId(CLIENT_ID);
 
 $service = new Google_AnalyticsService($client);
 
-/** /
-$vp=new Vanquis($client,$service,55368687);
-$vp->testMCF();
-/** /
-$vl=new Vanquis($client,$service, 61943476);
-$vl->Device();
-/**/
-$nick=new Vanquis($client,$service,67348193);
-$nick->ProfileDates();
-$nick->getResults();
+/*Get all Profiles Visible to the Service Account*/
+$accounts = $service->management_accounts->listManagementAccounts();
+$profileIds=array();
+$accountIds=googleHelper::getAllIDs($accounts);
+ 
+$doProfile=safe_DataObject_factory("dimProfile");
+
+foreach($accountIds as $accountId){
+	$webproperties = $service->management_webproperties->listManagementWebproperties($accountId);
+	$webpropertyIds = googleHelper::getAllIDs($webproperties);
+	foreach($webpropertyIds as $webpropertyId){
+		$profiles = $service->management_profiles->listManagementProfiles($accountId,$webpropertyId);
+		$profileIds = array_merge($profileIds,googleHelper::getAllIDs($profiles));		
+		$doProfile->saveGoogleResults($profiles);		
+	}
+}
 
 /**/
 if ($client->getAccessToken()) {
   $_SESSION['token'] = $client->getAccessToken();
 }
 
+showTable("dimProfile");
 
 pageTime();
 ?>
