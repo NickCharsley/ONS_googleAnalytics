@@ -20,26 +20,33 @@ class dbRoot extends DB_DataObject {
 	protected $dims=array("ga:adcontent","ga:addestinationurl","ga:addisplayurl","ga:date","ga:addistributionnetwork","ga:adformat","ga:adgroup",
 			"ga:admatchtype","ga:admatchedquery","ga:adplacementdomain","ga:adplacementurl","ga:adslot","ga:adslotposition",
 			"ga:adtargetingoption","ga:adtargetingtype","ga:adwordsadgroupid","ga:adwordscampaignid","ga:adwordscreativeid",
-			"ga:adwordscriteriaid","ga:adwordscustomerid","ga:affiliation","ga:browser","ga:browserversion","ga:campaign",
-			"ga:city","ga:continent","ga:country","ga:date","ga:day","ga:dayofweek","ga:dayssincelastvisit","ga:daystotransaction",
+			"ga:adwordscriteriaid","ga:adwordscustomerid","ga:browser","ga:browserversion","ga:campaign",
+			"ga:city","ga:continent","ga:country","ga:date","ga:day","ga:dayofweek","ga:dayssincelastvisit",
 			"ga:eventaction","ga:eventcategory","ga:eventlabel","ga:exitpagepath","ga:flashversion","ga:hassocialsourcereferral",
 			"ga:hostname","ga:hour","ga:ismobile","ga:javaenabled","ga:keyword","ga:landingpagepath","ga:language","ga:latitude",
 			"ga:longitude","ga:medium","ga:metro",
 			"ga:month","ga:networkdomain","ga:networklocation","ga:nextpagepath","ga:nthday","ga:nthmonth","ga:nthweek","ga:operatingsystem",
-			"ga:operatingsystemversion","ga:pagedepth","ga:pagepath","ga:pagepathlevel1","ga:pagepathlevel2","ga:pagepathlevel3",
-			"ga:pagepathlevel4","ga:pagetitle","ga:previouspagepath","ga:productcategory","ga:productname","ga:productsku",
+			"ga:operatingsystemversion","ga:pagedepth","ga:pagepath","ga:pagetitle","ga:previouspagepath",
 			"ga:referralpath","ga:region","ga:screencolors","ga:screenresolution","ga:searchcategory","ga:searchdestinationpage",
 			"ga:searchkeyword","ga:searchkeywordrefinement","ga:searchresultviews","ga:searchstartpage","ga:searchuniques","ga:searchused",
 			"ga:secondpagepath","ga:socialactivityaction","ga:socialactivitycontenturl","ga:socialactivitydisplayname","ga:socialactivityendorsingurl",
 			"ga:socialactivitynetworkaction","ga:socialactivitypost","ga:socialactivitytagssummary","ga:socialactivitytimestamp",
 			"ga:socialactivityuserhandle","ga:socialactivityuserphotourl","ga:socialactivityuserprofileurl","ga:socialinteractionaction",
 			"ga:socialinteractionnetwork","ga:socialinteractionnetworkaction","ga:socialinteractiontarget","ga:socialinteractions",
-			"ga:socialinteractionspervisit","ga:socialnetwork","ga:source","ga:subcontinent","ga:transactionid","ga:uniquesocialinteractions",
+			"ga:socialinteractionspervisit","ga:socialnetwork","ga:source","ga:subcontinent","ga:uniquesocialinteractions",
 			"ga:userdefinedvalue","ga:usertimingcategory","ga:usertiminglabel","ga:usertimingvariable","ga:visitcount","ga:visitlength",
-			"ga:visitortype","ga:visitstotransaction","ga:week","ga:year",
+			"ga:visitortype","ga:week","ga:year",
 			"ga:customvarname1","ga:customvarvalue1","ga:customvarname2","ga:customvarvalue2","ga:customvarname3","ga:customvarvalue3",
 			"ga:customvarname4","ga:customvarvalue4","ga:customvarname5","ga:customvarvalue5","ga:customvarname6","ga:customvarvalue6",
-			"ga:customvarname7","ga:customvarvalue7","ga:customvarname8","ga:customvarvalue8","ga:customvarname9","ga:customvarvalue9"			
+			"ga:customvarname7","ga:customvarvalue7","ga:customvarname8","ga:customvarvalue8","ga:customvarname9","ga:customvarvalue9"
+						
+,"ga:productname"
+,"ga:productsku"
+,"ga:productcategory"
+,"ga:daystotransaction"
+,"ga:visitstotransaction"
+,"ga:affiliation"
+,"ga:transactionid"
 			);
 	
 	protected $mets=array("ga:cpc","ga:cpm","ga:ctr","ga:roi","ga:rpc","ga:adclicks","ga:adcost","ga:appviews","ga:appviewspervisit",
@@ -70,6 +77,7 @@ class dbRoot extends DB_DataObject {
 			);
 	
 	protected $mobile=array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
+	protected $pageLevel=array("ga:pagepathlevel1","ga:pagepathlevel2","ga:pagepathlevel3","ga:pagepathlevel4");
 
 	function insert(){
 		//krumo($this);
@@ -102,7 +110,20 @@ class dbRoot extends DB_DataObject {
 		
 		foreach ($results->matrix as $row){
 			$fact=safe_DataObject_factory($this->__table);
-			$fact->dimProfile=$results->dimProfile;			
+			$fact->dimProfile=$results->dimProfile;
+			$keyDims=$this->keyDimensions();
+			$action="";			
+			if (count($keyDims)){
+				//Should Only be a dimXXXX table so no Linked Dims to worry about 
+				foreach($row['Dimensions'] as $dimName=>$dimValue){
+					$dimName="ga:".ucfirst(str_replace("ga:", "", $dimName));
+					if (in_array($dimName, $keyDims)){
+						$dimName=str_replace("ga:", "", $dimName);
+						$fact->$dimName=$dimValue;	
+					}					
+				}
+				$action=($fact->find(true))?"update":"insert";
+			}
 			//Get Un-linked Dimensions
 			foreach($row['Dimensions'] as $dimName=>$dimValue){
 				$dimName=ucfirst(str_replace("ga:", "", $dimName));
@@ -116,7 +137,7 @@ class dbRoot extends DB_DataObject {
 					$fact->$extra=$doExtra->findDimensionID($row);	
 				}				
 			}
-			$action=($fact->find(true))?"update":"insert";
+			if ($action=="") $action=($fact->find(true))?"update":"insert";
 			//krumo($fact);
 			foreach($row['Metrics'] as $metName=>$metValue){
 				$metName=ucfirst(str_replace("ga:", "", $metName));

@@ -50,7 +50,26 @@
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
 	  	$aMets=split(",",$metrics);
-	  	if (count($aDims)>7){
+	  	if (count($aDims)>2 and in_array("ga:PageDepth", $aDims)) {
+			//Remove Page Depth
+			$newDims=array();
+	  		foreach (split(",",$optParams['dimensions']) as $dim){
+	  			if ($dim!="ga:PageDepth") $newDims[]=$dim;	  			
+	  		}
+	  		$optParams['dimensions']=join(",",$newDims);
+			//Now Loop through the PageDepth Dimension;
+			$pd=safe_DataObject_factory("dimPageDepth");
+			$pd->find();
+			while ($pd->fetch()){
+				$optParamspd=$optParams;
+				if (isset($optParams['filters']))
+					$optParamspd['filters'].=";ga:PageDepth==".$pd->PageDepth;
+				else
+					$optParamspd['filters']="ga:PageDepth==".$pd->PageDepth;
+				$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamspd, $metrics));
+			}
+		}
+		else if (count($aDims)>7){
 	  		//die("Too Many Dimensions! ".__FILE__.":".__LINE__);
 	  		$newDims=array();
 	  		for ($i=0;$i<7;$i++){
@@ -86,7 +105,7 @@
 			 */
 			//Remove IsMobile from Dimensions
 			$newDims=array();
-	  		foreach (split(",",$optParams['dimensions']) as $dim){
+	  		foreach ($aDims as $dim){
 	  			if ($dim!="ga:IsMobile") $newDims[]=$dim;	  			
 	  		}
 	  		$optParams['dimensions']=join(",",$newDims); 
@@ -103,10 +122,7 @@
 				$optParamsNo['filters'] ="ga:IsMobile==No";
 				$optParamsYes['filters']="ga:IsMobile==Yes";				
 			}
-			
 			//Add Extra Dimensions to Yes Branch
-			
-			
 			$newDims=array_merge($newDims,array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"));
 			//Should Sort it again :)
 			usort($newDims,'dimCmp');			

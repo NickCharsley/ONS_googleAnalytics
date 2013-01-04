@@ -58,16 +58,29 @@ $client->setClientId(CLIENT_ID);
 
 $service = new Google_AnalyticsService($client);
 
+$date=pg_value("date",NULL);
+$test=pg_value("test",false);
+
 /** /
 $vp=new Vanquis($client,$service,55368687);
 $vp->testMCF();
-/** /
-$vl=new Vanquis($client,$service, 61943476);
-$vl->Device();
 /**/
+$vl=new Vanquis($client,$service, 61943476);
+if ($test){
+	$vl->test();
+}
+else {
+	$vl->Device();
+}
+/** /
 $nick=new Vanquis($client,$service,67348193);
-$nick->ProfileDates();
-$nick->getResults();
+if ($test){
+	$nick->test();
+}
+else {
+	$nick->ProfileDates($date);
+	$nick->getResults($date);
+}
 
 /**/
 if ($client->getAccessToken()) {

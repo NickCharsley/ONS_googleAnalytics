@@ -12,10 +12,10 @@
     		$this->profile=$profile;
     	}    	    	
 
-    	private function getGADimensionOnly($date,$dimName){
+    	private function getGADimensionOnly($date,$dimName,$metrics='ga:visits'){
     		$dim=safe_DataObject_factory("dim$dimName");
 			googleHelper::resetCount($dimName);
-    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams());  	
+    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams(),$metrics);  	
     		$dim->saveGoogleResults($res);
     	}    	 
 
@@ -41,6 +41,22 @@
     		$dim->saveGoogleResults($res);
     		$fct->saveGoogleResults($res);
     	}
+
+    	private function getGAFactOnly($date,$dimName){
+    		$fct=safe_DataObject_factory("fct$dimName");
+			$dim=safe_DataObject_factory("dimDate");
+			/** /
+			krumo($fct->optParams());
+			krumo($dim->optParams($fct->optParams()));
+			krumo($fct->metrics());
+    		flush_buffers();
+			/**/
+			googleHelper::resetCount($dimName);
+     		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
+			krumo($res);
+    		$fct->saveGoogleResults($res);
+    	}
+
     	
     	private function getGAFactResults($date,$fctName){
     		$fct=safe_DataObject_factory("fct$fctName");
@@ -67,6 +83,33 @@
 			return $fct->find();
 		}
 
+		function getPageTracking($date=NULL){
+			if (!isset($date)) 
+			{
+				$date=date("Y-m-d",time()-86400);
+				if ($this->factLoaded("Date",$date)) {
+					debug_print (__FUNCTION__."($date) already loaded");
+					return true;
+				}
+			}
+			    		
+    		/*Date Dimension* /
+    			$this->getGADimensionOnly($date, "Date");
+				$this->getGADimensionOnly($date, "Hour");
+    		/*Page Depth * /
+				$this->getGADimensionOnly($date, "PageDepth");
+			/*Page Dimensions * /
+				$this->getGADimensionOnly($date, "LandingPagePath");
+				$this->getGADimensionOnly($date, "SecondPagePath");
+				$this->getGADimensionOnly($date, "NextPagePath");
+				$this->getGADimensionOnly($date, "PreviousPagePath");
+				$this->getGADimensionOnly($date, "PagePath");
+				$this->getGADimensionOnly($date, "PagePathLevel1");
+    		/* Page Tracking Fact */
+    			$this->getGAFactOnly($date,"PageTracking");				    		
+    	}
+		 
+
     	function getResults($date=NULL){
 			if (!isset($date)) 
 			{
@@ -78,17 +121,17 @@
 			}
 			    		
     		/*Date Dimension*/
-    			//$this->getGADimensionResults($date, "Date");
+    			$this->getGADimensionResults($date, "Date");
     		/*Visitor Dimension*/
-    			//$this->getGADimensionResults($date, "Visitor");
+    			$this->getGADimensionResults($date, "Visitor");
     		/*Session Dimension*/
-    			//$this->getGADimensionResults($date,"Session");
+    			$this->getGADimensionResults($date,"Session");
     		/* Network Dimension */
-    			//$this->getGADimensionResults($date,"Network");
+    			$this->getGADimensionResults($date,"Network");
     		/* Geo Dimension */
-    			//$this->getGADimensionResults($date,"Geo");
+    			$this->getGADimensionResults($date,"Geo");
     		/* System Dimension */
-    			//$this->getGADimensionResults($date,"System");
+    			$this->getGADimensionResults($date,"System");
     		/* Event Dimension */
     			$this->getGADimensionResults($date,"Event");
     		/*Page Dimensions */
@@ -97,10 +140,21 @@
     			//$this->getGADimensionResults($date,"Traffic");
     		/* AdWords Dimensions */
     			//$this->getGADimensionResults($date,"Adwords");
-    		/* Custom Var(s) Dimension */
+    		/* Transaction Dimensions */
+    			$this->getGADimensionResults($date,"Transaction");
+    		/* Custom Var(s) Fact */
     			$this->getGAFactResults($date,"CustomVar");				    		
     	}
 
+		function test(){
+			/** /
+			$date='2013-01-01';
+			$this->getGADimensionOnly($date,"Transaction","ga:transactions");
+			$this->getGADimensionOnly($date,"Product","ga:itemQuantity");
+			/**/
+			$date='2012-10-22';
+			$this->getPageTracking($date);
+		}
     	
     	function waterfall($date=NULL){
 			if (!isset($date)) 
