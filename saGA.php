@@ -70,7 +70,7 @@ if ($test){
 	$vl->test();
 }
 else {
-	$vl->Device();
+	$vl->getResults();
 }
 /** /
 $nick=new Vanquis($client,$service,67348193);
