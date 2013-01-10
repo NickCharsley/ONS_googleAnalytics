@@ -71,8 +71,21 @@ class dbRoot extends DB_DataObject {
 			"ga:goal5abandons","ga:goal5abandonrate","ga:goal6starts","ga:goal6completions","ga:goal6value","ga:goal6conversionrate",
 			"ga:goal6abandons","ga:goal6abandonrate","ga:goal7starts","ga:goal7completions","ga:goal7value","ga:goal7conversionrate",
 			"ga:goal7abandons","ga:goal7abandonrate","ga:goal8starts","ga:goal8completions","ga:goal8value","ga:goal8conversionrate",
-			"ga:goal8abandons","ga:goal8abandonrate","ga:goal9starts","ga:goal9completions","ga:goal9value","ga:goal9conversionrate",
-			"ga:goal9abandons","ga:goal9abandonrate","ga:goalstartsall","ga:goalcompletionsall","ga:goalvalueall","ga:goalvaluepervisit",
+			"ga:goal8abandons","ga:goal8abandonrate","ga:goal9starts","ga:goal9completions","ga:goal9value","ga:goal9conversionrate",			
+			"ga:goal9abandons","ga:goal9abandonrate","ga:goal10starts","ga:goal10completions","ga:goal10value","ga:goal10conversionrate",
+			"ga:goal10abandons","ga:goal10abandonrate","ga:goal11abandons","ga:goal11abandonrate","ga:goal12starts","ga:goal12completions",
+			"ga:goal12value","ga:goal12conversionrate",
+			"ga:goal12abandons","ga:goal12abandonrate","ga:goal13starts","ga:goal13completions","ga:goal13value","ga:goal13conversionrate",
+			"ga:goal13abandons","ga:goal13abandonrate","ga:goal14starts","ga:goal14completions","ga:goal14value","ga:goal14conversionrate",
+			"ga:goal14abandons","ga:goal14abandonrate","ga:goal15starts","ga:goal15completions","ga:goal15value","ga:goal15conversionrate",
+			"ga:goal15abandons","ga:goal15abandonrate","ga:goal16starts","ga:goal16completions","ga:goal16value","ga:goal16conversionrate",
+			"ga:goal16abandons","ga:goal16abandonrate","ga:goal17starts","ga:goal17completions","ga:goal17value","ga:goal17conversionrate",
+			"ga:goal17abandons","ga:goal17abandonrate","ga:goal18starts","ga:goal18completions","ga:goal18value","ga:goal18conversionrate",
+			"ga:goal18abandons","ga:goal18abandonrate","ga:goal19starts","ga:goal19completions","ga:goal19value","ga:goal19conversionrate",
+			"ga:goal19abandons","ga:goal19abandonrate",
+			"ga:goal20starts","ga:goal20completions","ga:goal20value","ga:goal20conversionrate",
+			"ga:goal20abandons","ga:goal20abandonrate",
+			"ga:goalstartsall","ga:goalcompletionsall","ga:goalvalueall","ga:goalvaluepervisit",
 			"ga:goalconversionrateall","ga:goalabandonsall","ga:goalabandonrateall"	
 			);
 	

@@ -44,15 +44,14 @@
 
     	private function getGAFactOnly($date,$dimName){
     		$fct=safe_DataObject_factory("fct$dimName");
-			$dim=safe_DataObject_factory("dimDate");
+			//$dim=safe_DataObject_factory("dimDate");
 			/** /
 			krumo($fct->optParams());
-			krumo($dim->optParams($fct->optParams()));
 			krumo($fct->metrics());
     		flush_buffers();
 			/**/
 			googleHelper::resetCount($dimName);
-     		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
+     		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
 			krumo($res);
     		$fct->saveGoogleResults($res);
     	}
@@ -99,12 +98,12 @@
     		/*Page Depth * /
 				$this->getGADimensionOnly($date, "PageDepth");
 			/*Page Dimensions * /
+				$this->getGADimensionOnly($date, "PagePath");				
 				$this->getGADimensionOnly($date, "LandingPagePath");
 				$this->getGADimensionOnly($date, "SecondPagePath");
 				$this->getGADimensionOnly($date, "NextPagePath");
 				$this->getGADimensionOnly($date, "PreviousPagePath");
-				$this->getGADimensionOnly($date, "PagePath");
-				$this->getGADimensionOnly($date, "PagePathLevel1");
+				$this->getGADimensionOnly($date, "ExitPagePath");
     		/* Page Tracking Fact */
     			$this->getGAFactOnly($date,"PageTracking");				    		
     	}

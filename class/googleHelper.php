@@ -45,38 +45,42 @@
 	  	 return getGAResults($date,$client,$service,$profile,$optParams,$metrics);
 	  }
 */	   
+
+
+
+
+	  static function splitDims(&$oldDims,&$newDims){
+  		$bump=array("ga:addestinationurl","ga:addisplayurl","ga:adplacementurl","ga:exitpagepath","ga:landingpagepath",
+			"ga:nextpagepath","ga:pagepath","ga:previouspagepath","ga:referralpath","ga:searchdestinationpage",
+			"ga:searchstartpage","ga:secondpagepath","ga:socialactivitycontenturl","ga:socialactivityendorsingurl",
+			"ga:socialactivityuserphotourl","ga:socialactivityuserprofileurl","ga:socialinteractiontarget"
+			);
+		$max=count($oldDims);
+		
+  		for ($i=0;$i<$max and count($newDims)<7 and count($oldDims)>7;$i++){
+  			if (!in_array(strtolower($oldDims[$i]), $bump)){
+	  			$newDims[]=$oldDims[$i];
+	  			unset($oldDims[$i]);  				
+  			}			
+  		}
+		if (count($newDims)==0){
+			die("Too many Bumps ".__FILE__.":".__LINE__);
+		}
+	  	
+	  }
+
 	  static function getGAResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){	  	
 	  	$results=new googleGAResultsWrapper();
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
 	  	$aMets=split(",",$metrics);
-	  	if (count($aDims)>2 and in_array("ga:PageDepth", $aDims)) {
-			//Remove Page Depth
-			$newDims=array();
-	  		foreach (split(",",$optParams['dimensions']) as $dim){
-	  			if ($dim!="ga:PageDepth") $newDims[]=$dim;	  			
-	  		}
-	  		$optParams['dimensions']=join(",",$newDims);
-			//Now Loop through the PageDepth Dimension;
-			$pd=safe_DataObject_factory("dimPageDepth");
-			$pd->find();
-			while ($pd->fetch()){
-				$optParamspd=$optParams;
-				if (isset($optParams['filters']))
-					$optParamspd['filters'].=";ga:PageDepth==".$pd->PageDepth;
-				else
-					$optParamspd['filters']="ga:PageDepth==".$pd->PageDepth;
-				$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamspd, $metrics));
-			}
-		}
-		else if (count($aDims)>7){
+	  	if (count($aDims)>7){
 	  		//die("Too Many Dimensions! ".__FILE__.":".__LINE__);
 	  		$newDims=array();
-	  		for ($i=0;$i<7;$i++){
-	  			$newDims[]=$aDims[$i];
-	  			unset($aDims[$i]);
-	  		}
 	  		//Get First 7 for filter
+	  		googleHelper::splitDims($aDims, $newDims);
+			krumo($aDims);
+			krumo($newDims);
 	  		$optParams['dimensions']=join(",",$newDims);
 	  		$gaFilter=googleHelper::getGAResults($date,$client,$service,$profile, $optParams);
 	  		//krumo($gaFilter);
@@ -89,6 +93,7 @@
 	  //		krumo($results);
 	  	//	die(__FILE__.":".__LINE__);	  		 
 	  	}
+		//Another Complication, if we ask for Goal Abandons but not Goal Starts we get odd results!! 
 		else if (count($aMets)>10){
 	  		$newMets=array();
 	  		for ($i=0;$i<10;$i++){
