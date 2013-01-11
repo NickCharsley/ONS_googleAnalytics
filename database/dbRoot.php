@@ -95,7 +95,14 @@ class dbRoot extends DB_DataObject {
 	function insert(){
 		//krumo($this);
     	$this->filldata();
-    	return parent::insert();
+    	try {
+    		return parent::insert();	
+    	}
+    	catch (Exception $e){
+    		krumo($this);
+    		krumo($e);
+    		die(__FILE__.":".__LINE__);
+    	}
     }
     
     function update($do=false){

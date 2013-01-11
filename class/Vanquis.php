@@ -15,7 +15,8 @@
     	private function getGADimensionOnly($date,$dimName,$metrics='ga:visits'){
     		$dim=safe_DataObject_factory("dim$dimName");
 			googleHelper::resetCount($dimName);
-    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams(),$metrics);  	
+    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams(),$metrics);  
+			krumo($res);	
     		$dim->saveGoogleResults($res);
     	}    	 
 
@@ -86,18 +87,17 @@
 			if (!isset($date)) 
 			{
 				$date=date("Y-m-d",time()-86400);
-				if ($this->factLoaded("Date",$date)) {
+				if ($this->factLoaded("PageTracking",$date)) {
 					debug_print (__FUNCTION__."($date) already loaded");
 					return true;
 				}
 			}
 			    		
-    		/*Date Dimension* /
-    			$this->getGADimensionOnly($date, "Date");
-				$this->getGADimensionOnly($date, "Hour");
-    		/*Page Depth * /
+    		/*Date Dimension*/
+    			$this->getGADimensionOnly($date, "Date");				
+    		/*Page Depth */
 				$this->getGADimensionOnly($date, "PageDepth");
-			/*Page Dimensions * /
+			/*Page Dimensions */
 				$this->getGADimensionOnly($date, "PagePath");				
 				$this->getGADimensionOnly($date, "LandingPagePath");
 				$this->getGADimensionOnly($date, "SecondPagePath");
@@ -118,7 +118,8 @@
 					return true;
 				}
 			}
-			    		
+			/*Profile Dimension*/
+    			$this->getGADimensionOnly($date, "Profile");    		    	
     		/*Date Dimension*/
     			$this->getGADimensionResults($date, "Date");
     		/*Visitor Dimension*/
@@ -151,8 +152,9 @@
 			$this->getGADimensionOnly($date,"Transaction","ga:transactions");
 			$this->getGADimensionOnly($date,"Product","ga:itemQuantity");
 			/**/
-			$date='2012-10-22';
-			$this->getPageTracking($date);
+			$date='2013-01-10';
+			$this->getGADimensionOnly($date, "PreviousPagePath");
+			//$this->getPageTracking($date);
 		}
     	
     	function waterfall($date=NULL){
@@ -183,6 +185,8 @@
     	}
     	
 		function ProfileDates($date=NULL){
+			/*Profile Dimension*/
+    		$this->getGADimensionOnly($date, "Profile");    		    				
 			$this->getGADimensionResults($date, "Date");
 		}
 		
