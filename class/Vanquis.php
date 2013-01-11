@@ -86,26 +86,12 @@
 			if (!isset($date)) 
 			{
 				$date=date("Y-m-d",time()-86400);
-				if ($this->factLoaded("Date",$date)) {
+				if ($this->factLoaded("PageTracking",$date)) {
 					debug_print (__FUNCTION__."($date) already loaded");
 					return true;
 				}
-			}
-			    		
-    		/*Date Dimension* /
-    			$this->getGADimensionOnly($date, "Date");
-				$this->getGADimensionOnly($date, "Hour");
-    		/*Page Depth * /
-				$this->getGADimensionOnly($date, "PageDepth");
-			/*Page Dimensions * /
-				$this->getGADimensionOnly($date, "PagePath");				
-				$this->getGADimensionOnly($date, "LandingPagePath");
-				$this->getGADimensionOnly($date, "SecondPagePath");
-				$this->getGADimensionOnly($date, "NextPagePath");
-				$this->getGADimensionOnly($date, "PreviousPagePath");
-				$this->getGADimensionOnly($date, "ExitPagePath");
-    		/* Page Tracking Fact */
-    			$this->getGAFactOnly($date,"PageTracking");				    		
+			}			    		
+    		$this->getGAFactResults($date,"PageTracking");				    		
     	}
 		 
 

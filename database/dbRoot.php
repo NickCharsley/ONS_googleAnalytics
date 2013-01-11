@@ -151,12 +151,14 @@ class dbRoot extends DB_DataObject {
 				}				
 			}
 			if ($action=="") $action=($fact->find(true))?"update":"insert";
+			$old_fact=clone($fact);
 			//krumo($fact);
 			foreach($row['Metrics'] as $metName=>$metValue){
 				$metName=ucfirst(str_replace("ga:", "", $metName));
 				$fact->$metName=$metValue;
 			}
-			$fact->$action();
+			$fact->$action($old_fact);
+			
 			//if($extra!="") die(__FILE__.":".__LINE__);
 			//ob_flush();			flush();
 		}
