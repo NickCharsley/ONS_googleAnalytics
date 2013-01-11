@@ -58,15 +58,10 @@ $client->setClientId(CLIENT_ID);
 
 $service = new Google_AnalyticsService($client);
 
-/** /
-$vp=new Vanquis($client,$service,55368687);
-$vp->testMCF();
-/** /
-$vl=new Vanquis($client,$service, 61943476);
-$vl->Device();
-/**/
-$nick=new Vanquis($client,$service,67348193);
-$nick->getResults(date('Y-m-d'));
+$date=date('Y-m-d');
+$test=false;
+include_once(buildpath("data",str_replace(".ini", ".php", $do_ini))); 
+
 
 /**/
 if ($client->getAccessToken()) {
