@@ -1,6 +1,13 @@
 ---- --------------------------------------------------------
 
-
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctadwords_one]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctadwords_one]
+go
 IF  EXISTS (
 	SELECT * 
 	FROM sys.objects 
@@ -8,7 +15,8 @@ IF  EXISTS (
 	AND type in (N'U'))
 DROP TABLE [dbo].[dimadwords_one]
 go
-CREATE TABLE "dimadwords_one" (
+
+CREATE TABLE "dbo"."dimadwords_one" (
   "ID" int NOT NULL identity,
   "AdGroup" varchar(45) DEFAULT NULL,
   "AdSlot" varchar(45) DEFAULT NULL,
@@ -19,6 +27,344 @@ CREATE TABLE "dimadwords_one" (
   "AdDestinationUrl" varchar(2048) DEFAULT NULL,
   PRIMARY KEY ("ID")
 );
+
+CREATE TABLE dbo."fctadwords_one" (
+  "ID" int NOT NULL identity,
+  "dimDate" int NOT NULL,
+  "dimProfile" int NOT NULL,
+  "dimAdwords_one" int NOT NULL,
+  "Impressions" varchar(45) DEFAULT NULL,
+  "AdClicks" varchar(45) DEFAULT NULL,
+  "AdCost" varchar(45) DEFAULT NULL,
+  "CPM" varchar(45) DEFAULT NULL,
+  "CPC" varchar(45) DEFAULT NULL,
+  "CTR" varchar(45) DEFAULT NULL,
+  "CostPerTransaction" varchar(45) DEFAULT NULL,
+  "CostPerGoalConversion" varchar(45) DEFAULT NULL,
+  "CostPerConversion" varchar(45) DEFAULT NULL,
+  "RPC" varchar(45) DEFAULT NULL,
+  "ROI" varchar(45) DEFAULT NULL,
+  "Margin" varchar(45) DEFAULT NULL,
+  PRIMARY KEY ("ID"),
+);
+
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctadwords_two]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctadwords_two]
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[dimadwords_two]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[dimadwords_two]
+go
+
+CREATE TABLE dbo."dimadwords_two" (
+  "ID" int NOT NULL identity,
+  "AdGroup" varchar(45) DEFAULT NULL,
+  "AdDistributionNetwork" varchar(45) DEFAULT NULL,
+  "AdMatchType" varchar(45) DEFAULT NULL,
+  "AdDestinationUrl" varchar(2048) DEFAULT NULL,
+  "AdwordsCustomerID" varchar(45) DEFAULT NULL,
+  "AdwordsCampaignID" varchar(45) DEFAULT NULL,
+  "AdwordsAdGroupID" varchar(45) DEFAULT NULL,
+  "AdwordsCreativeID" varchar(45) DEFAULT NULL,
+  "AdwordsCriteriaID" varchar(45) DEFAULT NULL,
+  PRIMARY KEY ("ID")
+);
+
+CREATE TABLE dbo."fctadwords_two" (
+  "ID" int NOT NULL identity,
+  "dimDate" int NOT NULL,
+  "dimProfile" int NOT NULL,
+  "dimAdwords_two" int NOT NULL,
+  "Impressions" varchar(45) DEFAULT NULL,
+  "AdClicks" varchar(45) DEFAULT NULL,
+  "AdCost" varchar(45) DEFAULT NULL,
+  "CPM" varchar(45) DEFAULT NULL,
+  "CPC" varchar(45) DEFAULT NULL,
+  "CTR" varchar(45) DEFAULT NULL,
+  "CostPerTransaction" varchar(45) DEFAULT NULL,
+  "CostPerGoalConversion" varchar(45) DEFAULT NULL,
+  "CostPerConversion" varchar(45) DEFAULT NULL,
+  "RPC" varchar(45) DEFAULT NULL,
+  "ROI" varchar(45) DEFAULT NULL,
+  "Margin" varchar(45) DEFAULT NULL,
+  PRIMARY KEY ("ID")
+);
+
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[dimconversionpathnodes]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[dimconversionpathnodes]
+go
+CREATE TABLE dbo."dimconversionpathnodes" (
+  "ID" int NOT NULL identity,
+  "NodeName" varchar(45) NOT NULL,
+  PRIMARY KEY ("ID")
+) ;
+
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctcustomvar]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctcustomvar]
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[dimcustomvar]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[dimcustomvar]
+go
+
+CREATE TABLE dbo."dimcustomvar" (
+  "ID" int NOT NULL identity,
+  "customVarName" varchar(70) NOT NULL,
+  "customVarValue" varchar(70) NOT NULL,
+  PRIMARY KEY ("ID")
+  
+) ;
+
+CREATE TABLE dbo."fctcustomvar" (
+  "ID" int NOT NULL identity,
+  "dimDate" int NOT NULL,
+  "dimProfile" int NOT NULL,
+  "dimCustomVar1" int NOT NULL,
+  "dimCustomVar2" int NOT NULL,
+  "dimCustomVar3" int NOT NULL,
+  "dimCustomVar4" int NOT NULL,
+  "dimCustomVar5" int NOT NULL,
+  "Visits" int NOT NULL DEFAULT '0',
+  "Visitors" int NOT NULL DEFAULT '0',
+  "NewVisits" int NOT NULL DEFAULT '0',
+  "Bounces" int NOT NULL DEFAULT '0',
+  "TimeOnSite" float NOT NULL DEFAULT '0',
+  "OrganicSearches" int NOT NULL DEFAULT '0',
+  "GoalStartsAll" int NOT NULL DEFAULT '0',
+  "GoalCompletionsAll" int NOT NULL DEFAULT '0',
+  "GoalAbandonsAll" int NOT NULL DEFAULT '0',
+  "GoalValueAll" float NOT NULL DEFAULT '0',
+  "Entrances" int NOT NULL DEFAULT '0',
+  "Pageviews" int NOT NULL DEFAULT '0',
+  "UniquePageviews" int NOT NULL DEFAULT '0',
+  "TimeOnPage" float NOT NULL DEFAULT '0',
+  "Exits" int NOT NULL DEFAULT '0',
+  PRIMARY KEY ("ID")
+) ;
+
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctpagetracking]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctpagetracking]
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctexitpagepath]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctexitpagepath]
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[dimdaysince]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[dimdaysince]
+go
+CREATE TABLE dbo."dimdaysince" (
+  "ID" int NOT NULL,
+  "Days" int DEFAULT NULL,
+  "Description" varchar(45) DEFAULT NULL,
+  PRIMARY KEY ("ID")
+);
+
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctecommerce]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctecommerce]
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[dimecommerce]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[dimecommerce]
+go
+CREATE TABLE dbo."dimecommerce" (
+  "ID" int NOT NULL identity,
+  "TransactionId" varchar(70) NOT NULL,
+  "Affiliation" varchar(70) DEFAULT NULL,
+  "VisitsToTransaction" int DEFAULT NULL,
+  "DaysToTransaction" int DEFAULT NULL,
+  "ProductSku" varchar(70) DEFAULT NULL,
+  "ProductName" varchar(70) DEFAULT NULL,
+  "ProductCategory" varchar(70) DEFAULT NULL,
+  PRIMARY KEY ("ID")
+);
+
+
+CREATE TABLE dbo."fctecommerce" (
+  "ID" int NOT NULL identity,
+  "dimDate" int NOT NULL,
+  "dimProfile" int NOT NULL,
+  "dimEcommerce" int NOT NULL,
+  "ItemQuantity" int NOT NULL,
+  PRIMARY KEY ("ID"),
+  
+);
+
+
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[fctevent]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[fctevent]
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[dimevent]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[dimevent]
+go
+CREATE table dbo."dimevent" (
+  "ID" int NOT NULL identity,
+  "EventCategory" varchar(70) NOT NULL,
+  "EventAction" varchar(70) NOT NULL,
+  "EventLabel" varchar(70) NOT NULL,
+  PRIMARY KEY ("ID"),
+);
+
+CREATE TABLE  dbo."fctevent" (
+  "ID" int identity,
+  "dimDate" int NOT NULL,
+  "dimProfile" int NOT NULL,
+  "dimEvent" int NOT NULL,
+  "Visits" int NOT NULL DEFAULT '0',
+  "Visitors" int NOT NULL DEFAULT '0',
+  "NewVisits" int NOT NULL DEFAULT '0',
+  "Bounces" int NOT NULL DEFAULT '0',
+  "TimeOnSite" float NOT NULL DEFAULT '0',
+  "GoalCompletionsAll" int NOT NULL DEFAULT '0',
+  "Entrances" int NOT NULL DEFAULT '0',
+  "Pageviews" int NOT NULL DEFAULT '0',
+  "TimeOnPage" float NOT NULL DEFAULT '0',
+  "Exits" int NOT NULL DEFAULT '0',
+  "totalEvents" int NOT NULL DEFAULT '0',
+  "uniqueEvents" int NOT NULL DEFAULT '0',
+  "eventValue" int NOT NULL DEFAULT '0',
+  "visitsWithEvent" int NOT NULL DEFAULT '0',
+  "eventsPerVisitWithEvent" int NOT NULL DEFAULT '0',
+  PRIMARY KEY ("ID")  
+);
+
+go
+IF  EXISTS (
+	SELECT * 
+	FROM sys.objects 
+	WHERE object_id = OBJECT_ID(N'[dbo].[dimpagedepth]') 
+	AND type in (N'U'))
+DROP TABLE [dbo].[dimpagedepth]
+go
+CREATE TABLE dbo."dimpagedepth" (
+  "ID" int NOT NULL,
+  "PageDepth" int DEFAULT NULL,
+  "Description" varchar(45) DEFAULT NULL,
+  PRIMARY KEY ("ID"),
+);
+
+CREATE TABLE dbo."fctexitpagepath" (
+  "ID" int NOT NULL,
+  "dimDate" int NOT NULL,
+  "dimProfile" int NOT NULL,
+  "dimLandingPagePath" int NOT NULL,
+  "dimExitPagePath" int NOT NULL,
+  "dimVisitor" int NOT NULL,
+  "dimDaysSinceLastVisit" int NOT NULL,
+  "Visits" int NOT NULL DEFAULT '0',
+  "Visitors" int NOT NULL DEFAULT '0',
+  "NewVisits" int NOT NULL DEFAULT '0',
+  "Bounces" int NOT NULL DEFAULT '0',
+  "TimeOnSite" float NOT NULL DEFAULT '0',
+  "OrganicSearches" int NOT NULL DEFAULT '0',
+  "GoalStartsAll" int NOT NULL DEFAULT '0',
+  "GoalCompletionsAll" int NOT NULL DEFAULT '0',
+  "GoalAbandonsAll" int NOT NULL DEFAULT '0',
+  "GoalValueAll" float NOT NULL DEFAULT '0',
+  "Entrances" int NOT NULL DEFAULT '0',
+  "Pageviews" int NOT NULL DEFAULT '0',
+  "UniquePageviews" int NOT NULL DEFAULT '0',
+  "TimeOnPage" float NOT NULL DEFAULT '0',
+  "Exits" int NOT NULL DEFAULT '0',
+  PRIMARY KEY ("ID")
+);
+
+go
+
+CREATE TABLE dbo."fctpagetracking" (
+  "ID" int NOT NULL identity,
+  "dimDate" int NOT NULL,
+  "dimProfile" int NOT NULL,
+  "dimHostname" int NOT NULL,
+  "dimVisitor" int NOT NULL,
+  "dimPageDepth" int NOT NULL,
+  "dimLandingPagePath" int NOT NULL,
+  "dimSecondPagePath" int NOT NULL,
+  "dimPagePath" int NOT NULL,
+  "dimNextPagePath" int NOT NULL,
+  "dimPreviousPagePath" int NOT NULL,
+  "dimExitPagePath" int NOT NULL,
+  "Entrances" int NOT NULL,
+  "Pageviews" int NOT NULL,
+  "UniquePageviews" int NOT NULL,
+  "TimeOnPage" int NOT NULL,
+  "Exits" int NOT NULL,
+  "GoalCompletionsAll" int NOT NULL DEFAULT '0',
+  "GoalStartsAll" int NOT NULL DEFAULT '0',
+  "GoalAbandonsAll" int NOT NULL DEFAULT '0',
+  "Goal1Completions" int NOT NULL DEFAULT '0',
+  "Goal2Completions" int NOT NULL DEFAULT '0',
+  "Goal3Completions" int NOT NULL DEFAULT '0',
+  "Goal4Completions" int NOT NULL DEFAULT '0',
+  "Goal5Completions" int NOT NULL DEFAULT '0',
+  "Goal6Completions" int NOT NULL DEFAULT '0',
+  "Goal7Completions" int NOT NULL DEFAULT '0',
+  "Goal8Completions" int NOT NULL DEFAULT '0',
+  "Goal9Completions" int NOT NULL DEFAULT '0',
+  "Goal10Completions" int NOT NULL DEFAULT '0',
+  "Goal11Completions" int NOT NULL DEFAULT '0',
+  "Goal12Completions" int NOT NULL DEFAULT '0',
+  "Goal13Completions" int NOT NULL DEFAULT '0',
+  "Goal14Completions" int NOT NULL DEFAULT '0',
+  "Goal15Completions" int NOT NULL DEFAULT '0',
+  "Goal16Completions" int NOT NULL DEFAULT '0',
+  "Goal17Completions" int NOT NULL DEFAULT '0',
+  "Goal18Completions" int NOT NULL DEFAULT '0',
+  "Goal19Completions" int NOT NULL DEFAULT '0',
+  "Goal20Completions" int NOT NULL DEFAULT '0',
+  PRIMARY KEY ("ID")
+) ;
+
+
 
 
 ----
@@ -1124,6 +1470,254 @@ CREATE TABLE "dimadwords_one" (
   
 --) ;
 
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimcustomvar1`
+--
+GO
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimcustomvar1]'))
+DROP VIEW [dbo].[dimcustomvar1]
+GO
+
+CREATE VIEW "dbo"."dimcustomvar1" 
+AS 
+select "ID","customVarName" AS "CustomVarName1","customVarValue" AS "CustomVarValue1" 
+from "dbo"."dimcustomvar";
+go
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimcustomvar2`
+--
+GO
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimcustomvar2]'))
+DROP VIEW [dbo].[dimcustomvar2]
+GO
+
+CREATE VIEW "dbo"."dimcustomvar2" 
+AS 
+select "ID","customVarName" AS "CustomVarName2","customVarValue" AS "CustomVarValue2" 
+from "dbo"."dimcustomvar";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimcustomvar3`
+--
+GO
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimcustomvar3]'))
+DROP VIEW [dbo].[dimcustomvar3]
+GO
+
+CREATE VIEW "dbo"."dimcustomvar3" 
+AS 
+select "ID","customVarName" AS "CustomVarName3","customVarValue" AS "CustomVarValue3" 
+from "dbo"."dimcustomvar";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimcustomvar4`
+--
+GO
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimcustomvar4]'))
+DROP VIEW [dbo].[dimcustomvar4]
+GO
+
+CREATE VIEW "dbo"."dimcustomvar4" 
+AS 
+select "ID","customVarName" AS "CustomVarName1","customVarValue" AS "CustomVarValue4" 
+from "dbo"."dimcustomvar";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimcustomvar5`
+--
+GO
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimcustomvar5]'))
+DROP VIEW [dbo].[dimcustomvar5]
+GO
+
+CREATE VIEW "dbo"."dimcustomvar5" 
+AS 
+select "ID","customVarName" AS "CustomVarName5","customVarValue" AS "CustomVarValue5" 
+from "dbo"."dimcustomvar";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimdayssincelastvisit`
+--
+GO
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimdayssincelastvisit]'))
+DROP VIEW [dbo].[dimdayssincelastvisit]
+GO
+
+CREATE VIEW dbo."dimdayssincelastvisit" AS 
+select "ID","Days" AS "DaysSinceLastVisit","Description" from dbo."dimdaysince";
+
+go
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimexitpagepath`
+--
+GO
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimexitpagepath]'))
+DROP VIEW [dbo].[dimexitpagepath]
+GO
+
+CREATE VIEW dbo."dimexitpagepath" AS 
+select "ID","PagePath" AS "ExitPagePath" 
+from dbo."dimpagepath";
+go
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimlandingpagepath`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimlandingpagepath]'))
+DROP VIEW [dbo].[dimlandingpagepath]
+GO
+
+CREATE VIEW dbo."dimlandingpagepath" AS 
+select "ID","PagePath" AS "LandingPagePath" 
+from dbo."dimpagepath";
+go
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimnextpagepath`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimnextpagepath]'))
+DROP VIEW [dbo].[dimnextpagepath]
+GO
+
+CREATE VIEW dbo."dimnextpagepath" AS 
+select "ID","PagePath" AS "NextPagePath" 
+from dbo."dimpagepath";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimpagepathlevel1`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimpagepathlevel1]'))
+DROP VIEW [dbo].[dimpagepathlevel1]
+GO
+
+CREATE VIEW dbo."dimpagepathlevel1" AS 
+select "ID","PagePath" AS "PagePathLevel1" 
+from dbo."dimpagepath";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimpagepathlevel2`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimpagepathlevel2]'))
+DROP VIEW [dbo].[dimpagepathlevel2]
+GO
+
+CREATE VIEW dbo."dimpagepathlevel2" AS 
+select "ID","PagePath" AS "PagePathLevel2" 
+from dbo."dimpagepath";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimpagepathlevel3`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimpagepathlevel3]'))
+DROP VIEW [dbo].[dimpagepathlevel3]
+GO
+
+CREATE VIEW dbo."dimpagepathlevel3" AS 
+select "ID","PagePath" AS "PagePathLevel3" 
+from dbo."dimpagepath";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimpagepathlevel4`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimpagepathlevel4]'))
+DROP VIEW [dbo].[dimpagepathlevel4]
+GO
+
+CREATE VIEW dbo."dimpagepathlevel4" AS 
+select "ID","PagePath" AS "PagePathLevel4" 
+from dbo."dimpagepath";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimpreviouspagepath`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimpreviouspagepath]'))
+DROP VIEW [dbo].[dimpreviouspagepath]
+GO
+
+CREATE VIEW dbo."dimpreviouspagepath" AS 
+select "ID","PagePath" AS "PreviousPagePath" 
+from dbo."dimpagepath";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimproduct`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimproduct]'))
+DROP VIEW [dbo].[dimproduct]
+GO
+
+CREATE VIEW dbo."dimproduct" AS 
+select "ID","TransactionId" ,"ProductSku" ,"ProductName","ProductCategory" 
+AS "ProductCategory" from dbo."dimecommerce";
+go
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimsecondpagepath`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimsecondpagepath]'))
+DROP VIEW [dbo].[dimsecondpagepath]
+GO
+
+CREATE VIEW dbo."dimsecondpagepath" AS 
+select "ID","PagePath" AS "SecondPagePath" 
+from dbo."dimpagepath";
+go
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `dimtransaction`
+--
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[dimtransaction]'))
+DROP VIEW [dbo].[dimtransaction]
+GO
+
+CREATE VIEW dbo."dimtransaction" AS 
+select "ID","TransactionId", "Affiliation", "VisitsToTransaction", "DaysToTransaction" 
+from dbo."dimecommerce";
+go
+
+
+
 ----
 ---- Constraints for dumped tables
 ----
@@ -1245,5 +1839,52 @@ CREATE TABLE "dimadwords_one" (
 --ALTER table dbo."fctvisitor"  ADD CONSTRAINT fk_fctVisitor_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
 --ALTER table dbo."fctvisitor"  ADD CONSTRAINT fk_fctVisitor_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimvisitor (ID);
 
+go
+ALTER table dbo."fctadwords_one"  ADD CONSTRAINT fk_fctadwords_one_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctadwords_one"  ADD CONSTRAINT fk_fctadwords_one_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctadwords_one"  ADD CONSTRAINT fk_fctadwords_one_dimAdwords_one FOREIGN KEY (dimAdwords_one) REFERENCES dimadwords_one (ID) ;
 
+go
+ALTER table dbo."fctadwords_two"  ADD CONSTRAINT fk_fctadwords_two_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctadwords_two"  ADD CONSTRAINT fk_fctadwords_two_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctadwords_two"  ADD CONSTRAINT fk_fctadwords_two_dimAdwords_two FOREIGN KEY (dimAdwords_two) REFERENCES dimadwords_two (ID) ;
 
+go
+ALTER table dbo."fctCustomVar"  ADD CONSTRAINT fk_fctCustomVar_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctCustomVar"  ADD CONSTRAINT fk_fctCustomVar_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctCustomVar"  ADD CONSTRAINT fk_fctCustomVar_dimCustomVar1 FOREIGN KEY (dimCustomVar1) REFERENCES dimCustomVar (ID) ;
+ALTER table dbo."fctCustomVar"  ADD CONSTRAINT fk_fctCustomVar_dimCustomVar2 FOREIGN KEY (dimCustomVar2) REFERENCES dimCustomVar (ID) ;
+ALTER table dbo."fctCustomVar"  ADD CONSTRAINT fk_fctCustomVar_dimCustomVar3 FOREIGN KEY (dimCustomVar3) REFERENCES dimCustomVar (ID) ;
+ALTER table dbo."fctCustomVar"  ADD CONSTRAINT fk_fctCustomVar_dimCustomVar4 FOREIGN KEY (dimCustomVar4) REFERENCES dimCustomVar (ID) ;
+ALTER table dbo."fctCustomVar"  ADD CONSTRAINT fk_fctCustomVar_dimCustomVar5 FOREIGN KEY (dimCustomVar5) REFERENCES dimCustomVar (ID) ;
+
+go
+ALTER table dbo."fctEcommerce"  ADD CONSTRAINT fk_fctEcommerce_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctEcommerce"  ADD CONSTRAINT fk_fctEcommerce_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctEcommerce"  ADD CONSTRAINT fk_fctEcommerce_dimEcommerce FOREIGN KEY (dimEcommerce) REFERENCES dimEcommerce (ID) ;
+
+go
+ALTER table dbo."fctEvent"  ADD CONSTRAINT fk_fctEvent_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctEvent"  ADD CONSTRAINT fk_fctEvent_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctEvent"  ADD CONSTRAINT fk_fctEvent_dimEvent FOREIGN KEY (dimEvent) REFERENCES dimEvent (ID) ;
+
+go
+ALTER table dbo."fctExitPagePath"  ADD CONSTRAINT fk_fctExitPagePath_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctExitPagePath"  ADD CONSTRAINT fk_fctExitPagePath_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctExitPagePath"  ADD CONSTRAINT fk_fctExitPagePath_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimVisitor (ID) ;
+ALTER table dbo."fctExitPagePath"  ADD CONSTRAINT fk_fctExitPagePath_dimLandingPagePath FOREIGN KEY (dimLandingPagePath) REFERENCES dimPagePath (ID) ;
+ALTER table dbo."fctExitPagePath"  ADD CONSTRAINT fk_fctExitPagePath_dimExitPagePath FOREIGN KEY (dimExitPagePath) REFERENCES dimPagePath (ID) ;
+ALTER table dbo."fctExitPagePath"  ADD CONSTRAINT fk_fctExitPagePath_dimDaysSinceLastVisit FOREIGN KEY (dimDaysSinceLastVisit) REFERENCES dimDaySince (ID) ;
+  
+go
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimDate FOREIGN KEY (dimDate) REFERENCES dimdate (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimProfile FOREIGN KEY (dimProfile) REFERENCES dimprofile (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimVisitor FOREIGN KEY (dimVisitor) REFERENCES dimVisitor (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimLandingPagePath FOREIGN KEY (dimLandingPagePath) REFERENCES dimPagePath (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimExitPagePath FOREIGN KEY (dimExitPagePath) REFERENCES dimPagePath (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimSecondPagePath FOREIGN KEY (dimSecondPagePath) REFERENCES dimPagePath (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimPagePath FOREIGN KEY (dimPagePath) REFERENCES dimPagePath (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimPreviousPagePath FOREIGN KEY (dimPreviousPagePath) REFERENCES dimPagePath (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimNextPagePath FOREIGN KEY (dimNextPagePath) REFERENCES dimPagePath (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimHostname FOREIGN KEY (dimHostname) REFERENCES dimHostname (ID) ;
+ALTER table dbo."fctPageTracking"  ADD CONSTRAINT fk_fctPageTracking_dimPageDepth FOREIGN KEY (dimPageDepth) REFERENCES dimPageDepth (ID) ;
