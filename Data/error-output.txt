@@ -1,0 +1,3 @@
+Error: <stdin>:2: syntax error near line 2
+context: splines=trueA1224 >>>  -> <<<  A1446 [label="2"];
+Warning: Unknown "splines" value: "trueA1224" - ignored

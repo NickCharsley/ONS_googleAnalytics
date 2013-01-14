@@ -173,8 +173,7 @@
     	
 		function ProfileDates($date=NULL){
 			/*Profile Dimension*/
-    		$this->getGADimensionOnly($date, "Profile");    		    				
-			$this->getGADimensionResults($date, "Date");
+    		$this->getGADimensionResults($date, "Date");
 		}
 		
 		function LoanHistory($date=NULL){
