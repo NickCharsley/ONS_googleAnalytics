@@ -15,6 +15,7 @@ if ($test){
 	$pl->test();
 }
 else {	
+	$pl->ProfileDates();
 	$pl->getPageTracking($date);
 
 }
@@ -34,8 +35,9 @@ if ($test){
 	$cm->test();
 }
 else {	
+	$cm->ProfileDates();
 	$cm->getResults($date);
-	$pl->getPageTracking($date);
+	$cm->getPageTracking($date);
 }
 
 
