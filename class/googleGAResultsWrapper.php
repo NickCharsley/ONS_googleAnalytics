@@ -6,7 +6,9 @@
 
  		function __construct($results=null){
  			if (isset($results)){
- 				$rows=$results->getRows();
+ 				$this->dimProfile=$results->profileInfo->profileId;
+				
+				$rows=$results->getRows();
  				$columnHeaders=$results->getColumnHeaders();
  				$basefilter=str_replace(";",",", $results->query->filters);
  				
@@ -19,7 +21,7 @@
 				}
 				$this->rowCount=count($this->matrix);
 				
-				//krumo($results);							
+				//krumo($this);				 									
  			} 			
  		}
 

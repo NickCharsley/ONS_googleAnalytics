@@ -11,12 +11,9 @@ class doDimtraffic extends dbRoot
 
     public $__table = 'dimtraffic';          // table name
     public $ID;                              // int(4)  primary_key not_null
-    public $ReferralPath;                    // varchar(45)  unique_key
-    public $Campaign;                        // varchar(45)  unique_key
-    public $Source;                          // varchar(45)  unique_key
-    public $Medium;                          // varchar(45)  unique_key
-    public $Keyword;                         // varchar(45)  unique_key
-    public $AdContent;                       // varchar(45)  unique_key
+    public $Campaign;                        // varchar(45)  
+    public $Source;                          // varchar(45)  
+    public $Keyword;                         // varchar(512)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimtraffic',$k,$v); }

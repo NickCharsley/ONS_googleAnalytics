@@ -5,6 +5,20 @@
     	private $service;
     	private $profile;
 		private $client;
+
+		function test(){
+			/** /
+			$date='2013-01-01';
+			$this->getGADimensionOnly($date,"Transaction","ga:transactions");
+			$this->getGADimensionOnly($date,"Product","ga:itemQuantity");
+			/**/
+			$date='2013-01-10';
+			$this->getGADimensionResults($date, "Date");
+			$this->getGADimensionResults($date, "Traffic");
+			$this->ValidateFact("Traffic",$date);
+			//$this->getPageTracking($date);
+		}
+
     		    	
     	function __construct($client,$service,$profile){
     		$this->client=$client;
@@ -38,7 +52,7 @@
 			/**/
 			googleHelper::resetCount($dimName);
      		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
-			
+			krumo($res);
     		$dim->saveGoogleResults($res);
     		$fct->saveGoogleResults($res);
     	}
@@ -81,6 +95,57 @@
 			$fct->dimDate=str_replace("-", "", $date);
 			$fct->dimProfile=$this->profile;
 			return $fct->find();
+		}
+
+		protected function ValidateFact($fctName,$date=null){
+			global $db;			
+			
+			if ($date!=null){
+				$do=new DateTime($date);
+				$date=$do->format("Ymd");
+			}
+			
+			$fct=safe_DataObject_factory("fct$fctName");
+			$dte=safe_DataObject_factory("fctDate");
+			
+			$fields=array_intersect(array_keys($fct->table()), array_keys($dte->table()));
+			/**/
+			//Now remove ID and any Dims
+			$measures=array();
+			$sql=  "select dimDate";
+			$sql1= "select dimDate";
+			$sql2= "";
+			$all="";
+			
+			foreach ($fields as $field){
+				if (strtoupper($field)=='ID') continue;
+				if (strtoupper(substr($field,0,3))=='DIM') continue;
+					
+				$measures[]=$field;
+				$sql.=", round(sum($field),2) $field";
+				$sql1.=", round($field,2) $field";
+				
+				$all.=" and (f.$field = d.$field)";
+				
+				$sql2.=", case when f.$field = d.$field then '$field is Valid' else '$field invalid' end $field";
+				
+			}
+			$sql.=" from fct$fctName";
+			$sql1.=" from fctDate";
+			if ($date!=null) $sql.=" where dimDate=".$date;
+			$sql.=" group by dimDate";
+			
+			$sql2= "select d.dimDate, case when (1=1) $all then 'All Valid' else 'Some Invalid' end AllValid $sql2 from ($sql) f join ($sql1) d on f.dimDate=d.dimDate";
+			
+			
+			$res=$db->query($sql2);
+			
+			while (($row = $res->fetchRow())) {
+    			foreach($row as $field)
+    				print_line($field);
+			}	
+		
+			die(__FILE__.":".__LINE__);	
 		}
 
 		function getPageTracking($date=NULL){
@@ -132,17 +197,6 @@
     		/* Custom Var(s) Fact */
     			$this->getGAFactResults($date,"CustomVar");				    		
     	}
-
-		function test(){
-			/** /
-			$date='2013-01-01';
-			$this->getGADimensionOnly($date,"Transaction","ga:transactions");
-			$this->getGADimensionOnly($date,"Product","ga:itemQuantity");
-			/**/
-			$date='2013-01-10';
-			$this->getGADimensionOnly($date, "PreviousPagePath");
-			//$this->getPageTracking($date);
-		}
     	
     	function waterfall($date=NULL){
 			if (!isset($date)) 

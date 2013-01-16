@@ -182,7 +182,9 @@ class dbRoot extends DB_DataObject {
 		$ret= array(
 			'dimensions' => $Dims,
 			'max-results' => '2000',		
-			'start-index' => 1
+			'start-index' => 1,
+			//'language'=>'pl'
+			
 		);
 		return $ret;
 	}
