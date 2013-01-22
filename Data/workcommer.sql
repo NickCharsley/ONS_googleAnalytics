@@ -3,11 +3,10 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2013 at 10:20 AM
+-- Generation Time: Jan 22, 2013 at 02:59 PM
 -- Server version: 5.5.27-log
 -- PHP Version: 5.4.7
 
-SET FOREIGN_KEY_CHECKS=0;
 SET time_zone = "+00:00";
 
 
@@ -26,7 +25,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `dimadwords_one`
 --
 
-CREATE TABLE IF NOT EXISTS "dimadwords_one" (
+CREATE TABLE "dimadwords_one" (
   "ID" int(11) NOT NULL,
   "AdGroup" varchar(45) DEFAULT NULL,
   "AdSlot" varchar(45) DEFAULT NULL,
@@ -44,7 +43,7 @@ CREATE TABLE IF NOT EXISTS "dimadwords_one" (
 -- Table structure for table `dimadwords_two`
 --
 
-CREATE TABLE IF NOT EXISTS "dimadwords_two" (
+CREATE TABLE "dimadwords_two" (
   "ID" int(11) NOT NULL,
   "AdGroup" varchar(45) DEFAULT NULL,
   "AdDistributionNetwork" varchar(45) DEFAULT NULL,
@@ -64,7 +63,7 @@ CREATE TABLE IF NOT EXISTS "dimadwords_two" (
 -- Table structure for table `dimconversionpathnodes`
 --
 
-CREATE TABLE IF NOT EXISTS "dimconversionpathnodes" (
+CREATE TABLE "dimconversionpathnodes" (
   "ID" int(11) NOT NULL,
   "NodeName" varchar(45) NOT NULL,
   PRIMARY KEY ("ID")
@@ -76,7 +75,7 @@ CREATE TABLE IF NOT EXISTS "dimconversionpathnodes" (
 -- Table structure for table `dimcustomvar`
 --
 
-CREATE TABLE IF NOT EXISTS "dimcustomvar" (
+CREATE TABLE "dimcustomvar" (
   "ID" int(11) NOT NULL,
   "customVarName" varchar(70) NOT NULL,
   "customVarValue" varchar(70) NOT NULL,
@@ -89,7 +88,7 @@ CREATE TABLE IF NOT EXISTS "dimcustomvar" (
 --
 -- Stand-in structure for view `dimcustomvar1`
 --
-CREATE TABLE IF NOT EXISTS `dimcustomvar1` (
+CREATE TABLE `dimcustomvar1` (
 `ID` int(11)
 ,`CustomVarName1` varchar(70)
 ,`CustomVarValue1` varchar(70)
@@ -99,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `dimcustomvar1` (
 --
 -- Stand-in structure for view `dimcustomvar2`
 --
-CREATE TABLE IF NOT EXISTS `dimcustomvar2` (
+CREATE TABLE `dimcustomvar2` (
 `ID` int(11)
 ,`CustomVarName2` varchar(70)
 ,`CustomVarValue2` varchar(70)
@@ -109,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `dimcustomvar2` (
 --
 -- Stand-in structure for view `dimcustomvar3`
 --
-CREATE TABLE IF NOT EXISTS `dimcustomvar3` (
+CREATE TABLE `dimcustomvar3` (
 `ID` int(11)
 ,`CustomVarName3` varchar(70)
 ,`CustomVarValue3` varchar(70)
@@ -119,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `dimcustomvar3` (
 --
 -- Stand-in structure for view `dimcustomvar4`
 --
-CREATE TABLE IF NOT EXISTS `dimcustomvar4` (
+CREATE TABLE `dimcustomvar4` (
 `ID` int(11)
 ,`CustomVarName4` varchar(70)
 ,`CustomVarValue4` varchar(70)
@@ -129,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `dimcustomvar4` (
 --
 -- Stand-in structure for view `dimcustomvar5`
 --
-CREATE TABLE IF NOT EXISTS `dimcustomvar5` (
+CREATE TABLE `dimcustomvar5` (
 `ID` int(11)
 ,`CustomVarName5` varchar(70)
 ,`CustomVarValue5` varchar(70)
@@ -140,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `dimcustomvar5` (
 -- Table structure for table `dimdate`
 --
 
-CREATE TABLE IF NOT EXISTS "dimdate" (
+CREATE TABLE "dimdate" (
   "ID" int(11) NOT NULL,
   "Date" date DEFAULT NULL,
   "Description" varchar(45) DEFAULT NULL,
@@ -161,7 +160,7 @@ CREATE TABLE IF NOT EXISTS "dimdate" (
 -- Table structure for table `dimdaysince`
 --
 
-CREATE TABLE IF NOT EXISTS "dimdaysince" (
+CREATE TABLE "dimdaysince" (
   "ID" int(11) NOT NULL,
   "Days" int(11) DEFAULT NULL,
   "Description" varchar(45) DEFAULT NULL,
@@ -174,7 +173,7 @@ CREATE TABLE IF NOT EXISTS "dimdaysince" (
 --
 -- Stand-in structure for view `dimdayssincelastvisit`
 --
-CREATE TABLE IF NOT EXISTS `dimdayssincelastvisit` (
+CREATE TABLE `dimdayssincelastvisit` (
 `ID` int(11)
 ,`DaysSinceLastVisit` int(11)
 ,`Description` varchar(45)
@@ -185,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `dimdayssincelastvisit` (
 -- Table structure for table `dimecommerce`
 --
 
-CREATE TABLE IF NOT EXISTS "dimecommerce" (
+CREATE TABLE "dimecommerce" (
   "ID" int(11) NOT NULL,
   "TransactionId" varchar(70) NOT NULL,
   "Affiliation" varchar(70) DEFAULT NULL,
@@ -203,7 +202,7 @@ CREATE TABLE IF NOT EXISTS "dimecommerce" (
 -- Table structure for table `dimevent`
 --
 
-CREATE TABLE IF NOT EXISTS "dimevent" (
+CREATE TABLE "dimevent" (
   "ID" int(11) NOT NULL,
   "EventCategory" varchar(70) NOT NULL,
   "EventAction" varchar(70) NOT NULL,
@@ -217,7 +216,7 @@ CREATE TABLE IF NOT EXISTS "dimevent" (
 --
 -- Stand-in structure for view `dimexitpagepath`
 --
-CREATE TABLE IF NOT EXISTS `dimexitpagepath` (
+CREATE TABLE `dimexitpagepath` (
 `ID` int(11)
 ,`ExitPagePath` varchar(4096)
 );
@@ -227,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `dimexitpagepath` (
 -- Table structure for table `dimgeo`
 --
 
-CREATE TABLE IF NOT EXISTS "dimgeo" (
+CREATE TABLE "dimgeo" (
   "ID" int(11) NOT NULL,
   "Latitude" decimal(9,6) NOT NULL,
   "Longitude" decimal(9,6) NOT NULL,
@@ -242,15 +241,31 @@ CREATE TABLE IF NOT EXISTS "dimgeo" (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dimgoal`
+--
+
+CREATE TABLE "dimgoal" (
+  "ID" int(11) NOT NULL,
+  "dimProfile" int(11) NOT NULL,
+  "GoalNumber" int(11) NOT NULL,
+  "GoalLabel" varchar(70) NOT NULL,
+  PRIMARY KEY ("ID"),
+  UNIQUE KEY "dimEvent_indx" ("dimProfile","GoalNumber","GoalLabel"),
+  KEY "fk_dimGoal_dimProfile_idx" ("dimProfile")
+) AUTO_INCREMENT=194 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dimhostname`
 --
 
-CREATE TABLE IF NOT EXISTS "dimhostname" (
+CREATE TABLE "dimhostname" (
   "ID" int(11) NOT NULL,
   "Hostname" varchar(512) NOT NULL,
   PRIMARY KEY ("ID"),
   UNIQUE KEY "indx_dimHostName" ("Hostname")
-) AUTO_INCREMENT=10 ;
+) AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -258,7 +273,7 @@ CREATE TABLE IF NOT EXISTS "dimhostname" (
 -- Table structure for table `dimhour`
 --
 
-CREATE TABLE IF NOT EXISTS "dimhour" (
+CREATE TABLE "dimhour" (
   "ID" int(11) NOT NULL,
   "Hour" varchar(2) NOT NULL,
   "Description" varchar(45) NOT NULL,
@@ -272,7 +287,7 @@ CREATE TABLE IF NOT EXISTS "dimhour" (
 --
 -- Stand-in structure for view `dimlandingpagepath`
 --
-CREATE TABLE IF NOT EXISTS `dimlandingpagepath` (
+CREATE TABLE `dimlandingpagepath` (
 `ID` int(11)
 ,`LandingPagePath` varchar(4096)
 );
@@ -282,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `dimlandingpagepath` (
 -- Table structure for table `dimmobile`
 --
 
-CREATE TABLE IF NOT EXISTS "dimmobile" (
+CREATE TABLE "dimmobile" (
   "ID" int(11) NOT NULL,
   "IsMobile" varchar(45) NOT NULL,
   "MobileDeviceBranding" varchar(45) NOT NULL,
@@ -298,7 +313,7 @@ CREATE TABLE IF NOT EXISTS "dimmobile" (
 -- Table structure for table `dimnetwork`
 --
 
-CREATE TABLE IF NOT EXISTS "dimnetwork" (
+CREATE TABLE "dimnetwork" (
   "ID" int(11) NOT NULL,
   "NetworkDomain" varchar(45) NOT NULL,
   "NetworkLocation" varchar(512) NOT NULL,
@@ -311,7 +326,7 @@ CREATE TABLE IF NOT EXISTS "dimnetwork" (
 --
 -- Stand-in structure for view `dimnextpagepath`
 --
-CREATE TABLE IF NOT EXISTS `dimnextpagepath` (
+CREATE TABLE `dimnextpagepath` (
 `ID` int(11)
 ,`NextPagePath` varchar(4096)
 );
@@ -321,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `dimnextpagepath` (
 -- Table structure for table `dimpagedepth`
 --
 
-CREATE TABLE IF NOT EXISTS "dimpagedepth" (
+CREATE TABLE "dimpagedepth" (
   "ID" int(11) NOT NULL,
   "PageDepth" int(11) DEFAULT NULL,
   "Description" varchar(45) DEFAULT NULL,
@@ -335,7 +350,7 @@ CREATE TABLE IF NOT EXISTS "dimpagedepth" (
 -- Table structure for table `dimpagepath`
 --
 
-CREATE TABLE IF NOT EXISTS "dimpagepath" (
+CREATE TABLE "dimpagepath" (
   "ID" int(11) NOT NULL,
   "PagePath" varchar(4096) NOT NULL,
   "PageType" varchar(45) NOT NULL DEFAULT 'Unknown',
@@ -344,14 +359,14 @@ CREATE TABLE IF NOT EXISTS "dimpagepath" (
   "hasURN" int(11) NOT NULL DEFAULT '0',
   "URN" varchar(24) DEFAULT NULL,
   PRIMARY KEY ("ID")
-) AUTO_INCREMENT=1443 ;
+) AUTO_INCREMENT=1711 ;
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `dimpagepathlevel1`
 --
-CREATE TABLE IF NOT EXISTS `dimpagepathlevel1` (
+CREATE TABLE `dimpagepathlevel1` (
 `ID` int(11)
 ,`PagePathLevel1` varchar(4096)
 );
@@ -360,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `dimpagepathlevel1` (
 --
 -- Stand-in structure for view `dimpagepathlevel2`
 --
-CREATE TABLE IF NOT EXISTS `dimpagepathlevel2` (
+CREATE TABLE `dimpagepathlevel2` (
 `ID` int(11)
 ,`PagePathLevel2` varchar(4096)
 );
@@ -369,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `dimpagepathlevel2` (
 --
 -- Stand-in structure for view `dimpagepathlevel3`
 --
-CREATE TABLE IF NOT EXISTS `dimpagepathlevel3` (
+CREATE TABLE `dimpagepathlevel3` (
 `ID` int(11)
 ,`PagePathLevel3` varchar(4096)
 );
@@ -378,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `dimpagepathlevel3` (
 --
 -- Stand-in structure for view `dimpagepathlevel4`
 --
-CREATE TABLE IF NOT EXISTS `dimpagepathlevel4` (
+CREATE TABLE `dimpagepathlevel4` (
 `ID` int(11)
 ,`PagePathLevel4` varchar(4096)
 );
@@ -388,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `dimpagepathlevel4` (
 -- Table structure for table `dimplatform`
 --
 
-CREATE TABLE IF NOT EXISTS "dimplatform" (
+CREATE TABLE "dimplatform" (
   "ID" int(11) NOT NULL,
   "Browser" varchar(45) NOT NULL,
   "BrowserVersion" varchar(45) NOT NULL,
@@ -402,7 +417,7 @@ CREATE TABLE IF NOT EXISTS "dimplatform" (
 --
 -- Stand-in structure for view `dimpreviouspagepath`
 --
-CREATE TABLE IF NOT EXISTS `dimpreviouspagepath` (
+CREATE TABLE `dimpreviouspagepath` (
 `ID` int(11)
 ,`PreviousPagePath` varchar(4096)
 );
@@ -411,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `dimpreviouspagepath` (
 --
 -- Stand-in structure for view `dimproduct`
 --
-CREATE TABLE IF NOT EXISTS `dimproduct` (
+CREATE TABLE `dimproduct` (
 `ID` int(11)
 ,`TransactionId` varchar(70)
 ,`ProductSku` varchar(70)
@@ -424,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `dimproduct` (
 -- Table structure for table `dimprofile`
 --
 
-CREATE TABLE IF NOT EXISTS "dimprofile" (
+CREATE TABLE "dimprofile" (
   "ID" int(11) NOT NULL,
   "ProfileName" varchar(45) NOT NULL DEFAULT 'Unknown',
   "WebPropertyID" varchar(45) NOT NULL,
@@ -439,7 +454,7 @@ CREATE TABLE IF NOT EXISTS "dimprofile" (
 --
 -- Stand-in structure for view `dimsecondpagepath`
 --
-CREATE TABLE IF NOT EXISTS `dimsecondpagepath` (
+CREATE TABLE `dimsecondpagepath` (
 `ID` int(11)
 ,`SecondPagePath` varchar(4096)
 );
@@ -449,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `dimsecondpagepath` (
 -- Table structure for table `dimsession`
 --
 
-CREATE TABLE IF NOT EXISTS "dimsession" (
+CREATE TABLE "dimsession" (
   "ID" int(11) NOT NULL,
   "VisitLength" int(11) NOT NULL,
   PRIMARY KEY ("ID")
@@ -461,7 +476,7 @@ CREATE TABLE IF NOT EXISTS "dimsession" (
 -- Table structure for table `dimsocialtraffic`
 --
 
-CREATE TABLE IF NOT EXISTS "dimsocialtraffic" (
+CREATE TABLE "dimsocialtraffic" (
   "ID" int(11) NOT NULL,
   "SocialNetwork" varchar(45) DEFAULT NULL,
   "HasSocialSourceReferral" varchar(45) DEFAULT NULL,
@@ -474,7 +489,7 @@ CREATE TABLE IF NOT EXISTS "dimsocialtraffic" (
 -- Table structure for table `dimsystem`
 --
 
-CREATE TABLE IF NOT EXISTS "dimsystem" (
+CREATE TABLE "dimsystem" (
   "ID" int(11) NOT NULL,
   "FlashVersion" varchar(45) NOT NULL,
   "JavaEnabled" varchar(45) NOT NULL,
@@ -491,24 +506,20 @@ CREATE TABLE IF NOT EXISTS "dimsystem" (
 -- Table structure for table `dimtraffic`
 --
 
-CREATE TABLE IF NOT EXISTS "dimtraffic" (
+CREATE TABLE "dimtraffic" (
   "ID" int(11) NOT NULL,
-  "ReferralPath" varchar(45) DEFAULT NULL,
   "Campaign" varchar(45) DEFAULT NULL,
   "Source" varchar(45) DEFAULT NULL,
-  "Medium" varchar(45) DEFAULT NULL,
-  "Keyword" varchar(45) DEFAULT NULL,
-  "AdContent" varchar(45) DEFAULT NULL,
-  PRIMARY KEY ("ID"),
-  UNIQUE KEY "indx_dimTraffic" ("ReferralPath","Campaign","Source","Medium","Keyword","AdContent")
-) AUTO_INCREMENT=226 ;
+  "Keyword" varchar(512) DEFAULT NULL,
+  PRIMARY KEY ("ID")
+) AUTO_INCREMENT=693 ;
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `dimtransaction`
 --
-CREATE TABLE IF NOT EXISTS `dimtransaction` (
+CREATE TABLE `dimtransaction` (
 `ID` int(11)
 ,`TransactionId` varchar(70)
 ,`Affiliation` varchar(70)
@@ -521,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `dimtransaction` (
 -- Table structure for table `dimvisitor`
 --
 
-CREATE TABLE IF NOT EXISTS "dimvisitor" (
+CREATE TABLE "dimvisitor" (
   "ID" int(11) NOT NULL,
   "VisitCount" int(11) DEFAULT NULL,
   "VisitorType" varchar(45) DEFAULT NULL,
@@ -535,7 +546,7 @@ CREATE TABLE IF NOT EXISTS "dimvisitor" (
 -- Table structure for table `fctadwords_one`
 --
 
-CREATE TABLE IF NOT EXISTS "fctadwords_one" (
+CREATE TABLE "fctadwords_one" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimAdwords_one" int(11) NOT NULL,
@@ -562,7 +573,7 @@ CREATE TABLE IF NOT EXISTS "fctadwords_one" (
 -- Table structure for table `fctadwords_two`
 --
 
-CREATE TABLE IF NOT EXISTS "fctadwords_two" (
+CREATE TABLE "fctadwords_two" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimAdwords_two" int(11) NOT NULL,
@@ -589,7 +600,7 @@ CREATE TABLE IF NOT EXISTS "fctadwords_two" (
 -- Table structure for table `fctcustomvar`
 --
 
-CREATE TABLE IF NOT EXISTS "fctcustomvar" (
+CREATE TABLE "fctcustomvar" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -630,7 +641,7 @@ CREATE TABLE IF NOT EXISTS "fctcustomvar" (
 -- Table structure for table `fctdate`
 --
 
-CREATE TABLE IF NOT EXISTS "fctdate" (
+CREATE TABLE "fctdate" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -649,11 +660,54 @@ CREATE TABLE IF NOT EXISTS "fctdate" (
   "UniquePageviews" int(11) NOT NULL DEFAULT '0',
   "TimeOnPage" float NOT NULL DEFAULT '0',
   "Exits" int(11) NOT NULL DEFAULT '0',
+  "Impressions" int(11) NOT NULL DEFAULT '0',
+  "AdClicks" int(11) NOT NULL DEFAULT '0',
+  "AdCost" float NOT NULL DEFAULT '0',
+  "Goal1Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal2Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal3Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal4Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal5Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal6Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal7Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal8Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal9Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal10Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal11Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal12Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal13Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal14Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal15Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal16Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal17Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal18Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal19Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal20Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal1Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal2Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal3Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal4Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal5Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal6Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal7Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal8Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal9Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal10Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal11Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal12Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal13Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal14Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal15Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal16Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal17Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal18Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal19Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal20Starts" int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY ("ID"),
   UNIQUE KEY "indx_dimDate" ("dimDate","dimProfile"),
   KEY "fk_fctDate_dimDate_idx" ("dimDate"),
   KEY "fk_fctDate_dimProfile_idx" ("dimProfile")
-) AUTO_INCREMENT=3267 ;
+) AUTO_INCREMENT=4473 ;
 
 -- --------------------------------------------------------
 
@@ -661,7 +715,7 @@ CREATE TABLE IF NOT EXISTS "fctdate" (
 -- Table structure for table `fctdevice`
 --
 
-CREATE TABLE IF NOT EXISTS "fctdevice" (
+CREATE TABLE "fctdevice" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimHour" int(11) NOT NULL,
@@ -689,7 +743,7 @@ CREATE TABLE IF NOT EXISTS "fctdevice" (
 -- Table structure for table `fctecommerce`
 --
 
-CREATE TABLE IF NOT EXISTS "fctecommerce" (
+CREATE TABLE "fctecommerce" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -708,7 +762,7 @@ CREATE TABLE IF NOT EXISTS "fctecommerce" (
 -- Table structure for table `fctevent`
 --
 
-CREATE TABLE IF NOT EXISTS "fctevent" (
+CREATE TABLE "fctevent" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -741,7 +795,7 @@ CREATE TABLE IF NOT EXISTS "fctevent" (
 -- Table structure for table `fctexitpagepath`
 --
 
-CREATE TABLE IF NOT EXISTS "fctexitpagepath" (
+CREATE TABLE "fctexitpagepath" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -780,7 +834,7 @@ CREATE TABLE IF NOT EXISTS "fctexitpagepath" (
 -- Table structure for table `fctform`
 --
 
-CREATE TABLE IF NOT EXISTS "fctform" (
+CREATE TABLE "fctform" (
   "ID" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
@@ -815,7 +869,7 @@ CREATE TABLE IF NOT EXISTS "fctform" (
 -- Table structure for table `fctgeo`
 --
 
-CREATE TABLE IF NOT EXISTS "fctgeo" (
+CREATE TABLE "fctgeo" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -845,10 +899,33 @@ CREATE TABLE IF NOT EXISTS "fctgeo" (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fctgoaltraffic`
+--
+
+CREATE TABLE "fctgoaltraffic" (
+  "ID" int(11) NOT NULL,
+  "dimDate" int(11) NOT NULL,
+  "dimProfile" int(11) NOT NULL,
+  "dimTraffic" int(11) NOT NULL,
+  "dimGoal" int(11) NOT NULL,
+  "GoalCompletions" int(11) NOT NULL DEFAULT '0',
+  "GoalStarts" int(11) NOT NULL DEFAULT '0',
+  "GoalAbandons" int(11) NOT NULL DEFAULT '0',
+  "GoalValue" int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY ("ID"),
+  KEY "fk_fctGoalTraffic_dimDate" ("dimDate"),
+  KEY "fk_fctGoalTraffic_dimGoal" ("dimGoal"),
+  KEY "fk_fctGoalTraffic_dimProfile" ("dimProfile"),
+  KEY "fk_fctGoalTraffic_dimTraffic" ("dimTraffic")
+) AUTO_INCREMENT=109 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fcthostname`
 --
 
-CREATE TABLE IF NOT EXISTS "fcthostname" (
+CREATE TABLE "fcthostname" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -873,7 +950,7 @@ CREATE TABLE IF NOT EXISTS "fcthostname" (
   KEY "fk_fctHostname_dimDate_idx" ("dimDate"),
   KEY "fk_fctHostname_dimProfile_idx" ("dimProfile"),
   KEY "fk_fctHostname_dimHostname_idx" ("dimHostname")
-) AUTO_INCREMENT=60 ;
+) AUTO_INCREMENT=64 ;
 
 -- --------------------------------------------------------
 
@@ -881,7 +958,7 @@ CREATE TABLE IF NOT EXISTS "fcthostname" (
 -- Table structure for table `fctlandingpagepath`
 --
 
-CREATE TABLE IF NOT EXISTS "fctlandingpagepath" (
+CREATE TABLE "fctlandingpagepath" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -914,7 +991,7 @@ CREATE TABLE IF NOT EXISTS "fctlandingpagepath" (
 -- Table structure for table `fctloanhistory`
 --
 
-CREATE TABLE IF NOT EXISTS "fctloanhistory" (
+CREATE TABLE "fctloanhistory" (
   "ID" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
@@ -1042,7 +1119,7 @@ CREATE TABLE IF NOT EXISTS "fctloanhistory" (
 -- Table structure for table `fctmobile`
 --
 
-CREATE TABLE IF NOT EXISTS "fctmobile" (
+CREATE TABLE "fctmobile" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -1075,7 +1152,7 @@ CREATE TABLE IF NOT EXISTS "fctmobile" (
 -- Table structure for table `fctnetwork`
 --
 
-CREATE TABLE IF NOT EXISTS "fctnetwork" (
+CREATE TABLE "fctnetwork" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -1100,7 +1177,7 @@ CREATE TABLE IF NOT EXISTS "fctnetwork" (
   KEY "fk_fctNetwork_dimDate_idx" ("dimDate"),
   KEY "fk_fctNetwork_dimProfile_idx" ("dimProfile"),
   KEY "fk_fctNetwork_dimNetwork_idx" ("dimNetwork")
-) AUTO_INCREMENT=81 ;
+) AUTO_INCREMENT=82 ;
 
 -- --------------------------------------------------------
 
@@ -1108,7 +1185,7 @@ CREATE TABLE IF NOT EXISTS "fctnetwork" (
 -- Table structure for table `fctpagetracking`
 --
 
-CREATE TABLE IF NOT EXISTS "fctpagetracking" (
+CREATE TABLE "fctpagetracking" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -1161,7 +1238,7 @@ CREATE TABLE IF NOT EXISTS "fctpagetracking" (
   KEY "fk_fctPageTracking_dimNextPagePath" ("dimNextPagePath"),
   KEY "fk_fctPageTracking_dimPreviousPagePath" ("dimPreviousPagePath"),
   KEY "fk_fctPageTracking_dimExitPagePath" ("dimExitPagePath")
-) AUTO_INCREMENT=1417 ;
+) AUTO_INCREMENT=3143 ;
 
 -- --------------------------------------------------------
 
@@ -1169,7 +1246,7 @@ CREATE TABLE IF NOT EXISTS "fctpagetracking" (
 -- Table structure for table `fctplatform`
 --
 
-CREATE TABLE IF NOT EXISTS "fctplatform" (
+CREATE TABLE "fctplatform" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -1202,7 +1279,7 @@ CREATE TABLE IF NOT EXISTS "fctplatform" (
 -- Table structure for table `fctsession`
 --
 
-CREATE TABLE IF NOT EXISTS "fctsession" (
+CREATE TABLE "fctsession" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -1235,7 +1312,7 @@ CREATE TABLE IF NOT EXISTS "fctsession" (
 -- Table structure for table `fctsystem`
 --
 
-CREATE TABLE IF NOT EXISTS "fctsystem" (
+CREATE TABLE "fctsystem" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -1265,10 +1342,68 @@ CREATE TABLE IF NOT EXISTS "fctsystem" (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fcttraffic`
+--
+
+CREATE TABLE "fcttraffic" (
+  "ID" int(11) NOT NULL,
+  "dimDate" int(11) NOT NULL,
+  "dimProfile" int(11) NOT NULL,
+  "dimTraffic" int(11) NOT NULL,
+  "Visits" int(11) NOT NULL DEFAULT '0',
+  "NewVisits" int(11) NOT NULL DEFAULT '0',
+  "Bounces" int(11) NOT NULL DEFAULT '0',
+  "TimeOnPage" int(11) NOT NULL DEFAULT '0',
+  "OrganicSearches" int(11) NOT NULL DEFAULT '0',
+  "Impressions" int(11) NOT NULL DEFAULT '0',
+  "AdClicks" int(11) NOT NULL DEFAULT '0',
+  "AdCost" float NOT NULL DEFAULT '0',
+  "Pageviews" int(11) NOT NULL DEFAULT '0',
+  "UniquePageviews" int(11) NOT NULL DEFAULT '0',
+  "TimeOnSite" int(11) NOT NULL DEFAULT '0',
+  "Goal1Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal1Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal2Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal2Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal3Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal3Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal4Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal4Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal6Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal6Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal7Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal7Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal8Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal8Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal9Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal9Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal10Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal10Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal11Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal11Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal12Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal12Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal13Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal13Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal14Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal14Starts" int(11) NOT NULL DEFAULT '0',
+  "Goal15Completions" int(11) NOT NULL DEFAULT '0',
+  "Goal15Starts" int(11) NOT NULL DEFAULT '0',
+  "GoalCompletionsAll" int(11) NOT NULL DEFAULT '0',
+  "GoalStartsAll" int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY ("ID"),
+  KEY "fk_fctTraffic_dimDate" ("dimDate"),
+  KEY "fk_fctTraffic_dimProfile" ("dimProfile"),
+  KEY "fk_fctTraffic_dimTraffic" ("dimTraffic")
+) AUTO_INCREMENT=43 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fctvisitor`
 --
 
-CREATE TABLE IF NOT EXISTS "fctvisitor" (
+CREATE TABLE "fctvisitor" (
   "ID" int(11) NOT NULL,
   "dimDate" int(11) NOT NULL,
   "dimProfile" int(11) NOT NULL,
@@ -1453,6 +1588,12 @@ CREATE VIEW "workcommer"."dimtransaction" AS select "workcommer"."dimecommerce".
 --
 
 --
+-- Constraints for table `dimgoal`
+--
+ALTER TABLE `dimgoal`
+  ADD CONSTRAINT "fk_dimGoal_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `fctadwords_one`
 --
 ALTER TABLE `fctadwords_one`
@@ -1545,6 +1686,15 @@ ALTER TABLE `fctgeo`
   ADD CONSTRAINT "fk_fctGeo_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `fctgoaltraffic`
+--
+ALTER TABLE `fctgoaltraffic`
+  ADD CONSTRAINT "fk_fctGoalTraffic_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctGoalTraffic_dimGoal" FOREIGN KEY ("dimGoal") REFERENCES "dimgoal" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctGoalTraffic_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctGoalTraffic_dimTraffic" FOREIGN KEY ("dimTraffic") REFERENCES "dimtraffic" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `fcthostname`
 --
 ALTER TABLE `fcthostname`
@@ -1597,16 +1747,16 @@ ALTER TABLE `fctnetwork`
 --
 ALTER TABLE `fctpagetracking`
   ADD CONSTRAINT "fk_fctPageTracking_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT "fk_fctPageTracking_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctPageTracking_dimExitPagePath" FOREIGN KEY ("dimExitPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctPageTracking_dimHostname" FOREIGN KEY ("dimHostname") REFERENCES "dimhostname" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT "fk_fctPageTracking_dimVisitor" FOREIGN KEY ("dimVisitor") REFERENCES "dimvisitor" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT "fk_fctPageTracking_dimPageDepth" FOREIGN KEY ("dimPageDepth") REFERENCES "dimpagedepth" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctPageTracking_dimLandingPagePath" FOREIGN KEY ("dimLandingPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT "fk_fctPageTracking_dimSecondPagePath" FOREIGN KEY ("dimSecondPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT "fk_fctPageTracking_dimPagePath" FOREIGN KEY ("dimPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctPageTracking_dimNextPagePath" FOREIGN KEY ("dimNextPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctPageTracking_dimPageDepth" FOREIGN KEY ("dimPageDepth") REFERENCES "dimpagedepth" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctPageTracking_dimPagePath" FOREIGN KEY ("dimPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctPageTracking_dimPreviousPagePath" FOREIGN KEY ("dimPreviousPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT "fk_fctPageTracking_dimExitPagePath" FOREIGN KEY ("dimExitPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT "fk_fctPageTracking_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctPageTracking_dimSecondPagePath" FOREIGN KEY ("dimSecondPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctPageTracking_dimVisitor" FOREIGN KEY ("dimVisitor") REFERENCES "dimvisitor" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `fctplatform`
@@ -1633,13 +1783,20 @@ ALTER TABLE `fctsystem`
   ADD CONSTRAINT "fk_fctSystem_dimSystem" FOREIGN KEY ("dimSystem") REFERENCES "dimsystem" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `fcttraffic`
+--
+ALTER TABLE `fcttraffic`
+  ADD CONSTRAINT "fk_fctTraffic_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctTraffic_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT "fk_fctTraffic_dimTraffic" FOREIGN KEY ("dimTraffic") REFERENCES "dimtraffic" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `fctvisitor`
 --
 ALTER TABLE `fctvisitor`
   ADD CONSTRAINT "fk_fctVisitor_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctVisitor_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT "fk_fctVisitor_dimVisitor" FOREIGN KEY ("dimVisitor") REFERENCES "dimvisitor" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION;
-SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
