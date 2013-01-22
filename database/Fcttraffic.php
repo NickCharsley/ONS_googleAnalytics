@@ -25,49 +25,36 @@ class doFcttraffic extends dbRoot
     public $Pageviews;                       // int(4)   not_null
     public $UniquePageviews;                 // int(4)   not_null
     public $TimeOnSite;                      // int(4)   not_null
+    public $Goal1Completions;                // int(4)   not_null
+    public $Goal1Starts;                     // int(4)   not_null
+    public $Goal2Completions;                // int(4)   not_null
+    public $Goal2Starts;                     // int(4)   not_null
+    public $Goal3Completions;                // int(4)   not_null
+    public $Goal3Starts;                     // int(4)   not_null
+    public $Goal4Completions;                // int(4)   not_null
+    public $Goal4Starts;                     // int(4)   not_null
+    public $Goal6Completions;                // int(4)   not_null
+    public $Goal6Starts;                     // int(4)   not_null
+    public $Goal7Completions;                // int(4)   not_null
+    public $Goal7Starts;                     // int(4)   not_null
+    public $Goal8Completions;                // int(4)   not_null
+    public $Goal8Starts;                     // int(4)   not_null
+    public $Goal9Completions;                // int(4)   not_null
+    public $Goal9Starts;                     // int(4)   not_null
+    public $Goal10Completions;               // int(4)   not_null
+    public $Goal10Starts;                    // int(4)   not_null
+    public $Goal11Completions;               // int(4)   not_null
+    public $Goal11Starts;                    // int(4)   not_null
+    public $Goal12Completions;               // int(4)   not_null
+    public $Goal12Starts;                    // int(4)   not_null
+    public $Goal13Completions;               // int(4)   not_null
+    public $Goal13Starts;                    // int(4)   not_null
+    public $Goal14Completions;               // int(4)   not_null
+    public $Goal14Starts;                    // int(4)   not_null
+    public $Goal15Completions;               // int(4)   not_null
+    public $Goal15Starts;                    // int(4)   not_null
     public $GoalCompletionsAll;              // int(4)   not_null
     public $GoalStartsAll;                   // int(4)   not_null
-    public $GoalAbandonsAll;                 // int(4)   not_null
-    public $Goal1Completions;                // int(4)   not_null
-    public $Goal2Completions;                // int(4)   not_null
-    public $Goal3Completions;                // int(4)   not_null
-    public $Goal4Completions;                // int(4)   not_null
-    public $Goal5Completions;                // int(4)   not_null
-    public $Goal6Completions;                // int(4)   not_null
-    public $Goal7Completions;                // int(4)   not_null
-    public $Goal8Completions;                // int(4)   not_null
-    public $Goal9Completions;                // int(4)   not_null
-    public $Goal10Completions;               // int(4)   not_null
-    public $Goal11Completions;               // int(4)   not_null
-    public $Goal12Completions;               // int(4)   not_null
-    public $Goal13Completions;               // int(4)   not_null
-    public $Goal14Completions;               // int(4)   not_null
-    public $Goal15Completions;               // int(4)   not_null
-    public $Goal16Completions;               // int(4)   not_null
-    public $Goal17Completions;               // int(4)   not_null
-    public $Goal18Completions;               // int(4)   not_null
-    public $Goal19Completions;               // int(4)   not_null
-    public $Goal20Completions;               // int(4)   not_null
-    public $Goal1Starts;                     // int(4)   not_null
-    public $Goal2Starts;                     // int(4)   not_null
-    public $Goal3Starts;                     // int(4)   not_null
-    public $Goal4Starts;                     // int(4)   not_null
-    public $Goal5Starts;                     // int(4)   not_null
-    public $Goal6Starts;                     // int(4)   not_null
-    public $Goal7Starts;                     // int(4)   not_null
-    public $Goal8Starts;                     // int(4)   not_null
-    public $Goal9Starts;                     // int(4)   not_null
-    public $Goal10Starts;                    // int(4)   not_null
-    public $Goal11Starts;                    // int(4)   not_null
-    public $Goal12Starts;                    // int(4)   not_null
-    public $Goal13Starts;                    // int(4)   not_null
-    public $Goal14Starts;                    // int(4)   not_null
-    public $Goal15Starts;                    // int(4)   not_null
-    public $Goal16Starts;                    // int(4)   not_null
-    public $Goal17Starts;                    // int(4)   not_null
-    public $Goal18Starts;                    // int(4)   not_null
-    public $Goal19Starts;                    // int(4)   not_null
-    public $Goal20Starts;                    // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFcttraffic',$k,$v); }

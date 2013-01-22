@@ -61,6 +61,17 @@ $service = new Google_AnalyticsService($client);
 $date=pg_value("date",NULL);
 $test=pg_value("test",false);
 
+
+$sql="select dimdate from fctdate fd
+where dimprofile=55368687 and visits>0
+and not exists(select 1 from fctpagetracking fp
+where fd.dimprofile=fp.dimprofile and fd.dimdate=fp.dimdate)
+order by dimdate desc";
+
+$res=New DateTime($db->query($sql)->fetchOne()) ;
+$date=$res->format('Y-m-d');
+
+
 include_once(buildpath("data",str_replace(".ini", ".php", $do_ini))); 
 
 /**/

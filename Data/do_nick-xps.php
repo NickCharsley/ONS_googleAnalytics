@@ -1,22 +1,31 @@
 <?php
 
-$sql="select dimdate from fctdate fd
-where dimprofile=55368687 and visits>0
-and not exists(select 1 from fctpagetracking fp
-where fd.dimprofile=fp.dimprofile and fd.dimdate=fp.dimdate)
-order by dimdate desc";
 
-$res=New DateTime($db->query($sql)->fetchOne()) ;
-$date=$res->format('Y-m-d');
-print_line("Processing for $date");
+/** /
+$profiles=array(55368687,61943476,67348193,68081878,68085948,68086044);
+/**/
+$profiles=array(61943476);
+/**/
+$date='20130117';
 
-$pl=new Vanquis($client,$service,55368687);
-if ($test){
-	$pl->test();
+foreach ($profiles as $profile){
+	$pl=new Vanquis($client,$service,$profile);
+	print_line("Profile $profile");
+	if ($test){
+		$pl->test();
+	}
+	else {
+		//$pl->ProfileDates();	
+			
+		//$pl->getPageTracking($date);
+	}
 }
-else {
-	$pl->ProfileDates();	
-	$pl->getPageTracking($date);
-}
-
+$fct=safe_dataobject_factory("fctGoalTraffic");
+$fct->dimDate=str_replace('-','',$date);
+$fct->find();
+showTable($fct);
+$fct=safe_dataobject_factory("fctDate");
+$fct->dimDate=str_replace('-','',$date);
+$fct->find();
+showTable($fct);
 ?>

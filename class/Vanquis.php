@@ -7,18 +7,15 @@
 		private $client;
 
 		function test(){
-			/** /
-			$date='2013-01-01';
-			$this->getGADimensionOnly($date,"Transaction","ga:transactions");
-			$this->getGADimensionOnly($date,"Product","ga:itemQuantity");
-			/**/
+			global $date;
 			$date='2013-01-10';
-			$this->getGADimensionResults($date, "Date");
-			$this->getGADimensionResults($date, "Traffic");
-			$this->ValidateFact("Traffic",$date);
-			//$this->getPageTracking($date);
+			$date="2012-10-22";
+			//$this->ProfileDates();
+			//$this->getGAFactOnly($date, "GoalTraffic");
+			//$this->getGADimensionResults($date, "Traffic");
+			//$this->getGADimensionResults($date, "Date");
+			$this->ValidateFact("GoalTraffic",$date);
 		}
-
     		    	
     	function __construct($client,$service,$profile){
     		$this->client=$client;
@@ -107,12 +104,20 @@
 			
 			$fct=safe_DataObject_factory("fct$fctName");
 			$dte=safe_DataObject_factory("fctDate");
+			$table=array_keys($fct->table());
+			//Now Add specials
+			$special=false;
+			if (in_array("GoalStarts", $table)) {$table[]="GoalStartsAll";$special=true;}
+			if (in_array("GoalCompletions", $table)) {$table[]="GoalCompletionsAll";$special=true;}
+			if (in_array("GoalAbandons", $table)) {$table[]="GoalAbandonsAll";$special=true;}
+			if (in_array("GoalValue", $table)) {$table[]="GoalValueAll";$special=true;}
 			
-			$fields=array_intersect(array_keys($fct->table()), array_keys($dte->table()));
+			$fields=array_intersect($table, array_keys($dte->table()));
+			krumo($fields);
 			/**/
 			//Now remove ID and any Dims
 			$measures=array();
-			$sql=  "select dimDate";
+			$sql=  "select dimDate,count(*) rows";
 			$sql1= "select dimDate";
 			$sql2= "";
 			$all="";
@@ -122,7 +127,10 @@
 				if (strtoupper(substr($field,0,3))=='DIM') continue;
 					
 				$measures[]=$field;
-				$sql.=", round(sum($field),2) $field";
+				if ($special)
+					$sql.=", round(sum(".str_replace("All","",$field)."),2) $field";
+				else
+					$sql.=", round(sum($field),2) $field";
 				$sql1.=", round($field,2) $field";
 				
 				$all.=" and (f.$field = d.$field)";
@@ -130,22 +138,28 @@
 				$sql2.=", case when f.$field = d.$field then '$field is Valid' else '$field invalid' end $field";
 				
 			}
-			$sql.=" from fct$fctName";
-			$sql1.=" from fctDate";
-			if ($date!=null) $sql.=" where dimDate=".$date;
+			$sql.=" from fct$fctName where dimProfile=".$this->profile;
+			$sql1.=" from fctDate where dimProfile=".$this->profile;
+			if ($date!=null) $sql.=" and dimDate=".$date;
 			$sql.=" group by dimDate";
 			
-			$sql2= "select d.dimDate, case when (1=1) $all then 'All Valid' else 'Some Invalid' end AllValid $sql2 from ($sql) f join ($sql1) d on f.dimDate=d.dimDate";
+			$sql2= "select d.dimDate, rows, case when (1=1) $all then 'All Valid' else 'Some Invalid' end AllValid $sql2 from ($sql) f join ($sql1) d on f.dimDate=d.dimDate";
 			
-			
+			krumo($sql2);
 			$res=$db->query($sql2);
 			
+			print_line($fctName);			
 			while (($row = $res->fetchRow())) {
-    			foreach($row as $field)
-    				print_line($field);
+				$i=0;
+    			foreach($row as $field){
+    				if ($i==0) print_line("Date: $field");
+					else if ($i==1) print_line("Rows Tested: $field");
+					else print_line($field);
+					$i++;    				
+    			}    				
 			}	
 		
-			die(__FILE__.":".__LINE__);	
+			//die(__FILE__.":".__LINE__);	
 		}
 
 		function getPageTracking($date=NULL){

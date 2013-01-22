@@ -69,12 +69,64 @@
 	  	
 	  }
 
-	  static function getGAResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){	  	
+	  static function splitMets(&$oldMets,&$newMets){
+  		$bump=array();
+		$max=count($oldMets);
+		
+  		for ($i=0;$i<$max and count($newMets)<10 and count($oldMets)>10;$i++){
+  			if (!in_array(strtolower($oldMets[$i]), $bump)){
+	  			$newMets[]=$oldMets[$i];
+	  			unset($oldMets[$i]);  				
+  			}			
+  		}
+		if (count($newMets)==0){
+			die("Too many Bumps ".__FILE__.":".__LINE__);
+		}
+	  	
+	  }
+
+
+	  static function getGAResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){
+	  	//krumo($optParams);	  	
 	  	$results=new googleGAResultsWrapper();
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
 	  	$aMets=split(",",$metrics);
-	  	if (count($aDims)>7){
+	  	if (in_array("ga:Goal",$aDims)){
+	  		$newDims=array_diff($aDims,array("ga:Goal"));
+	  		
+	  		$goals=array();
+	  		
+	  		$optParams['dimensions']=join(",",$newDims);
+	  		$goal=Safe_DataObject_factory("dimGoal");
+	  		$goal->dimProfile=$profile;
+	  		$goal->find();
+	  		
+	  		while ($goal->fetch()){
+	  			if ($goal->GoalNumber>0){
+		  			$optParams['filters']="ga:Goal".$goal->GoalNumber."Starts!=0";
+					$agMets=array_merge($aMets,array(
+						"ga:Goal".$goal->GoalNumber."Starts",
+						"ga:Goal".$goal->GoalNumber."Completions",
+						"ga:Goal".$goal->GoalNumber."Value",
+						"ga:Goal".$goal->GoalNumber."ConversionRate",
+						"ga:Goal".$goal->GoalNumber."Abandons",
+						"ga:Goal".$goal->GoalNumber."AbandonRate"
+					));
+					$goals[]=$goal->GoalNumber;
+					
+					//krumo($agMets);
+					$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams,join(",",$agMets)));
+					//krumo($results);	
+				}
+	  		}
+			//Need to be ; to be an 'and' in Google Filters
+			$optParams['filters']="ga:Goal".join("Starts==0;ga:Goal",$goals)."Starts==0";
+	  		
+	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams,$metrics));			
+			//krumo($results);				  	
+	  	}
+		else if (count($aDims)>7){
 	  		//die("Too Many Dimensions! ".__FILE__.":".__LINE__);
 	  		$newDims=array();
 	  		//Get First 7 for filter
@@ -92,14 +144,10 @@
 	  		}
 	  //		krumo($results);
 	  	//	die(__FILE__.":".__LINE__);	  		 
-	  	}
-		//Another Complication, if we ask for Goal Abandons but not Goal Starts we get odd results!! 
+	  	}		
 		else if (count($aMets)>10){
 	  		$newMets=array();
-	  		for ($i=0;$i<10;$i++){
-	  			$newMets[]=$aMets[$i];
-	  			unset($aMets[$i]);
-	  		}
+			googleHelper::splitMets($aMets, $newMets);
 	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams, join(",",$newMets)));
 	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams, join(",",$aMets  )));
 	  	}
@@ -138,8 +186,7 @@
 	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsYes, $metrics));
 			
 		}
-	  	else {
-	  		
+	  	else {	  		
 	  		$startdate=isset($date)?$date:'2010-01-01';			
 			$enddate  =isset($date)?$date:date('Y-m-d');
 			googleHelper::$counter++;
@@ -149,6 +196,7 @@
 	  		$results=new googleGAResultsWrapper($gaResults);
   			//krumo($gaResults);
   			//krumo($results);
+			//die(__FILE__.":".__FILE__);
 			//flush_buffers();									
 	  		if ($gaResults->nextLink<>""){
 	  			$optParams['start-index']+=$optParams['max-results'];
@@ -313,7 +361,10 @@
  			$dimensions=array();
  			if ($filters!=""){
 	 			foreach(split(",",$filters) as $filter){
-	 				list($name,$value)=split("==",$filter);
+	 				if (strpos($filter,"==")>0)
+	 					list($name,$value)=split("==",$filter);
+					else
+						list($name,$value)=split("!=",$filter);
 	 				$dimensions[$name]=$value;
 	 			}
  			}

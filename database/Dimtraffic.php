@@ -20,4 +20,10 @@ class doDimtraffic extends dbRoot
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    public $fb_linkDisplayFields=array('Campaign','Source','Keyword');
+    
+    function keyDimensions(){
+    	return array("ga:Campaign","ga:Source","ga:Keyword");
+    }    
 }
+?>

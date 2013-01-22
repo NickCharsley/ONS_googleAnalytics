@@ -59,7 +59,7 @@ $client->setClientId(CLIENT_ID);
 $service = new Google_AnalyticsService($client);
 
 $date=date('Y-m-d');
-$test=false;
+$test=true;
 include_once(buildpath("data",str_replace(".ini", ".php", $do_ini))); 
 
 

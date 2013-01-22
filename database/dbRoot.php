@@ -86,7 +86,8 @@ class dbRoot extends DB_DataObject {
 			"ga:goal20starts","ga:goal20completions","ga:goal20value","ga:goal20conversionrate",
 			"ga:goal20abandons","ga:goal20abandonrate",
 			"ga:goalstartsall","ga:goalcompletionsall","ga:goalvalueall","ga:goalvaluepervisit",
-			"ga:goalconversionrateall","ga:goalabandonsall","ga:goalabandonrateall"	
+			"ga:goalconversionrateall","ga:goalabandonsall","ga:goalabandonrateall",
+			"ga:goal"//This is Special!!!	
 			);
 	
 	protected $mobile=array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
@@ -110,9 +111,9 @@ class dbRoot extends DB_DataObject {
     	return parent::update($do);
     }
 	
-	
-		
+			
 	function findDimensionID($row){
+		//krumo($row);
 		foreach($row['Dimensions'] as $dimName=>$dimValue){
 			$dimName=ucfirst(str_replace("ga:", "", $dimName));
 			$this->$dimName=$dimValue;
@@ -124,10 +125,12 @@ class dbRoot extends DB_DataObject {
 	function filldata(){		
 	}
 	
+	protected function getMetrics(){
+		
+	}
+	
 	function saveGoogleResults($results=null){
 		print_line("Saving ".$this->__table);
-		
-		
 		foreach ($results->matrix as $row){
 			$fact=safe_DataObject_factory($this->__table);
 			$fact->dimProfile=$results->dimProfile;
@@ -159,14 +162,27 @@ class dbRoot extends DB_DataObject {
 			}
 			if ($action=="") $action=($fact->find(true))?"update":"insert";
 			$old_fact=clone($fact);
-			//krumo($fact);
+			
+			$fact->getMetrics($row);
+			
 			foreach($row['Metrics'] as $metName=>$metValue){
-				$metName=ucfirst(str_replace("ga:", "", $metName));
+				if (!(strpos(strtolower($metName),"goal")===false)){
+					$metName=ucfirst(str_replace("ga:", "", $metName));
+					$fact->$metName=$metValue;
+					$metName=str_replace(array(1,2,3,4,5,6,7,8,9,0), '', $metName);
+				}
+				else
+					$metName=ucfirst(str_replace("ga:", "", $metName));
 				$fact->$metName=$metValue;
 			}
 			$fact->$action($old_fact);
-			
-			//if($extra!="") die(__FILE__.":".__LINE__);
+			/** /
+			if($extra!="") {
+				krumo($fact);
+				krumo($results);
+				die(__FILE__.":".__LINE__);
+			}
+			/**/
 			//ob_flush();			flush();
 		}
 		//Krumo($fact);		
@@ -186,6 +202,7 @@ class dbRoot extends DB_DataObject {
 			//'language'=>'pl'
 			
 		);
+		
 		return $ret;
 	}
 	
@@ -244,7 +261,10 @@ class dbRoot extends DB_DataObject {
 				global $db;
 				$table=dbRoot::fieldInTable($field);
 				//print_line("$field in $table");
-				$sql="select count(distinct ".str_replace("ga:","", $field).") from $table";
+				if ($field=='ga:Goal')
+					$sql="select count(*) from $table";
+				else
+					$sql="select count(distinct ".str_replace("ga:","", $field).") from $table";
 				$res=$db->query($sql);
 				dbRoot::$degrees[$field]=$res->fetchOne();
 			}
@@ -258,6 +278,7 @@ class dbRoot extends DB_DataObject {
 			$ini=buildpath($opts['schema_location'],safe_DataObject_factory("dimDate")->database().'.ini');
 			$config = parse_ini_file($ini,true);
 			//krumo($config);
+			dbRoot::$f2t['ga:goal']='dimGoal';
 			foreach($config as $table=>$fields){
 				if (strpos($table,"__keys")==0)
 					foreach(array_keys($fields) as $field){
