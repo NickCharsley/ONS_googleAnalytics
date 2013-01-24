@@ -122,6 +122,7 @@
     if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
     include_once("script/utils.php");
     include_once("const.php");
+	if (isset($_GET['krumo_off'])) krumo::disable() ;
     ini_set('error_log',buildPath($root_path,"test","php_error.log"));
     ini_set('max_execution_time',30000);
     PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'PEAR_ErrorToPEAR_Exception');
@@ -146,7 +147,8 @@
         if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
         
         PEARError($db = MDB2::connect($config['DB_DataObject']['database']),"Early out");
-        //$db->setFetchMode('DB_FETCHMODE_ASSOC');
+        //$db->setFetchMode(DB_FETCHMODE_ASSOC);
+        $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
         set_time_limit(0);
         DB_DataObject::debugLevel(5);
         if (str_replace("/","\\",__FILE__)==str_replace("/","\\",$_SERVER["SCRIPT_FILENAME"])){

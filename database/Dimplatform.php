@@ -21,6 +21,9 @@ class doDimplatform extends dbRoot
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    
+    public $fb_linkDisplayFields=array('Browser',"OperatingSystem","OperatingSystemVersion");
+    
     function keyDimensions(){
     	return array("ga:Browser","ga:BrowserVersion","ga:OperatingSystem","ga:OperatingSystemVersion");
     }

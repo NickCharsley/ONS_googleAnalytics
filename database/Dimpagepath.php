@@ -23,6 +23,8 @@ class doDimpagepath extends dbRoot
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    public $fb_linkDisplayFields=array('PagePath');
+    
     function keyDimensions(){
     	return array("ga:PagePath");
     }

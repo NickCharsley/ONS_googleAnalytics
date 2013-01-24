@@ -21,8 +21,12 @@ class doDimhour extends dbRoot
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    public $fb_linkDisplayFields=array('Description');
+    
     function keyDimensions(){
     	return array("ga:Hour");
-    }    
+    }
+	
+	    
 }
 ?>

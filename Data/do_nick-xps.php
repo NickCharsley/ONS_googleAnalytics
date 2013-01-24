@@ -4,15 +4,16 @@
 /** /
 $profiles=array(55368687,61943476,67348193,68081878,68085948,68086044);
 /**/
-$profiles=array(61943476);
+$profiles=array(68103870);//68232661,61943476,68103870,68243329);
 /**/
-$date='20130117';
+$date="2013-01-23";
 
 foreach ($profiles as $profile){
 	$pl=new Vanquis($client,$service,$profile);
 	print_line("Profile $profile");
 	if ($test){
 		$pl->test();
+		//$pl->ProfileDates();
 	}
 	else {
 		//$pl->ProfileDates();	
@@ -20,12 +21,13 @@ foreach ($profiles as $profile){
 		//$pl->getPageTracking($date);
 	}
 }
-$fct=safe_dataobject_factory("fctGoalTraffic");
-$fct->dimDate=str_replace('-','',$date);
-$fct->find();
-showTable($fct);
-$fct=safe_dataobject_factory("fctDate");
-$fct->dimDate=str_replace('-','',$date);
-$fct->find();
-showTable($fct);
+
+showTable("fctvsDevice","dimDate",str_replace('-','',$date));
+showTable("fctvsEvent","dimDate",str_replace('-','',$date));
+showTable("fctvsGeo","dimDate",str_replace('-','',$date));
+showTable("fctvsPageTracking","dimDate",str_replace('-','',$date));
+showTable("fctvsSystem","dimDate",str_replace('-','',$date));
+showTable("fctvsTraffic","dimDate",str_replace('-','',$date));
+showTable("fctvsVisitor","dimDate",str_replace('-','',$date));
+
 ?>

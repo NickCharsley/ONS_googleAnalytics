@@ -37,8 +37,7 @@ class dbRoot extends DB_DataObject {
 			"ga:userdefinedvalue","ga:usertimingcategory","ga:usertiminglabel","ga:usertimingvariable","ga:visitcount","ga:visitlength",
 			"ga:visitortype","ga:week","ga:year",
 			"ga:customvarname1","ga:customvarvalue1","ga:customvarname2","ga:customvarvalue2","ga:customvarname3","ga:customvarvalue3",
-			"ga:customvarname4","ga:customvarvalue4","ga:customvarname5","ga:customvarvalue5","ga:customvarname6","ga:customvarvalue6",
-			"ga:customvarname7","ga:customvarvalue7","ga:customvarname8","ga:customvarvalue8","ga:customvarname9","ga:customvarvalue9"
+			"ga:customvarname4","ga:customvarvalue4","ga:customvarname5","ga:customvarvalue5"
 						
 ,"ga:productname"
 ,"ga:productsku"
@@ -190,6 +189,15 @@ class dbRoot extends DB_DataObject {
 	
 	function optParams($mrgParams=array()){
 		$Dims=$this->dimensions();
+		$filter="";
+		foreach ($Dims as $value=>$filterDim){
+			if (!is_numeric($value)){
+				if ($filter<>"") $filter.=";"; //Need to be ; to be an 'and' in Google Filters
+				$filter.="$filterDim==$value";
+				unset($Dims[$value]);
+			}
+		}
+		
 		if (isset($mrgParams['dimensions'])){
 			$Dims=join(",",array_unique(array_merge($Dims,split(",",$mrgParams['dimensions']))));
 		}
@@ -202,7 +210,7 @@ class dbRoot extends DB_DataObject {
 			//'language'=>'pl'
 			
 		);
-		
+		if ($filter<>"") $ret['filters']=$filter;
 		return $ret;
 	}
 	
@@ -235,7 +243,7 @@ class dbRoot extends DB_DataObject {
 		}
 		/**/
 		//krumo($dims);
-		usort($dims,'dimCmp');
+		uasort($dims,'dimCmp');
 		//krumo($dims);
 		/**/		
 		return $dims;

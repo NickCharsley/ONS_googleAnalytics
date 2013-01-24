@@ -56,9 +56,9 @@
 			"ga:socialactivityuserphotourl","ga:socialactivityuserprofileurl","ga:socialinteractiontarget"
 			);
 		$max=count($oldDims);
-		
   		for ($i=0;$i<$max and count($newDims)<7 and count($oldDims)>7;$i++){
   			if (!in_array(strtolower($oldDims[$i]), $bump)){
+  				
 	  			$newDims[]=$oldDims[$i];
 	  			unset($oldDims[$i]);  				
   			}			
@@ -92,6 +92,7 @@
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
 	  	$aMets=split(",",$metrics);
+		
 	  	if (in_array("ga:Goal",$aDims)){
 	  		$newDims=array_diff($aDims,array("ga:Goal"));
 	  		
@@ -131,8 +132,8 @@
 	  		$newDims=array();
 	  		//Get First 7 for filter
 	  		googleHelper::splitDims($aDims, $newDims);
-			krumo($aDims);
-			krumo($newDims);
+			if (isset($_GET['krumo_full'])) krumo($aDims);
+			if (isset($_GET['krumo_full'])) krumo($newDims);
 	  		$optParams['dimensions']=join(",",$newDims);
 	  		$gaFilter=googleHelper::getGAResults($date,$client,$service,$profile, $optParams);
 	  		//krumo($gaFilter);
@@ -194,8 +195,8 @@
 			debug_error_log($optParams);			
 	  		$gaResults=$service->data_ga->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
 	  		$results=new googleGAResultsWrapper($gaResults);
-  			//krumo($gaResults);
-  			//krumo($results);
+  			if (isset($_GET['krumo_full'])) krumo($gaResults);
+  			if (isset($_GET['krumo_full'])) krumo($results);
 			//die(__FILE__.":".__FILE__);
 			//flush_buffers();									
 	  		if ($gaResults->nextLink<>""){

@@ -10,11 +10,30 @@
 			global $date;
 			$date='2013-01-10';
 			$date="2012-10-22";
-			//$this->ProfileDates();
-			//$this->getGAFactOnly($date, "GoalTraffic");
-			//$this->getGADimensionResults($date, "Traffic");
-			//$this->getGADimensionResults($date, "Date");
-			$this->ValidateFact("GoalTraffic",$date);
+			$date="2013-01-22";
+			$date="2013-01-23";
+			
+			$this->getGADimensionOnly($date, "Date");
+			$this->getGADimensionResults($date, "VanquisSession");
+			$this->getGADimensionOnly($date, "Ecommerce");
+			$this->getGADimensionOnly($date, "Event");
+			$this->getGADimensionOnly($date, "Geo");
+			$this->getGADimensionOnly($date, "Network");
+			$this->getGADimensionOnly($date, "Platform");
+			$this->getGADimensionOnly($date, "System");			
+			$this->getGADimensionOnly($date, "Traffic");
+			$this->getGADimensionOnly($date, "Visitor");
+			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
+												
+			$this->getGAFactOnly($date, "vsDevice");			
+			$this->getGAFactOnly($date, "vsEcommerce");
+			$this->getGAFactOnly($date, "vsEvent");
+			$this->getGAFactOnly($date, "vsGeo");
+			$this->getGAFactOnly($date, "vsPageTracking");
+			$this->getGAFactOnly($date, "vsSystem");
+			$this->getGAFactOnly($date, "vsTraffic");
+			$this->getGAFactOnly($date, "vsVisitor");
+			
 		}
     		    	
     	function __construct($client,$service,$profile){
@@ -147,7 +166,7 @@
 			
 			krumo($sql2);
 			$res=$db->query($sql2);
-			
+			print "<br/>";
 			print_line($fctName);			
 			while (($row = $res->fetchRow())) {
 				$i=0;

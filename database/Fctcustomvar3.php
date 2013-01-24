@@ -1,20 +1,18 @@
 <?php
 /**
- * Table Definition for fctcustomvar
+ * Table Definition for fctcustomvar3
  */
 require_once 'dbRoot.php';
 
-class doFctcustomvar extends dbRoot 
+class doFctcustomvar3 extends dbRoot 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'fctcustomvar';        // table name
+    public $__table = 'fctcustomvar3';       // table name
     public $ID;                              // int(4)  primary_key not_null
     public $dimDate;                         // int(4)   not_null
     public $dimProfile;                      // int(4)   not_null
-    public $dimCustomVar1;                   // int(4)   not_null
-    public $dimCustomVar2;                   // int(4)   not_null
     public $dimCustomVar3;                   // int(4)   not_null
     public $Visits;                          // int(4)   not_null
     public $Visitors;                        // int(4)   not_null
@@ -33,7 +31,7 @@ class doFctcustomvar extends dbRoot
     public $Exits;                           // int(4)   not_null
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctcustomvar',$k,$v); }
+    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctcustomvar3',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
