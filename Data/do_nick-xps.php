@@ -12,7 +12,7 @@ foreach ($profiles as $profile){
 	$pl=new Vanquis($client,$service,$profile);
 	print_line("Profile $profile");
 	if ($test){
-		$pl->test();
+		//$pl->test();
 		//$pl->ProfileDates();
 	}
 	else {
@@ -28,6 +28,6 @@ showTable("fctvsGeo","dimDate",str_replace('-','',$date));
 showTable("fctvsPageTracking","dimDate",str_replace('-','',$date));
 showTable("fctvsSystem","dimDate",str_replace('-','',$date));
 showTable("fctvsTraffic","dimDate",str_replace('-','',$date));
-showTable("fctvsVisitor","dimDate",str_replace('-','',$date));
+//showTable("fctvsVisitor","dimDate",str_replace('-','',$date));
 
 ?>
