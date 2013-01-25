@@ -1,0 +1,1 @@
+CREATE VIEW "DBO"."dimpagepathlevel1" AS select "dimpagepath"."ID" AS "ID","dimpagepath"."PagePath" AS "PagePathLevel1" from "dimpagepath"

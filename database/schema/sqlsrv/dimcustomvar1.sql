@@ -1,0 +1,1 @@
+CREATE VIEW "DBO"."dimcustomvar1" AS select "dimcustomvar"."ID" AS "ID","dimcustomvar"."CustomVarName" AS "CustomVarName1","dimcustomvar"."CustomVarValue" AS "CustomVarValue1" from "dimcustomvar"

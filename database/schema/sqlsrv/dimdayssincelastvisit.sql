@@ -1,0 +1,1 @@
+CREATE VIEW "DBO"."dimdayssincelastvisit" AS select "dimdaysince"."ID" AS "ID","dimdaysince"."Days" AS "DaysSinceLastVisit","dimdaysince"."Description" AS "Description" from "dimdaysince"

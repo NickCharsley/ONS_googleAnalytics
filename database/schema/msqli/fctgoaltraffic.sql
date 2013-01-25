@@ -1,0 +1,20 @@
+CREATE TABLE `fctgoaltraffic` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `dimDate` int(11) NOT NULL,
+  `dimProfile` int(11) NOT NULL,
+  `dimTraffic` int(11) NOT NULL,
+  `dimGoal` int(11) NOT NULL,
+  `GoalCompletions` int(11) NOT NULL DEFAULT '0',
+  `GoalStarts` int(11) NOT NULL DEFAULT '0',
+  `GoalAbandons` int(11) NOT NULL DEFAULT '0',
+  `GoalValue` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `fk_fctGoalTraffic_dimDate` (`dimDate`),
+  KEY `fk_fctGoalTraffic_dimGoal` (`dimGoal`),
+  KEY `fk_fctGoalTraffic_dimProfile` (`dimProfile`),
+  KEY `fk_fctGoalTraffic_dimTraffic` (`dimTraffic`),
+  CONSTRAINT `fk_fctGoalTraffic_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctGoalTraffic_dimGoal` FOREIGN KEY (`dimGoal`) REFERENCES `dimgoal` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctGoalTraffic_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctGoalTraffic_dimTraffic` FOREIGN KEY (`dimTraffic`) REFERENCES `dimtraffic` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=latin1

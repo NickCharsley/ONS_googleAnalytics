@@ -1,0 +1,1 @@
+CREATE VIEW "DBO"."dimvanquissession" AS select "dimcustomvar"."ID" AS "ID","dimcustomvar"."CustomVarName" AS "CustomVarName1","dimcustomvar"."CustomVarValue" AS "CustomVarValue1","dimcustomvar"."CustomVarValue" AS "SessionID" from "dimcustomvar" where ("dimcustomvar"."CustomVarName" = 'SessionId')

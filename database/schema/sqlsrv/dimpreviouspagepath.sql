@@ -1,0 +1,1 @@
+CREATE VIEW "DBO"."dimpreviouspagepath" AS select "dimpagepath"."ID" AS "ID","dimpagepath"."PagePath" AS "PreviousPagePath" from "dimpagepath"

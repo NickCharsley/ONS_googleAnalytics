@@ -1,0 +1,1 @@
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dimpreviouspagepath` AS select `dimpagepath`.`ID` AS `ID`,`dimpagepath`.`PagePath` AS `PreviousPagePath` from `dimpagepath`

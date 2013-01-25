@@ -1,0 +1,1 @@
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dimcustomvar4` AS select `dimcustomvar`.`ID` AS `ID`,`dimcustomvar`.`CustomVarName` AS `CustomVarName4`,`dimcustomvar`.`CustomVarValue` AS `CustomVarValue4` from `dimcustomvar`

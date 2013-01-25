@@ -1,0 +1,1 @@
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dimdayssincelastvisit` AS select `dimdaysince`.`ID` AS `ID`,`dimdaysince`.`Days` AS `DaysSinceLastVisit`,`dimdaysince`.`Description` AS `Description` from `dimdaysince`

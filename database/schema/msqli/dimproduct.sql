@@ -1,0 +1,1 @@
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `dimproduct` AS select `dimecommerce`.`ID` AS `ID`,`dimecommerce`.`TransactionId` AS `TransactionId`,`dimecommerce`.`ProductSku` AS `ProductSku`,`dimecommerce`.`ProductName` AS `ProductName`,`dimecommerce`.`ProductCategory` AS `ProductCategory` from `dimecommerce`

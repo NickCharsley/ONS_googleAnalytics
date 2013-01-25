@@ -129,6 +129,7 @@
 /***********************************************************\
  * Database Connectivity
 \***********************************************************/
+	if (isset($_GET['do_ini'])) $do_ini="do_{$_GET['do_ini']}.ini";
     if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
     if (file_exists(buildpath($root_path,"database",$do_ini))){
     	if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
