@@ -10,15 +10,15 @@ class doFctgoaltraffic extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'fctgoaltraffic';      // table name
-    public $ID;                              // int(4)  primary_key not_null
-    public $dimDate;                         // int(4)   not_null
-    public $dimProfile;                      // int(4)   not_null
-    public $dimTraffic;                      // int(4)   not_null
-    public $dimGoal;                         // int(4)   not_null
-    public $GoalCompletions;                 // int(4)   not_null
-    public $GoalStarts;                      // int(4)   not_null
-    public $GoalAbandons;                    // int(4)   not_null
-    public $GoalValue;                       // int(4)   not_null
+    protected $ID;                              // int(4)  primary_key not_null
+    protected $dimDate;                         // int(4)   not_null
+    protected $dimProfile;                      // int(4)   not_null
+    protected $dimTraffic;                      // int(4)   not_null
+    protected $dimGoal;                         // int(4)   not_null
+    protected $GoalCompletions;                 // int(4)   not_null
+    protected $GoalStarts;                      // int(4)   not_null
+    protected $GoalAbandons;                    // int(4)   not_null
+    protected $GoalValue;                       // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctgoaltraffic',$k,$v); }

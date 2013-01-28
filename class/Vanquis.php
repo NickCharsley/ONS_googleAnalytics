@@ -340,18 +340,23 @@
 				//Now find Oldest Unprocessed Day
 				//This will be a date in fctCustomVar1 that has no row in ftcVanquisSession 
 				$do_date=safe_dataobject_factory("fctCustomVar1");
-				$do_date->query("select f.* from fctCustomVar1 f order by dimDate");
-				$do_date->find(true);
+				$do_date->query("select distinct f.* 
+from fctCustomVar1 f 
+left join fctVanquisSession v
+on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate and dimCustomVar1=dimVanquisSession
+where v.dimdate is null
+and f.dimprofile={$this->profile}
+order by f.dimDate");
+				$do_date->fetch();
 				print_line("Date to process=".$do_date->dimDate);
-				krumo($do_date);
-  				die(__FILE__.':'.__LINE__);	
+				if (isset($_GET['krumo_full'])) krumo($do_date);
+  				$dt_date=new DateTime($do_date->dimDate);
+				$date=$dt_date->format("Y-m-d");	
   			}
 			else 
 			{//These are implied by getting CustomVar1
 				$this->getGADimensionOnly($date, "Date");	
 			}			
-			die(__FILE__.':'.__LINE__);	
-			
 			
 			//Get 'New' Dimensions  						
 			$this->getGADimensionOnly($date, "Ecommerce");
@@ -362,6 +367,7 @@
 			$this->getGADimensionOnly($date, "System");			
 			$this->getGADimensionOnly($date, "Traffic");
 			$this->getGADimensionOnly($date, "Visitor");
+			$this->getGADimensionOnly($date, "PagePath");
 			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
 							
 			//Get Dates 'Facts'									

@@ -10,24 +10,24 @@ class doFctform extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'fctform';             // table name
-    public $ID;                              // int(4)  primary_key not_null
-    public $dimProfile;                      // int(4)  unique_key not_null
-    public $dimDate;                         // int(4)  unique_key not_null
-    public $dimVisitor;                      // int(4)  unique_key not_null
-    public $dimSession;                      // int(4)  unique_key not_null
-    public $dimPagePath;                     // int(4)  unique_key not_null
-    public $dimHostName;                     // int(4)  unique_key not_null
-    public $Visitors;                        // int(4)   not_null
-    public $NewVisits;                       // int(4)   not_null
-    public $Bounces;                         // int(4)   not_null
-    public $OrganicSearches;                 // int(4)   not_null
-    public $Entrances;                       // int(4)   not_null
-    public $Pageviews;                       // int(4)   not_null
-    public $UniquePageviews;                 // int(4)   not_null
-    public $TimeOnPage;                      // float   not_null
-    public $Exits;                           // int(4)   not_null
-    public $TimeOnSite;                      // int(4)   not_null
-    public $Visits;                          // int(4)   not_null
+    protected $ID;                              // int(4)  primary_key not_null
+    protected $dimProfile;                      // int(4)  unique_key not_null
+    protected $dimDate;                         // int(4)  unique_key not_null
+    protected $dimVisitor;                      // int(4)  unique_key not_null
+    protected $dimSession;                      // int(4)  unique_key not_null
+    protected $dimPagePath;                     // int(4)  unique_key not_null
+    protected $dimHostName;                     // int(4)  unique_key not_null
+    protected $Visitors;                        // int(4)   not_null
+    protected $NewVisits;                       // int(4)   not_null
+    protected $Bounces;                         // int(4)   not_null
+    protected $OrganicSearches;                 // int(4)   not_null
+    protected $Entrances;                       // int(4)   not_null
+    protected $Pageviews;                       // int(4)   not_null
+    protected $UniquePageviews;                 // int(4)   not_null
+    protected $TimeOnPage;                      // float   not_null
+    protected $Exits;                           // int(4)   not_null
+    protected $TimeOnSite;                      // int(4)   not_null
+    protected $Visits;                          // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctform',$k,$v); }

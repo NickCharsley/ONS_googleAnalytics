@@ -10,9 +10,9 @@ class doDimdaysince extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimdaysince';         // table name
-    public $ID;                              // int(4)  primary_key not_null
-    public $Days;                            // int(4)  unique_key
-    public $Description;                     // varchar(45)  
+    protected $ID;                              // int(4)  primary_key not_null
+    protected $Days;                            // int(4)  unique_key
+    protected $Description;                     // varchar(45)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimdaysince',$k,$v); }

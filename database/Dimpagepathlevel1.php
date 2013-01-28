@@ -10,8 +10,8 @@ class doDimpagepathlevel1 extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimpagepathlevel1';    // table name
-    public $ID;                              // int(4)   not_null
-    public $PagePathLevel1;                  // varchar(4096)   not_null
+    protected $ID;                              // int(4)   not_null
+    protected $PagePathLevel1;                  // varchar(4096)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimpagepathlevel1',$k,$v); }

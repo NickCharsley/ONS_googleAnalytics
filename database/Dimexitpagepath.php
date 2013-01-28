@@ -10,8 +10,8 @@ class doDimexitpagepath extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimexitpagepath';     // table name
-    public $ID;                              // int(4)   not_null
-    public $ExitPagePath;                    // varchar(4096)   not_null
+    protected $ID;                              // int(4)   not_null
+    protected $ExitPagePath;                    // varchar(4096)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimexitpagepath',$k,$v); }

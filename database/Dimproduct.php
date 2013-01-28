@@ -10,11 +10,11 @@ class doDimproduct extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimproduct';          // table name
-    public $ID;                              // int(4)   not_null
-    public $TransactionId;                   // varchar(70)   not_null
-    public $ProductSku;                      // varchar(70)  
-    public $ProductName;                     // varchar(70)  
-    public $ProductCategory;                 // varchar(70)  
+    protected $ID;                              // int(4)   not_null
+    protected $TransactionId;                   // varchar(70)   not_null
+    protected $ProductSku;                      // varchar(70)  
+    protected $ProductName;                     // varchar(70)  
+    protected $ProductCategory;                 // varchar(70)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimproduct',$k,$v); }

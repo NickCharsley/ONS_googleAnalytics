@@ -10,10 +10,10 @@ class doDimvanquissession extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimvanquissession';    // table name
-    public $ID;                              // int(4)   not_null
-    public $CustomVarName1;                  // varchar(70)   not_null
-    public $CustomVarValue1;                 // varchar(70)   not_null
-    public $SessionID;                       // varchar(70)   not_null
+    protected $ID;                              // int(4)   not_null
+    protected $CustomVarName1;                  // varchar(70)   not_null
+    protected $CustomVarValue1;                 // varchar(70)   not_null
+    protected $SessionID;                       // varchar(70)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimvanquissession',$k,$v); }

@@ -10,12 +10,12 @@ class doDimsystem extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimsystem';           // table name
-    public $ID;                              // int(4)  primary_key not_null
-    public $FlashVersion;                    // varchar(45)  unique_key not_null
-    public $JavaEnabled;                     // varchar(45)  unique_key not_null
-    public $Language;                        // varchar(45)  unique_key not_null
-    public $ScreenColors;                    // varchar(45)  unique_key not_null
-    public $ScreenResolution;                // varchar(45)  unique_key not_null
+    protected $ID;                              // int(4)  primary_key not_null
+    protected $FlashVersion;                    // varchar(45)  unique_key not_null
+    protected $JavaEnabled;                     // varchar(45)  unique_key not_null
+    protected $Language;                        // varchar(45)  unique_key not_null
+    protected $ScreenColors;                    // varchar(45)  unique_key not_null
+    protected $ScreenResolution;                // varchar(45)  unique_key not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimsystem',$k,$v); }

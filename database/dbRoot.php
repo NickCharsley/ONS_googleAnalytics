@@ -13,7 +13,25 @@
  debug_error_log("Enter ".__FILE__);
 //************************************************
 //TODO:any generic code for dbRoot.php goes here
+define('DB_DATAOBJECT_ERROR_INSERT_KEY_EXISTS'  ,-8  );  // Called Insert with keys that already exist
+define('DB_DATAOBJECT_ERROR_INSERT_NOT_DIRTY'   ,-9  );  // Called Insert with no 'new' data
+define('DB_DATAOBJECT_ERROR_UPDATE_NOT_DIRTY'   ,-10 );  // Called Update with no 'new' data
+define('DB_DATAOBJECT_ERROR_DUPLICATE_ROWUUID'  ,-11 );  // Called Insert with Duplicate RowUUID
+define('DB_DATAOBJECT_ERROR'                    ,-100);  // Error in underlying Code
+define('DB_DATAOBJECT_ERROR_OVERRIDE_METHOD'    ,-200);  // Called Update with no 'new' data
+
+//To Flag Loaded State Of Links 
+define('DB_DATAOBJECT_NOT_LOADED'  ,12345);  // Not Loaded Yet
+define('DB_DATAOBJECT_LOADED'      ,12346);  // Loaded
+define('DB_DATAOBJECT_ADDED'       ,12347);  // Added
+define('DB_DATAOBJECT_DELETED'     ,12348);  // Needs to Be deleted
+
+class DB_DataObject_Exception extends PEAR_Exception {};
+
+
 class dbRoot extends DB_DataObject {
+	protected $_dirty;
+	
 	static $f2t=array();
 	static $degrees=array();
 
@@ -104,6 +122,25 @@ class dbRoot extends DB_DataObject {
     		die(__FILE__.":".__LINE__);
     	}
     }
+  
+  	function IsDirty(){return $this->dirty;}
+  
+  	function __set($field,$value){
+		if ($this->$field<>$value){
+			$this->_dirty=true;
+			$this->$field=$value;	
+		}		 
+	}
+
+	function __get($field){
+		return $this->$field;
+	}
+
+	function __isset($field){
+		return isset($this->$field);
+	}	
+  
+  
     
     function update($do=false){
     	$this->filldata();

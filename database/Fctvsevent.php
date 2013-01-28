@@ -10,26 +10,26 @@ class doFctvsevent extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'fctvsevent';          // table name
-    public $ID;                              // int(4)  primary_key not_null
-    public $dimDate;                         // int(4)   not_null
-    public $dimProfile;                      // int(4)   not_null
-    public $dimEvent;                        // int(4)   not_null
-    public $dimVanquisSession;               // int(4)   not_null
-    public $Visits;                          // int(4)   not_null
-    public $Visitors;                        // int(4)   not_null
-    public $NewVisits;                       // int(4)   not_null
-    public $Bounces;                         // int(4)   not_null
-    public $TimeOnSite;                      // float   not_null
-    public $GoalCompletionsAll;              // int(4)   not_null
-    public $Entrances;                       // int(4)   not_null
-    public $Pageviews;                       // int(4)   not_null
-    public $TimeOnPage;                      // float   not_null
-    public $Exits;                           // int(4)   not_null
-    public $totalEvents;                     // int(4)   not_null
-    public $uniqueEvents;                    // int(4)   not_null
-    public $eventValue;                      // int(4)   not_null
-    public $visitsWithEvent;                 // int(4)   not_null
-    public $eventsPerVisitWithEvent;         // int(4)   not_null
+    protected $ID;                              // int(4)  primary_key not_null
+    protected $dimDate;                         // int(4)   not_null
+    protected $dimProfile;                      // int(4)   not_null
+    protected $dimEvent;                        // int(4)   not_null
+    protected $dimVanquisSession;               // int(4)   not_null
+    protected $Visits;                          // int(4)   not_null
+    protected $Visitors;                        // int(4)   not_null
+    protected $NewVisits;                       // int(4)   not_null
+    protected $Bounces;                         // int(4)   not_null
+    protected $TimeOnSite;                      // float   not_null
+    protected $GoalCompletionsAll;              // int(4)   not_null
+    protected $Entrances;                       // int(4)   not_null
+    protected $Pageviews;                       // int(4)   not_null
+    protected $TimeOnPage;                      // float   not_null
+    protected $Exits;                           // int(4)   not_null
+    protected $totalEvents;                     // int(4)   not_null
+    protected $uniqueEvents;                    // int(4)   not_null
+    protected $eventValue;                      // int(4)   not_null
+    protected $visitsWithEvent;                 // int(4)   not_null
+    protected $eventsPerVisitWithEvent;         // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctvsevent',$k,$v); }

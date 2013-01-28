@@ -10,8 +10,8 @@ class doDimsecondpagepath extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimsecondpagepath';    // table name
-    public $ID;                              // int(4)   not_null
-    public $SecondPagePath;                  // varchar(4096)   not_null
+    protected $ID;                              // int(4)   not_null
+    protected $SecondPagePath;                  // varchar(4096)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimsecondpagepath',$k,$v); }
