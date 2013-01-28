@@ -12,7 +12,7 @@ foreach ($profiles as $profile){
 	$pl=new Vanquis($client,$service,$profile);
 	print_line("Profile $profile");
 	if ($test){
-		//$pl->test();
+		$pl->test();
 		//$pl->ProfileDates();
 	}
 	else {

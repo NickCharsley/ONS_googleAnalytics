@@ -6,34 +6,8 @@
     	private $profile;
 		private $client;
 
-		function test(){
-			global $date;
-			$date='2013-01-10';
-			$date="2012-10-22";
-			$date="2013-01-22";
-			$date="2013-01-23";
-			
-			$this->getGADimensionOnly($date, "Date");
-			$this->getGADimensionResults($date, "VanquisSession");
-			$this->getGADimensionOnly($date, "Ecommerce");
-			$this->getGADimensionOnly($date, "Event");
-			$this->getGADimensionOnly($date, "Geo");
-			$this->getGADimensionOnly($date, "Network");
-			$this->getGADimensionOnly($date, "Platform");
-			$this->getGADimensionOnly($date, "System");			
-			$this->getGADimensionOnly($date, "Traffic");
-			$this->getGADimensionOnly($date, "Visitor");
-			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
-												
-			$this->getGAFactOnly($date, "vsDevice");			
-			$this->getGAFactOnly($date, "vsEcommerce");
-			$this->getGAFactOnly($date, "vsEvent");
-			$this->getGAFactOnly($date, "vsGeo");
-			$this->getGAFactOnly($date, "vsPageTracking");
-			$this->getGAFactOnly($date, "vsSystem");
-			$this->getGAFactOnly($date, "vsTraffic");
-			$this->getGAFactOnly($date, "vsVisitor");
-			
+		function test(){			
+			$this->sessionData(null);	
 		}
     		    	
     	function __construct($client,$service,$profile){
@@ -358,6 +332,50 @@
     				
 		}
 
+  
+  		function sessionData($date=null){
+  						
+  			if ($date==null){
+  				//$this->getGAFactResults($date, "CustomVar1");
+				//Now find Oldest Unprocessed Day
+				//This will be a date in fctCustomVar1 that has no row in ftcVanquisSession 
+				$do_date=safe_dataobject_factory("fctCustomVar1");
+				$do_date->query("select f.* from fctCustomVar1 f order by dimDate");
+				$do_date->find(true);
+				print_line("Date to process=".$do_date->dimDate);
+				krumo($do_date);
+  				die(__FILE__.':'.__LINE__);	
+  			}
+			else 
+			{//These are implied by getting CustomVar1
+				$this->getGADimensionOnly($date, "Date");	
+			}			
+			die(__FILE__.':'.__LINE__);	
+			
+			
+			//Get 'New' Dimensions  						
+			$this->getGADimensionOnly($date, "Ecommerce");
+			$this->getGADimensionOnly($date, "Event");
+			$this->getGADimensionOnly($date, "Geo");
+			$this->getGADimensionOnly($date, "Network");
+			$this->getGADimensionOnly($date, "Platform");
+			$this->getGADimensionOnly($date, "System");			
+			$this->getGADimensionOnly($date, "Traffic");
+			$this->getGADimensionOnly($date, "Visitor");
+			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
+							
+			//Get Dates 'Facts'									
+			$this->getGAFactOnly($date, "vsDevice");			
+			$this->getGAFactOnly($date, "vsEcommerce");
+			$this->getGAFactOnly($date, "vsEvent");
+			$this->getGAFactOnly($date, "vsGeo");
+			$this->getGAFactOnly($date, "vsPageTracking");
+			$this->getGAFactOnly($date, "vsSystem");
+			$this->getGAFactOnly($date, "vsTraffic");
+			$this->getGAFactOnly($date, "vsVisitor");
+			
+			$this->getGADimensionResults($date, "VanquisSession");
+  		}
     	
 		function google($date=NULL){
 			if (!isset($date)) 
