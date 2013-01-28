@@ -153,12 +153,13 @@
 			$table_data=$this->describeTable($table);
 			print_line("Validating $table");
 			if (count($table_data)==0){
-				//Table not there so Create
+				print_line('Table not there so Create');
 				$this->createTable($table);
 			}
 			else {
-				//Table there so check fields
-				$missing=array_values(array_diff(array_keys($fields), array_keys($table_data)));
+				print_line('Table there so check fields');
+				
+				$missing=array_values(array_diff(array_map('strtolower',array_keys($fields)), array_map('strtolower',array_keys($table_data))));
 				if (count($missing)>0){
 					print_line($missing[0]." missing from Table $table");
 					$this->addFields($table, $missing);
@@ -325,7 +326,7 @@ WHERE SC.object_id = OBJECT_ID('dbo.$table')";
 			foreach($sqls as $sql){
 				if (!(strpos($sql,"CREATE TABLE")===false)){
 					foreach ($fields as $field) {
-						$field=substr($sql,strpos(strtolower($sql),strtolower($field))-1);
+						$field=substr($sql,strpos(strtolower($sql),strtolower("\"$field\"")));
 						$field="ALTER TABLE $table ADD ".substr($field,0,strpos($field,","));
 						$ret[]=$field;
 					}
