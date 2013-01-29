@@ -10,16 +10,16 @@ class doDimadwords_two extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimadwords_two';      // table name
-    protected $ID;                              // int(4)  primary_key not_null
-    protected $AdGroup;                         // varchar(45)  
-    protected $AdDistributionNetwork;           // varchar(45)  
-    protected $AdMatchType;                     // varchar(45)  
-    protected $AdDestinationUrl;                // varchar(2048)  
-    protected $AdwordsCustomerID;               // varchar(45)  
-    protected $AdwordsCampaignID;               // varchar(45)  
-    protected $AdwordsAdGroupID;                // varchar(45)  
-    protected $AdwordsCreativeID;               // varchar(45)  
-    protected $AdwordsCriteriaID;               // varchar(45)  
+    public $ID;                              // int(4)  primary_key not_null
+    public $AdGroup;                         // varchar(45)  
+    public $AdDistributionNetwork;           // varchar(45)  
+    public $AdMatchType;                     // varchar(45)  
+    public $AdDestinationUrl;                // varchar(2048)  
+    public $AdwordsCustomerID;               // varchar(45)  
+    public $AdwordsCampaignID;               // varchar(45)  
+    public $AdwordsAdGroupID;                // varchar(45)  
+    public $AdwordsCreativeID;               // varchar(45)  
+    public $AdwordsCriteriaID;               // varchar(45)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimadwords_two',$k,$v); }

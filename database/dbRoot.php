@@ -31,8 +31,6 @@ $audit['DataObject']=array();
 class DB_DataObject_Exception extends PEAR_Exception {};
 
 class dbRoot extends DB_DataObject {
-	protected $_dirty;
-	protected $notUsed=array();
 	
 	static $f2t=array();
 	static $degrees=array();
@@ -136,32 +134,17 @@ class dbRoot extends DB_DataObject {
     		die(__FILE__.":".__LINE__);
     	}
     }
-  
-  	function IsDirty(){return $this->_dirty;}
-  
- 	function __set($field,$value){
- 		if (!property_exists($this, $field)){
- 			//Google methods throw everything at the class and hope some of it sticks ;)
- 			$this->notUsed[$field]=$value;
- 		} else
-		if ($this->$field<>$value){
-			$this->_dirty=true;
-			$this->$field=$value;	
-		}		 
-	}
-
-	function __get($field){
-		return $this->$field;
-	}
-
-	function __isset($field){
-		return isset($this->$field);
-	}	
-       
+   	 	      
     function update($do=false){
-    	$this->logAction(__FUNCTION__);
     	$this->filldata();
-    	return parent::update($do);
+    	$ret=parent::update($do);
+    	if (!($ret===TRUE)) 
+    	{
+    		$this->logAction(__FUNCTION__);
+    		krumo($do);
+			krumo($this);
+    	}
+    	return $ret;	
     }
 	
 	function find($fetch=false){
@@ -234,8 +217,7 @@ class dbRoot extends DB_DataObject {
 					$metName=ucfirst(str_replace("ga:", "", $metName));
 				$fact->$metName=$metValue;
 			}
-			if ($fact->IsDirty())
-				$fact->$action($old_fact);
+			$fact->$action($old_fact);
 			/** /
 			if($extra!="") {
 				krumo($fact);

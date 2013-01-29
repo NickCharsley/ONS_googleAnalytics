@@ -10,11 +10,11 @@ class doDimplatform extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimplatform';         // table name
-    protected $ID;                              // int(4)  primary_key not_null
-    protected $Browser;                         // varchar(45)   not_null
-    protected $BrowserVersion;                  // varchar(45)   not_null
-    protected $OperatingSystem;                 // varchar(45)   not_null
-    protected $OperatingSystemVersion;          // varchar(45)   not_null
+    public $ID;                              // int(4)  primary_key not_null
+    public $Browser;                         // varchar(45)   not_null
+    public $BrowserVersion;                  // varchar(45)   not_null
+    public $OperatingSystem;                 // varchar(45)   not_null
+    public $OperatingSystemVersion;          // varchar(45)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimplatform',$k,$v); }

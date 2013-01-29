@@ -10,9 +10,9 @@ class doDimvisitor extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimvisitor';          // table name
-    protected $ID;                              // int(4)  primary_key not_null
-    protected $VisitCount;                      // int(4)  unique_key
-    protected $VisitorType;                     // varchar(45)  
+    public $ID;                              // int(4)  primary_key not_null
+    public $VisitCount;                      // int(4)  unique_key
+    public $VisitorType;                     // varchar(45)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimvisitor',$k,$v); }

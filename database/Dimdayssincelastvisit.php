@@ -10,9 +10,9 @@ class doDimdayssincelastvisit extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimdayssincelastvisit';    // table name
-    protected $ID;                              // int(4)   not_null
-    protected $DaysSinceLastVisit;              // int(4)  
-    protected $Description;                     // varchar(45)  
+    public $ID;                              // int(4)   not_null
+    public $DaysSinceLastVisit;              // int(4)  
+    public $Description;                     // varchar(45)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimdayssincelastvisit',$k,$v); }

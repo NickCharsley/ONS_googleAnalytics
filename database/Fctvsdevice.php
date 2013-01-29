@@ -10,17 +10,17 @@ class doFctvsdevice extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'fctvsdevice';         // table name
-    protected $ID;                              // int(4)  primary_key not_null
-    protected $dimDate;                         // int(4)   not_null
-    protected $dimHour;                         // int(4)   not_null
-    protected $dimProfile;                      // int(4)   not_null
-    protected $dimGeo;                          // int(4)   not_null
-    protected $dimPlatform;                     // int(4)   not_null
-    protected $dimSystem;                       // int(4)   not_null
-    protected $dimNetwork;                      // int(4)   not_null
-    protected $dimVisitor;                      // int(4)   not_null
-    protected $dimVanquisSession;               // int(4)   not_null
-    protected $Visits;                          // int(4)   not_null
+    public $ID;                              // int(4)  primary_key not_null
+    public $dimDate;                         // int(4)   not_null
+    public $dimHour;                         // int(4)   not_null
+    public $dimProfile;                      // int(4)   not_null
+    public $dimGeo;                          // int(4)   not_null
+    public $dimPlatform;                     // int(4)   not_null
+    public $dimSystem;                       // int(4)   not_null
+    public $dimNetwork;                      // int(4)   not_null
+    public $dimVisitor;                      // int(4)   not_null
+    public $dimVanquisSession;               // int(4)   not_null
+    public $Visits;                          // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctvsdevice',$k,$v); }

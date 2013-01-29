@@ -10,9 +10,9 @@ class doDimcustomvar2 extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimcustomvar2';       // table name
-    protected $ID;                              // int(4)   not_null
-    protected $CustomVarName2;                  // varchar(70)   not_null
-    protected $CustomVarValue2;                 // varchar(70)   not_null
+    public $ID;                              // int(4)   not_null
+    public $CustomVarName2;                  // varchar(70)   not_null
+    public $CustomVarValue2;                 // varchar(70)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimcustomvar2',$k,$v); }

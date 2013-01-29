@@ -10,12 +10,12 @@ class doDimmobile extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimmobile';           // table name
-    protected $ID;                              // int(4)  primary_key not_null
-    protected $IsMobile;                        // varchar(45)   not_null
-    protected $MobileDeviceBranding;            // varchar(45)   not_null
-    protected $MobileDeviceModel;               // varchar(45)   not_null
-    protected $MobileInputSelector;             // varchar(45)   not_null
-    protected $MobileDeviceInfo;                // varchar(45)   not_null
+    public $ID;                              // int(4)  primary_key not_null
+    public $IsMobile;                        // varchar(45)   not_null
+    public $MobileDeviceBranding;            // varchar(45)   not_null
+    public $MobileDeviceModel;               // varchar(45)   not_null
+    public $MobileInputSelector;             // varchar(45)   not_null
+    public $MobileDeviceInfo;                // varchar(45)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimmobile',$k,$v); }

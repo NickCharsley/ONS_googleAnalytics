@@ -10,16 +10,16 @@ class doDimdate extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimdate';             // table name
-    protected $ID;                              // int(4)  primary_key not_null
-    protected $Date;                            // date  unique_key
-    protected $Description;                     // varchar(45)  
-    protected $Year;                            // char(4)  
-    protected $Month;                           // char(2)  
-    protected $Week;                            // char(2)  
-    protected $Day;                             // char(2)  
-    protected $DayOfWeek;                       // char(2)  
-    protected $MonthName;                       // varchar(15)  
-    protected $DayOfWeekName;                   // varchar(15)  
+    public $ID;                              // int(4)  primary_key not_null
+    public $Date;                            // date  unique_key
+    public $Description;                     // varchar(45)  
+    public $Year;                            // char(4)  
+    public $Month;                           // char(2)  
+    public $Week;                            // char(2)  
+    public $Day;                             // char(2)  
+    public $DayOfWeek;                       // char(2)  
+    public $MonthName;                       // varchar(15)  
+    public $DayOfWeekName;                   // varchar(15)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimdate',$k,$v); }

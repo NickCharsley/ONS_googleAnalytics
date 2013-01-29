@@ -10,10 +10,10 @@ class doDimgoal extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimgoal';             // table name
-    protected $ID;                              // int(4)  primary_key not_null
-    protected $dimProfile;                      // int(4)  unique_key not_null
-    protected $GoalNumber;                      // int(4)  unique_key not_null
-    protected $GoalLabel;                       // varchar(70)  unique_key not_null
+    public $ID;                              // int(4)  primary_key not_null
+    public $dimProfile;                      // int(4)  unique_key not_null
+    public $GoalNumber;                      // int(4)  unique_key not_null
+    public $GoalLabel;                       // varchar(70)  unique_key not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimgoal',$k,$v); }

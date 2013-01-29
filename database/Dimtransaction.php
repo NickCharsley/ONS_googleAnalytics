@@ -10,11 +10,11 @@ class doDimtransaction extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimtransaction';      // table name
-    protected $ID;                              // int(4)   not_null
-    protected $TransactionId;                   // varchar(70)   not_null
-    protected $Affiliation;                     // varchar(70)  
-    protected $VisitsToTransaction;             // int(4)  
-    protected $DaysToTransaction;               // int(4)  
+    public $ID;                              // int(4)   not_null
+    public $TransactionId;                   // varchar(70)   not_null
+    public $Affiliation;                     // varchar(70)  
+    public $VisitsToTransaction;             // int(4)  
+    public $DaysToTransaction;               // int(4)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimtransaction',$k,$v); }

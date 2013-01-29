@@ -10,8 +10,8 @@ class doDimnextpagepath extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimnextpagepath';     // table name
-    protected $ID;                              // int(4)   not_null
-    protected $NextPagePath;                    // varchar(4096)   not_null
+    public $ID;                              // int(4)   not_null
+    public $NextPagePath;                    // varchar(4096)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimnextpagepath',$k,$v); }

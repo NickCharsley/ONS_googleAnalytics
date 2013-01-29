@@ -10,8 +10,8 @@ class doDimlandingpagepath extends dbRoot
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'dimlandingpagepath';    // table name
-    protected $ID;                              // int(4)   not_null
-    protected $LandingPagePath;                 // varchar(4096)   not_null
+    public $ID;                              // int(4)   not_null
+    public $LandingPagePath;                 // varchar(4096)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimlandingpagepath',$k,$v); }

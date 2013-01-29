@@ -7,7 +7,7 @@
 		private $client;
 
 		function test(){			
-			$this->sessionData('2013-01-23');
+			$this->sessionData();
 			global $audit;
 			krumo($audit);
 			//krumo(dbRoot::$cache);
@@ -356,7 +356,7 @@
   		function sessionData($date=null){
   						
   			if ($date==null){
-  				//$this->getGAFactResults($date, "CustomVar1");
+  				$this->getGAFactResults($date, "CustomVar1");
 				//Now find Oldest Unprocessed Day
 				//This will be a date in fctCustomVar1 that has no row in ftcVanquisSession 
 				$do_date=safe_dataobject_factory("fctCustomVar1");
@@ -377,7 +377,7 @@ order by f.dimDate");
 			{//These are implied by getting CustomVar1
 				$this->getGADimensionOnly($date, "Date");	
 			}			
-/**/			
+/** /			
 			//Get 'New' Dimensions
 			startTimer("Dimensions");  						
 			$this->getGADimensionOnly($date, "Ecommerce");
@@ -394,6 +394,7 @@ order by f.dimDate");
 /**/							
 			//Get Dates 'Facts'
 			startTimer("Facts");			
+/** /
 			$this->getGAFactOnly($date, "vsDevice");
 			$this->getGAFactOnly($date, "vsEcommerce");
 			$this->getGAFactOnly($date, "vsEvent");
@@ -402,12 +403,10 @@ order by f.dimDate");
 			$this->getGAFactOnly($date, "vsSystem");
 			$this->getGAFactOnly($date, "vsTraffic");
 			$this->getGAFactOnly($date, "vsVisitor");
-			
+/**/			
 			$this->getGADimensionResults($date, "VanquisSession");			
 			stopTimer("Facts");
 /**/			
-
-
 			totalTimes();
   		}
     	
