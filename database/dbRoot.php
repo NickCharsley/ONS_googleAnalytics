@@ -26,11 +26,13 @@ define('DB_DATAOBJECT_LOADED'      ,12346);  // Loaded
 define('DB_DATAOBJECT_ADDED'       ,12347);  // Added
 define('DB_DATAOBJECT_DELETED'     ,12348);  // Needs to Be deleted
 
-class DB_DataObject_Exception extends PEAR_Exception {};
+$audit['DataObject']=array();
 
+class DB_DataObject_Exception extends PEAR_Exception {};
 
 class dbRoot extends DB_DataObject {
 	protected $_dirty;
+	protected $notUsed=array();
 	
 	static $f2t=array();
 	static $degrees=array();
@@ -110,7 +112,19 @@ class dbRoot extends DB_DataObject {
 	protected $mobile=array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
 	protected $pageLevel=array("ga:pagepathlevel1","ga:pagepathlevel2","ga:pagepathlevel3","ga:pagepathlevel4");
 
+	protected function logAction($action){
+		global $audit;
+		if (!isset($audit['DataObject'][$this->__table]))
+			$audit['DataObject'][$this->__table][$action][]=debug_backtrace();//=1;
+		else if (!isset($audit['DataObject'][$this->__table][$action])) 
+			$audit['DataObject'][$this->__table][$action][]=debug_backtrace();//=1;
+		else
+			$audit['DataObject'][$this->__table][$action][]=debug_backtrace();//++;
+	}
+	
+	
 	function insert(){
+		$this->logAction(__FUNCTION__);
 		//krumo($this);
     	$this->filldata();
     	try {
@@ -123,9 +137,13 @@ class dbRoot extends DB_DataObject {
     	}
     }
   
-  	function IsDirty(){return $this->dirty;}
+  	function IsDirty(){return $this->_dirty;}
   
-  	function __set($field,$value){
+ 	function __set($field,$value){
+ 		if (!property_exists($this, $field)){
+ 			//Google methods throw everything at the class and hope some of it sticks ;)
+ 			$this->notUsed[$field]=$value;
+ 		} else
 		if ($this->$field<>$value){
 			$this->_dirty=true;
 			$this->$field=$value;	
@@ -139,15 +157,23 @@ class dbRoot extends DB_DataObject {
 	function __isset($field){
 		return isset($this->$field);
 	}	
-  
-  
-    
+       
     function update($do=false){
+    	$this->logAction(__FUNCTION__);
     	$this->filldata();
     	return parent::update($do);
     }
 	
+	function find($fetch=false){
+		$this->logAction(__FUNCTION__);
+		return parent::find($fetch);
+	}
 			
+	function fetch(){
+		$this->logAction(__FUNCTION__);
+		return parent::fetch();
+	}
+	
 	function findDimensionID($row){
 		//krumo($row);
 		foreach($row['Dimensions'] as $dimName=>$dimValue){
@@ -158,27 +184,24 @@ class dbRoot extends DB_DataObject {
 		return $this->ID; 
 	}
 	
-	function filldata(){		
-	}
+	function filldata(){}
 	
-	protected function getMetrics(){
-		
-	}
+	protected function getMetrics(){}
 	
 	function saveGoogleResults($results=null){
 		print_line("Saving ".$this->__table);
 		foreach ($results->matrix as $row){
-			$fact=safe_DataObject_factory($this->__table);
-			$fact->dimProfile=$results->dimProfile;
-			$keyDims=$this->keyDimensions();
 			$action="";			
+			$fact=safe_DataObject_factory($this->__table);
+			$fact->dimProfile=$results->dimProfile;			
+			$keyDims=$fact->keyDimensions();
 			if (count($keyDims)){
 				//Should Only be a dimXXXX table so no Linked Dims to worry about 
 				foreach($row['Dimensions'] as $dimName=>$dimValue){
 					$dimName="ga:".ucfirst(str_replace("ga:", "", $dimName));
 					if (in_array($dimName, $keyDims)){
 						$dimName=str_replace("ga:", "", $dimName);
-						$fact->$dimName=$dimValue;	
+						$fact->$dimName=$dimValue;
 					}					
 				}
 				$action=($fact->find(true))?"update":"insert";
@@ -211,7 +234,8 @@ class dbRoot extends DB_DataObject {
 					$metName=ucfirst(str_replace("ga:", "", $metName));
 				$fact->$metName=$metValue;
 			}
-			$fact->$action($old_fact);
+			if ($fact->IsDirty())
+				$fact->$action($old_fact);
 			/** /
 			if($extra!="") {
 				krumo($fact);

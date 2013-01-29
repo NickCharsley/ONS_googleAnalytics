@@ -21,7 +21,7 @@ foreach ($profiles as $profile){
 		//$pl->getPageTracking($date);
 	}
 }
-
+/** /
 showTable("fctvsDevice","dimDate",str_replace('-','',$date));
 showTable("fctvsEvent","dimDate",str_replace('-','',$date));
 showTable("fctvsGeo","dimDate",str_replace('-','',$date));
@@ -29,5 +29,5 @@ showTable("fctvsPageTracking","dimDate",str_replace('-','',$date));
 showTable("fctvsSystem","dimDate",str_replace('-','',$date));
 showTable("fctvsTraffic","dimDate",str_replace('-','',$date));
 //showTable("fctvsVisitor","dimDate",str_replace('-','',$date));
-
+/**/
 ?>

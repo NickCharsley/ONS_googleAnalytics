@@ -7,7 +7,11 @@
 		private $client;
 
 		function test(){			
-			$this->sessionData(null);	
+			$this->sessionData('2013-01-23');
+			global $audit;
+			krumo($audit);
+			//krumo(dbRoot::$cache);
+				
 		}
     		    	
     	function __construct($client,$service,$profile){
@@ -19,9 +23,13 @@
     	private function getGADimensionOnly($date,$dimName,$metrics='ga:visits'){
     		$dim=safe_DataObject_factory("dim$dimName");
 			googleHelper::resetCount($dimName);
-    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams(),$metrics);  
-			krumo($res);	
+			startTimer("Get Google Data");
+    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams(),$metrics);
+			stopTimer("Get Google Data");  
+			krumo($res);
+			startTimer("Save Google Data");	
     		$dim->saveGoogleResults($res);
+			stopTimer("Save Google Data");
     	}    	 
 
     	private function getMCFDimensionOnly($date,$dimName){
@@ -41,10 +49,14 @@
     		flush_buffers();
 			/**/
 			googleHelper::resetCount($dimName);
+			startTimer("Get Google Data");
      		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
+			stopTimer("Get Google Data");
 			krumo($res);
+			startTimer("Save Google Data");
     		$dim->saveGoogleResults($res);
     		$fct->saveGoogleResults($res);
+			stopTimer("Save Google Data");
     	}
 
     	private function getGAFactOnly($date,$dimName){
@@ -56,9 +68,13 @@
     		flush_buffers();
 			/**/
 			googleHelper::resetCount($dimName);
+			startTimer("Get Google Data");
      		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
+			stopTimer("Get Google Data");
 			krumo($res);
+			startTimer("Save Google Data");
     		$fct->saveGoogleResults($res);
+			stopTimer("Save Google Data");
     	}
 
     	
@@ -68,15 +84,19 @@
     		//Krumo($fct->metrics());
 			flush_buffers();
 			googleHelper::resetCount($fctName);
+			startTimer("Get Google Data");
     		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
+			stopTimer("Get Google Data");
     		//Krumo($res);
+    		startTimer("Save Google Data");
 			$extras=array_keys($fct->links());
 			foreach ($extras as $dim){
 				$doDim=safe_DataObject_factory($dim);
 				$doDim->saveGoogleResults($res);
-			}
+			}			
 			flush_buffers();
-    		$fct->saveGoogleResults($res);			
+    		$fct->saveGoogleResults($res);
+			stopTimer("Save Google Data");						
     	}    	
     	
 		private function factLoaded($fctName,$date=null){
@@ -357,8 +377,9 @@ order by f.dimDate");
 			{//These are implied by getting CustomVar1
 				$this->getGADimensionOnly($date, "Date");	
 			}			
-			
-			//Get 'New' Dimensions  						
+/**/			
+			//Get 'New' Dimensions
+			startTimer("Dimensions");  						
 			$this->getGADimensionOnly($date, "Ecommerce");
 			$this->getGADimensionOnly($date, "Event");
 			$this->getGADimensionOnly($date, "Geo");
@@ -369,9 +390,11 @@ order by f.dimDate");
 			$this->getGADimensionOnly($date, "Visitor");
 			$this->getGADimensionOnly($date, "PagePath");
 			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
-							
-			//Get Dates 'Facts'									
-			$this->getGAFactOnly($date, "vsDevice");			
+			stopTimer("Dimensions");
+/**/							
+			//Get Dates 'Facts'
+			startTimer("Facts");			
+			$this->getGAFactOnly($date, "vsDevice");
 			$this->getGAFactOnly($date, "vsEcommerce");
 			$this->getGAFactOnly($date, "vsEvent");
 			$this->getGAFactOnly($date, "vsGeo");
@@ -380,7 +403,12 @@ order by f.dimDate");
 			$this->getGAFactOnly($date, "vsTraffic");
 			$this->getGAFactOnly($date, "vsVisitor");
 			
-			$this->getGADimensionResults($date, "VanquisSession");
+			$this->getGADimensionResults($date, "VanquisSession");			
+			stopTimer("Facts");
+/**/			
+
+
+			totalTimes();
   		}
     	
 		function google($date=NULL){
