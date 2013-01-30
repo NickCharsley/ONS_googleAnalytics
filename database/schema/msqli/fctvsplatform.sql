@@ -34,4 +34,4 @@ CREATE TABLE `fctvsplatform` (
   CONSTRAINT `fk_fctvsPlatform_dimPlatform` FOREIGN KEY (`dimPlatform`) REFERENCES `dimplatform` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsPlatform_dimSystem` FOREIGN KEY (`dimSystem`) REFERENCES `dimsystem` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsPlatform_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1

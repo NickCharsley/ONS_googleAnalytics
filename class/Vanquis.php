@@ -30,7 +30,7 @@
 			startTimer("Save Google Data");	
     		$dim->saveGoogleResults($res);
 			stopTimer("Save Google Data");
-			print("</hr>");
+			print("<hr/>");
     	}    	 
 
     	private function getMCFDimensionOnly($date,$dimName){
@@ -58,7 +58,7 @@
     		$dim->saveGoogleResults($res);
     		$fct->saveGoogleResults($res);
 			stopTimer("Save Google Data");
-			print("</hr>");
+			print("<hr/>");
     	}
 
     	private function getGAFactOnly($date,$dimName){
@@ -77,7 +77,7 @@
 			startTimer("Save Google Data");
     		$fct->saveGoogleResults($res);
 			stopTimer("Save Google Data");
-			print("</hr>");
+			print("<hr/>");
     	}
 
     	
@@ -100,7 +100,7 @@
 			flush_buffers();
     		$fct->saveGoogleResults($res);
 			stopTimer("Save Google Data");
-			print("</hr>");						
+			print("<hr/>");						
     	}    	
     	
 		private function factLoaded($fctName,$date=null){
@@ -415,6 +415,8 @@ order by f.dimDate");
 			$this->getGADimensionOnly($date, "Platform");
 			$this->getGADimensionOnly($date, "System");			
 			$this->getGADimensionOnly($date, "Traffic");
+			$this->getGADimensionOnly($date, "SocialTraffic");
+			$this->getGADimensionOnly($date, "AllTraffic");
 			$this->getGADimensionOnly($date, "Visitor");
 			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
 			stopTimer("Dimensions");
@@ -422,6 +424,8 @@ order by f.dimDate");
 			//Get Dates 'Facts'
 			startTimer("Facts");			
 /**/
+			$this->getGAFactOnly($date, "vsAllTraffic");
+			$this->getGAFactOnly($date, "vsSocialTraffic");
 			$this->getGAFactOnly($date, "vsPlatform");
 			$this->getGAFactOnly($date, "vsDevice");
 			$this->getGAFactOnly($date, "vsEcommerce");
