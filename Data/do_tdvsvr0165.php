@@ -22,6 +22,15 @@ if ($test) {
 	showTable("fctvsTraffic","dimDate",str_replace('-','',$date));
 	die(__FILE__.":".__LINE__);
 }
+else {
+	$profiles=array(68103870,68232661,61943476,68103870,68243329);
+	foreach ($profiles as $profile){
+		$pl=new Vanquis($client,$service,$profile);
+		print_line("Session Data for Profile $profile");
+		$pl->sessionData();
+	}
+
+}
 
 $pl=new Vanquis($client,$service,55368687);
 if ($test){
