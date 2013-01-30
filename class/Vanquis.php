@@ -23,6 +23,9 @@
     	private function getGADimensionOnly($date,$dimName,$metrics='ga:visits'){
     		$dim=safe_DataObject_factory("dim$dimName");
 			googleHelper::resetCount($dimName);
+			
+			print_line(__FUNCTION__." $dimName");
+			
 			startTimer("Get Google Data");
     		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams(),$metrics);
 			stopTimer("Get Google Data");  
@@ -35,6 +38,8 @@
 
     	private function getMCFDimensionOnly($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
+			print_line(__FUNCTION__." $dimName");
+			
 			googleHelper::resetCount($dimName);
     		$res=googleHelper::getMCFResults($date,$this->client,$this->service,$this->profile,$dim->optParams());  	
     		$dim->saveGoogleResults($res);
@@ -43,12 +48,9 @@
     	private function getGADimensionResults($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
     		$fct=safe_DataObject_factory("fct$dimName");
-			/** /
-			krumo($fct->optParams());
-			krumo($dim->optParams($fct->optParams()));
-			krumo($fct->metrics());
-    		flush_buffers();
-			/**/
+			
+			print_line(__FUNCTION__." $dimName");
+			
 			googleHelper::resetCount($dimName);
 			startTimer("Get Google Data");
      		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$dim->optParams($fct->optParams()),$fct->metrics());
@@ -63,12 +65,9 @@
 
     	private function getGAFactOnly($date,$dimName){
     		$fct=safe_DataObject_factory("fct$dimName");
-			//$dim=safe_DataObject_factory("dimDate");
-			/** /
-			krumo($fct->optParams());
-			krumo($fct->metrics());
-    		flush_buffers();
-			/**/
+			
+			print_line(__FUNCTION__." $dimName");
+			
 			googleHelper::resetCount($dimName);
 			startTimer("Get Google Data");
      		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
@@ -83,9 +82,8 @@
     	
     	private function getGAFactResults($date,$fctName){
     		$fct=safe_DataObject_factory("fct$fctName");
-    		//Krumo($fct->optParams());
-    		//Krumo($fct->metrics());
-			flush_buffers();
+    		print_line(__FUNCTION__." $fctName");
+			
 			googleHelper::resetCount($fctName);
 			startTimer("Get Google Data");
     		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());

@@ -25,4 +25,9 @@ class doDimalltraffic extends dbRoot
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    
+    function  keyDimensions(){
+    	return array("ga:Campaign","ga:Source","ga:Keyword","ga:SocialNetwork","ga:HasSocialSourceReferral","ga:ReferralPath","ga:Medium","ga:adContent");
+    }
+    
 }

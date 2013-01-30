@@ -20,6 +20,8 @@ foreach ($cm_profiles as $profile){
 	
 krumo($audit);
 
-totalTime();
+showTable("fctvsPlatform");
+
+totalTimes();
 	
 ?>
