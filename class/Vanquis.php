@@ -381,29 +381,30 @@ order by f.dimDate");
 			{//These are implied by getting CustomVar1
 				$this->getGADimensionOnly($date, "Date");	
 			}			
-/** /			
+/**/			
 			//Get 'New' Dimensions
 			startTimer("Dimensions");  						
 			$this->getGADimensionOnly($date, "Ecommerce");
 			$this->getGADimensionOnly($date, "Event");
 			$this->getGADimensionOnly($date, "Geo");
+			//$this->getGADimensionOnly($date, "Hostname");
 			$this->getGADimensionOnly($date, "Network");
 			$this->getGADimensionOnly($date, "Platform");
 			$this->getGADimensionOnly($date, "System");			
 			$this->getGADimensionOnly($date, "Traffic");
 			$this->getGADimensionOnly($date, "Visitor");
-			$this->getGADimensionOnly($date, "PagePath");
+			//$this->getGADimensionOnly($date, "PagePath");
 			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
 			stopTimer("Dimensions");
 /**/							
 			//Get Dates 'Facts'
 			startTimer("Facts");			
-/** /
+/**/
 			$this->getGAFactOnly($date, "vsDevice");
 			$this->getGAFactOnly($date, "vsEcommerce");
 			$this->getGAFactOnly($date, "vsEvent");
 			$this->getGAFactOnly($date, "vsGeo");
-			$this->getGAFactOnly($date, "vsPageTracking");
+			$this->getGAFactResults($date, "vsPageTracking");
 			$this->getGAFactOnly($date, "vsSystem");
 			$this->getGAFactOnly($date, "vsTraffic");
 			$this->getGAFactOnly($date, "vsVisitor");
