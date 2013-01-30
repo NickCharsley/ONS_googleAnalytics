@@ -1,11 +1,7 @@
 <?php
+	$profiles=array(68103870,68232661,61943476,68103870,68243329);
 
 if ($test) {
-	/** /
-	$profiles=array(55368687,61943476,67348193,68081878,68085948,68086044);
-	/**/
-	$profiles=array(68103870,68232661,61943476,68103870,68243329);
-	/**/
 	$date="2013-01-23";
 
 	foreach ($profiles as $profile){
@@ -23,13 +19,14 @@ if ($test) {
 	die(__FILE__.":".__LINE__);
 }
 else {
-	$profiles=array(68103870,68232661,61943476,68103870,68243329);
 	foreach ($profiles as $profile){
+		print("<H1>Profile $profile</H1>");
 		$pl=new Vanquis($client,$service,$profile);
-		print_line("Session Data for Profile $profile");
+		print("<H2>Session Data</H2>");
 		$pl->sessionData();
+		//print("<H2>Page Tracking</H2>");
+		//$pl->getPageTracking();
 	}
-
 }
 
 $pl=new Vanquis($client,$service,55368687);
@@ -37,6 +34,7 @@ if ($test){
 	$pl->test();
 }
 else {	
+	print("<H2>Processing Page Tracking for $date</H2>");
 	$pl->ProfileDates();
 	$sql="with data as (
 select top 2 dimdate from fctdate fd
@@ -49,8 +47,6 @@ select top 1 * from data where dimdate<convert(varchar(10),getdate(),112)";
 
 $res=New DateTime($db->query($sql)->fetchOne()) ;
 $date=$res->format('Y-m-d');
-print_line("Processing for $date");
-
 
 	$pl->getPageTracking($date);
 }
