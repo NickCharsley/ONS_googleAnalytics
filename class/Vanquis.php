@@ -30,6 +30,7 @@
 			startTimer("Save Google Data");	
     		$dim->saveGoogleResults($res);
 			stopTimer("Save Google Data");
+			print("</hr>");
     	}    	 
 
     	private function getMCFDimensionOnly($date,$dimName){
@@ -57,6 +58,7 @@
     		$dim->saveGoogleResults($res);
     		$fct->saveGoogleResults($res);
 			stopTimer("Save Google Data");
+			print("</hr>");
     	}
 
     	private function getGAFactOnly($date,$dimName){
@@ -75,6 +77,7 @@
 			startTimer("Save Google Data");
     		$fct->saveGoogleResults($res);
 			stopTimer("Save Google Data");
+			print("</hr>");
     	}
 
     	
@@ -96,7 +99,8 @@
 			}			
 			flush_buffers();
     		$fct->saveGoogleResults($res);
-			stopTimer("Save Google Data");						
+			stopTimer("Save Google Data");
+			print("</hr>");						
     	}    	
     	
 		private function factLoaded($fctName,$date=null){
@@ -397,6 +401,7 @@ order by f.dimDate");
   			}
 			else 
 			{//These are implied by getting CustomVar1
+			print("<H3>Date to process=$date</H3>");
 				$this->getGADimensionOnly($date, "Date");	
 			}			
 /**/			
@@ -405,28 +410,29 @@ order by f.dimDate");
 			$this->getGADimensionOnly($date, "Ecommerce");
 			$this->getGADimensionOnly($date, "Event");
 			$this->getGADimensionOnly($date, "Geo");
-			//$this->getGADimensionOnly($date, "Hostname");
 			$this->getGADimensionOnly($date, "Network");
+			$this->getGADimensionOnly($date, "Mobile");
 			$this->getGADimensionOnly($date, "Platform");
 			$this->getGADimensionOnly($date, "System");			
 			$this->getGADimensionOnly($date, "Traffic");
 			$this->getGADimensionOnly($date, "Visitor");
-			//$this->getGADimensionOnly($date, "PagePath");
 			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
 			stopTimer("Dimensions");
 /**/							
 			//Get Dates 'Facts'
 			startTimer("Facts");			
 /**/
+			$this->getGAFactOnly($date, "vsPlatform");
 			$this->getGAFactOnly($date, "vsDevice");
 			$this->getGAFactOnly($date, "vsEcommerce");
 			$this->getGAFactOnly($date, "vsEvent");
 			$this->getGAFactOnly($date, "vsGeo");
 			$this->getGAFactOnly($date, "vsNetwork");
-			$this->getGAFactResults($date, "vsPageTracking");
 			$this->getGAFactOnly($date, "vsSystem");
 			$this->getGAFactOnly($date, "vsTraffic");
 			$this->getGAFactOnly($date, "vsVisitor");
+			//PageTracking is Problamatic so we get as FactResults to save all the data
+			$this->getGAFactResults($date, "vsPageTracking");
 /**/			
 			$this->getGADimensionResults($date, "VanquisSession");			
 			stopTimer("Facts");

@@ -7,16 +7,16 @@ CREATE TABLE `fctcustomvar1` (
   `Visitors` int(11) NOT NULL DEFAULT '0',
   `NewVisits` int(11) NOT NULL DEFAULT '0',
   `Bounces` int(11) NOT NULL DEFAULT '0',
-  `TimeOnSite` float NOT NULL DEFAULT '0',
+  `TimeOnSite` int(11) NOT NULL DEFAULT '0',
   `OrganicSearches` int(11) NOT NULL DEFAULT '0',
   `GoalStartsAll` int(11) NOT NULL DEFAULT '0',
   `GoalCompletionsAll` int(11) NOT NULL DEFAULT '0',
   `GoalAbandonsAll` int(11) NOT NULL DEFAULT '0',
-  `GoalValueAll` float NOT NULL DEFAULT '0',
+  `GoalValueAll` int(11) NOT NULL DEFAULT '0',
   `Entrances` int(11) NOT NULL DEFAULT '0',
   `Pageviews` int(11) NOT NULL DEFAULT '0',
   `UniquePageviews` int(11) NOT NULL DEFAULT '0',
-  `TimeOnPage` float NOT NULL DEFAULT '0',
+  `TimeOnPage` int(11) NOT NULL DEFAULT '0',
   `Exits` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `fk_fctCustomVar1_dimCustomVar1` (`dimCustomVar1`),
@@ -25,4 +25,4 @@ CREATE TABLE `fctcustomvar1` (
   CONSTRAINT `fk_fctCustomVar1_dimCustomVar1` FOREIGN KEY (`dimCustomVar1`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctCustomVar1_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctCustomVar1_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1
