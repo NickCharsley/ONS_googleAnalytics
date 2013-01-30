@@ -141,8 +141,13 @@ class dbRoot extends DB_DataObject {
     	if (!($ret===TRUE)) 
     	{
     		$this->logAction(__FUNCTION__);
-    		krumo($do);
-			krumo($this);
+    		if (isset($_GET['krumo_full'])){
+	    		DB_DataObject::debugLevel(5);
+				parent::update($do);
+				DB_DataObject::debugLevel(0);
+    			krumo($do);
+				krumo($this);
+			}
     	}
     	return $ret;	
     }

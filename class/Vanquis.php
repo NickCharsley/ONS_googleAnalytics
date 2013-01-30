@@ -367,7 +367,11 @@ on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate and dimCustomVar1=dimVanqui
 where v.dimdate is null
 and f.dimprofile={$this->profile}
 order by f.dimDate");
-				$do_date->fetch();
+				if (!$do_date->fetch())
+				{
+					print_line("No Data to Process");
+					return;
+				}
 				print_line("Date to process=".$do_date->dimDate);
 				if (isset($_GET['krumo_full'])) krumo($do_date);
   				$dt_date=new DateTime($do_date->dimDate);
