@@ -23,7 +23,7 @@ class doDimevent extends dbRoot
     public $fb_linkDisplayFields=array('EventAction','EventLabel');
     
     function keyDimensions(){
-	   	return array("ga:EventCategory,'ga:EventAction','ga:EventLabel'");
+	   	return array("ga:EventCategory","ga:EventAction","ga:EventLabel");
     }    
 }
 ?>
