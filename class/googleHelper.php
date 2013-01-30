@@ -187,10 +187,20 @@
 	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsYes, $metrics));
 			
 		}
-	  	else {	  		
-	  		$startdate=isset($date)?$date:'2010-01-01';			
-			$enddate  =isset($date)?$date:date('Y-m-d');
-			googleHelper::$counter++;
+	  	else {
+	  		if (isset($date)){
+		  		$startdate=$date;			
+				$enddate  =$date;				
+	  		}	else {
+	  			if (!isset($_GET['history'])){
+		  			$sdt=new DateTime();
+		  			$startdate=$sdt->Sub(new DateInterval('P14D'))->format('Y-m-d');								
+	  			} else {
+	  				$startdate=$_GET['history'];
+	  			}
+	  			$enddate  =date('Y-m-d');							
+	  		}  		
+	  		googleHelper::$counter++;
 			debug_error_log("Google Analytics (GA) call ".googleHelper::$version.":".googleHelper::$counter." (ga:$profile,$startdate,$enddate,$metrics)");
 			debug_error_log($optParams);			
 	  		$gaResults=$service->data_ga->get("ga:".$profile,$startdate,$enddate,$metrics,$optParams);
