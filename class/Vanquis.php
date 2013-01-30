@@ -176,14 +176,32 @@
 		}
 
 		function getPageTracking($date=NULL){
-			if (!isset($date)) 
-			{
-				$date=date("Y-m-d",time()-86400);
-				if ($this->factLoaded("PageTracking",$date)) {
-					debug_print (__FUNCTION__."($date) already loaded");
-					return true;
+  			if ($date==null){
+  				$this->getGAFactResults($date, "Date");
+				//Now find Oldest Unprocessed Day
+				//This will be a date in fctCustomVar1 that has no row in ftcVanquisSession 
+				$do_date=safe_dataobject_factory("fctCustomVar1");
+				$do_date->query("select distinct f.* 
+from fctCustomVar1 f 
+left join fctVanquisSession v
+on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate and dimCustomVar1=dimVanquisSession
+where v.dimdate is null
+and f.dimprofile={$this->profile}
+order by f.dimDate");
+				if (!$do_date->fetch())
+				{
+					print_line("No Data to Process");
+					return;
 				}
-			}			    		
+				print("<H3>Date to process=".$do_date->dimDate."</H3>");
+				if (isset($_GET['krumo_full'])) krumo($do_date);
+  				$dt_date=new DateTime($do_date->dimDate);
+				$date=$dt_date->format("Y-m-d");	
+  			}
+			else 
+			{//These are implied by getting CustomVar1
+				$this->getGADimensionOnly($date, "Date");	
+			}			
     		$this->getGAFactResults($date,"PageTracking");				    		
     	}
 		 
@@ -372,7 +390,7 @@ order by f.dimDate");
 					print_line("No Data to Process");
 					return;
 				}
-				print_line("Date to process=".$do_date->dimDate);
+				print("<H3>Date to process=".$do_date->dimDate."</H3>");
 				if (isset($_GET['krumo_full'])) krumo($do_date);
   				$dt_date=new DateTime($do_date->dimDate);
 				$date=$dt_date->format("Y-m-d");	

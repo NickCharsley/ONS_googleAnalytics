@@ -4,30 +4,18 @@
 /** /
 $profiles=array(55368687,61943476,67348193,68081878,68085948,68086044);
 /**/
-$profiles=array(68103870);//68232661,61943476,68103870,68243329);
-/**/
-$date="2013-01-23";
+$cm_profiles=array(68103870,68232661,68243329,61943476);
+$dl_profiles=array(67348193,68081878,68085948,68086044,64920522,42209706,42476341,42506344);
+$pl_profiles=array(55368687);
 
-foreach ($profiles as $profile){
+foreach ($cm_profiles as $profile){
+	print("<H1>Profile $profile</H1>");
 	$pl=new Vanquis($client,$service,$profile);
-	print_line("Profile $profile");
-	if ($test){
-		$pl->test();
-		//$pl->ProfileDates();
-	}
-	else {
-		//$pl->ProfileDates();	
-			
-		//$pl->getPageTracking($date);
-	}
+	//print("<H2>Session Data</H2>");
+	//$pl->sessionData();
+	print("<H2>Page Tracking</H2>");
+	$pl->getPageTracking();
 }
-/** /
-showTable("fctvsDevice","dimDate",str_replace('-','',$date));
-showTable("fctvsEvent","dimDate",str_replace('-','',$date));
-showTable("fctvsGeo","dimDate",str_replace('-','',$date));
-showTable("fctvsPageTracking","dimDate",str_replace('-','',$date));
-showTable("fctvsSystem","dimDate",str_replace('-','',$date));
-showTable("fctvsTraffic","dimDate",str_replace('-','',$date));
-//showTable("fctvsVisitor","dimDate",str_replace('-','',$date));
-/**/
+	
+	
 ?>
