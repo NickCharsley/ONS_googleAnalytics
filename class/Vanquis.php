@@ -422,6 +422,7 @@ order by f.dimDate");
 			$this->getGAFactOnly($date, "vsEcommerce");
 			$this->getGAFactOnly($date, "vsEvent");
 			$this->getGAFactOnly($date, "vsGeo");
+			$this->getGAFactOnly($date, "vsNetwork");
 			$this->getGAFactResults($date, "vsPageTracking");
 			$this->getGAFactOnly($date, "vsSystem");
 			$this->getGAFactOnly($date, "vsTraffic");

@@ -11,10 +11,8 @@ $pl_profiles=array(55368687);
 foreach ($cm_profiles as $profile){
 	print("<H1>Profile $profile</H1>");
 	$pl=new Vanquis($client,$service,$profile);
-	//print("<H2>Session Data</H2>");
-	//$pl->sessionData();
-	print("<H2>Page Tracking</H2>");
-	$pl->getPageTracking();
+	print("<H2>Session Data</H2>");
+	$pl->sessionData();
 }
 	
 	
