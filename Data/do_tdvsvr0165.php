@@ -75,5 +75,6 @@ print_line("Processing for $date");
 	$cm->getPageTracking($date);
 }
 
+krumo($audit);
 
 ?>
