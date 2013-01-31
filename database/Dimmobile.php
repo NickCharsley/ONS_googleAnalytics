@@ -27,7 +27,7 @@ class doDimmobile extends dbRoot
   
     
     function filldata(){
-    	if ($this->IsMobile=='No'){
+/*    	if ($this->IsMobile=='No'){
 	    	//Special Handeling if IsMobile="No"!!!
 			$this->MobileDeviceBranding="(not set)";
     		$this->MobileDeviceModel="(not set)";
@@ -37,7 +37,7 @@ class doDimmobile extends dbRoot
 		else if ($this->MobileDeviceInfo="(not set)"){
 			$this->MobileDeviceInfo="Unidentified Mobile Device";
 		}
-		
+*/
 	}
     
     function keyDimensions(){

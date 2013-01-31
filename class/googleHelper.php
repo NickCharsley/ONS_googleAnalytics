@@ -128,7 +128,14 @@
 			$optParamsYes['dimensions']=join(",",$newDims);
 
 			$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsNo, $metrics));
-	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsYes, $metrics));
+			$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsYes, $metrics));
+			
+			$results->globalAddDimension("ga:MobileDeviceBranding","(not set)","ga:IsMobile==No");
+			$results->globalAddDimension("ga:MobileDeviceModel","(not set)","ga:IsMobile==No");
+			$results->globalAddDimension("ga:MobileInputSelector","(not set)","ga:IsMobile==No");
+	  		$results->globalAddDimension("ga:MobileDeviceInfo","Non Mobile Device","ga:IsMobile==No");
+			
+			$results->globalAddDimension("ga:MobileDeviceInfo","Unknown Mobile Device","ga:MobileDeviceInfo==(not set)");
 			
 		} else if (in_array("ga:Goal",$aDims)){
 	  		$newDims=array_diff($aDims,array("ga:Goal"));
@@ -216,7 +223,7 @@
 	  			$results->mergeResults($gaResults);
 	  		}
 	  	}	  	
-	  	//krumo($results);
+	  	if (isset($_GET['krumo_full'])) krumo($results);			
 		if ($client->getAccessToken()) {
 			$_SESSION['token'] = $client->getAccessToken();
 		}

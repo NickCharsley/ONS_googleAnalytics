@@ -42,6 +42,13 @@
  			$this->rowCount=count($this->matrix); 			
  		}
 
+		function globalAddDimension($key,$value,$where=""){
+			foreach ($this->filter as $filter) {
+				if (!(strpos($filter,$where)===false))
+					$this->matrix[$filter]['Dimensions'][$key]=$value;
+			}
+		}
+
  		function getRows($index=null){
  			krumo($this);
  			die("Bad Die".__FILE__.":".__LINE__);
