@@ -17,29 +17,14 @@ CREATE TABLE "DBO"."fctvspagetracking" (
   "UniquePageviews" int NOT NULL,
   "TimeOnPage" int NOT NULL,
   "Exits" int NOT NULL,
-  "GoalCompletionsAll" int NOT NULL DEFAULT '0',
-  "GoalStartsAll" int NOT NULL DEFAULT '0',
-  "GoalAbandonsAll" int NOT NULL DEFAULT '0',
-  "Goal1Completions" int NOT NULL DEFAULT '0',
-  "Goal2Completions" int NOT NULL DEFAULT '0',
-  "Goal3Completions" int NOT NULL DEFAULT '0',
-  "Goal4Completions" int NOT NULL DEFAULT '0',
-  "Goal5Completions" int NOT NULL DEFAULT '0',
-  "Goal6Completions" int NOT NULL DEFAULT '0',
-  "Goal7Completions" int NOT NULL DEFAULT '0',
-  "Goal8Completions" int NOT NULL DEFAULT '0',
-  "Goal9Completions" int NOT NULL DEFAULT '0',
-  "Goal10Completions" int NOT NULL DEFAULT '0',
-  "Goal11Completions" int NOT NULL DEFAULT '0',
-  "Goal12Completions" int NOT NULL DEFAULT '0',
-  "Goal13Completions" int NOT NULL DEFAULT '0',
-  "Goal14Completions" int NOT NULL DEFAULT '0',
-  "Goal15Completions" int NOT NULL DEFAULT '0',
-  "Goal16Completions" int NOT NULL DEFAULT '0',
-  "Goal17Completions" int NOT NULL DEFAULT '0',
-  "Goal18Completions" int NOT NULL DEFAULT '0',
-  "Goal19Completions" int NOT NULL DEFAULT '0',
-  "Goal20Completions" int NOT NULL DEFAULT '0',
+  "PageLoadTime" int NOT NULL DEFAULT '0',
+  "PageLoadSample" int NOT NULL DEFAULT '0',
+  "DomainLookupTime" int NOT NULL DEFAULT '0',
+  "PageDownloadTime" int NOT NULL DEFAULT '0',
+  "RedirectionTime" int NOT NULL DEFAULT '0',
+  "ServerConnectionTime" int NOT NULL DEFAULT '0',
+  "ServerResponseTime" int NOT NULL DEFAULT '0',
+  "SpeedMetricsSample" int NOT NULL DEFAULT '0',
   PRIMARY KEY ("ID"),
 
 
@@ -53,7 +38,6 @@ CREATE TABLE "DBO"."fctvspagetracking" (
 
 
 
-  CONSTRAINT "fk_fctvsPageTracking_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsPageTracking_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsPageTracking_dimExitPagePath" FOREIGN KEY ("dimExitPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsPageTracking_dimHostname" FOREIGN KEY ("dimHostname") REFERENCES "dimhostname" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -64,6 +48,7 @@ CREATE TABLE "DBO"."fctvspagetracking" (
   CONSTRAINT "fk_fctvsPageTracking_dimPreviousPagePath" FOREIGN KEY ("dimPreviousPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsPageTracking_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsPageTracking_dimSecondPagePath" FOREIGN KEY ("dimSecondPagePath") REFERENCES "dimpagepath" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctvsPageTracking_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsPageTracking_dimVisitor" FOREIGN KEY ("dimVisitor") REFERENCES "dimvisitor" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
 ) 
 GO

@@ -28,29 +28,14 @@ class doFctvspagetracking extends dbRoot
     public $UniquePageviews;                 // int(4)   not_null
     public $TimeOnPage;                      // int(4)   not_null
     public $Exits;                           // int(4)   not_null
-    public $GoalCompletionsAll;              // int(4)   not_null
-    public $GoalStartsAll;                   // int(4)   not_null
-    public $GoalAbandonsAll;                 // int(4)   not_null
-    public $Goal1Completions;                // int(4)   not_null
-    public $Goal2Completions;                // int(4)   not_null
-    public $Goal3Completions;                // int(4)   not_null
-    public $Goal4Completions;                // int(4)   not_null
-    public $Goal5Completions;                // int(4)   not_null
-    public $Goal6Completions;                // int(4)   not_null
-    public $Goal7Completions;                // int(4)   not_null
-    public $Goal8Completions;                // int(4)   not_null
-    public $Goal9Completions;                // int(4)   not_null
-    public $Goal10Completions;               // int(4)   not_null
-    public $Goal11Completions;               // int(4)   not_null
-    public $Goal12Completions;               // int(4)   not_null
-    public $Goal13Completions;               // int(4)   not_null
-    public $Goal14Completions;               // int(4)   not_null
-    public $Goal15Completions;               // int(4)   not_null
-    public $Goal16Completions;               // int(4)   not_null
-    public $Goal17Completions;               // int(4)   not_null
-    public $Goal18Completions;               // int(4)   not_null
-    public $Goal19Completions;               // int(4)   not_null
-    public $Goal20Completions;               // int(4)   not_null
+    public $PageLoadTime;                    // int(4)   not_null
+    public $PageLoadSample;                  // int(4)   not_null
+    public $DomainLookupTime;                // int(4)   not_null
+    public $PageDownloadTime;                // int(4)   not_null
+    public $RedirectionTime;                 // int(4)   not_null
+    public $ServerConnectionTime;            // int(4)   not_null
+    public $ServerResponseTime;              // int(4)   not_null
+    public $SpeedMetricsSample;              // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctvspagetracking',$k,$v); }

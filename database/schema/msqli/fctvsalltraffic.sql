@@ -33,4 +33,4 @@ CREATE TABLE `fctvsalltraffic` (
   CONSTRAINT `fk_fctvsAllTraffic_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsAllTraffic_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsAllTraffic_dimAllTraffic` FOREIGN KEY (`dimAllTraffic`) REFERENCES `dimalltraffic` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1
