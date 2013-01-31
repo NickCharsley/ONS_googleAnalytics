@@ -153,7 +153,7 @@
 			$table_data=$this->describeTable($table);
 			print_line("Validating $table");
 			if (count($table_data)==0){
-				print_line('Table not there so Create');
+				print('<b>Table not there so Create</b><br/>');
 				$this->createTable($table);
 			}
 			else {
@@ -161,9 +161,14 @@
 				
 				$missing=array_values(array_diff(array_map('strtolower',array_keys($fields)), array_map('strtolower',array_keys($table_data))));
 				if (count($missing)>0){
-					print_line($missing[0]." missing from Table $table");
+					print("<b>{$missing[0]} missing from Table $table</b><br/>");
 					$this->addFields($table, $missing);
 				}
+				$extras=array_values(array_diff(array_map('strtolower',array_keys($table_data)),array_map('strtolower',array_keys($fields))));
+				foreach ($extras as $extra){
+					print("<b>$extra extra in Table $table</b><br/>");
+					//$this->addFields($table, $missing);
+				}				
 			}
 								
 			//krumo($table_data);

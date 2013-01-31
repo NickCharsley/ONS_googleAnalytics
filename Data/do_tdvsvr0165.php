@@ -4,14 +4,15 @@
 if ($test) {
 	$date="2013-01-23";
 
+	$profiles=array(68103870);
+
 	foreach ($profiles as $profile){
 		$pl=new Vanquis($client,$service,$profile);
 		print_line("Profile $profile");
 		$pl->sessionData();
 	}
 
-	showTable("fctvsDevice","dimDate",str_replace('-','',$date));
-	showTable("fctvsEvent","dimDate",str_replace('-','',$date));
+	showTable("fctvsPlatform","dimDate",str_replace('-','',$date));
 	showTable("fctvsGeo","dimDate",str_replace('-','',$date));
 	showTable("fctvsPageTracking","dimDate",str_replace('-','',$date));
 	showTable("fctvsSystem","dimDate",str_replace('-','',$date));
