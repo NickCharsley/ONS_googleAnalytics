@@ -17,11 +17,7 @@ foreach ($cm_profiles as $profile){
 	if (isset($_GET['test'])) $pl->sessionData();
 	else $pl->sessionData();
 }
-	
-krumo($audit);
-
-showTable("fctvsPlatform");
-
 totalTimes();
-	
+
+showTable("fctvsPageTracking");	
 ?>

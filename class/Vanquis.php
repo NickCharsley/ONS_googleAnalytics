@@ -413,7 +413,6 @@ order by f.dimDate");
 			$this->getGADimensionOnly($date, "Platform");
 			$this->getGADimensionOnly($date, "System");			
 			$this->getGADimensionOnly($date, "Traffic");
-			$this->getGADimensionOnly($date, "SocialTraffic");
 			$this->getGADimensionOnly($date, "AllTraffic");
 			$this->getGADimensionOnly($date, "Visitor");
 			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
@@ -423,7 +422,6 @@ order by f.dimDate");
 			startTimer("Facts");			
 /**/
 			$this->getGAFactOnly($date, "vsAllTraffic");
-			$this->getGAFactOnly($date, "vsSocialTraffic");
 			$this->getGAFactOnly($date, "vsPlatform");
 			$this->getGAFactOnly($date, "vsDevice");
 			$this->getGAFactOnly($date, "vsEcommerce");
