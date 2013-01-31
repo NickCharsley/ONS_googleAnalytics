@@ -1,37 +1,28 @@
 <?php
-	$profiles=array(68103870,68232661,61943476,68243329);
+	$cm_profiles=array(68103870,68232661,68243329,61943476);
+	$dl_profiles=array(67348193,68081878,68085948,68086044,64920522,42209706,42476341,42506344);
+	$pl_profiles=array(55368687);
 
-if ($test) {
-	$date="2013-01-23";
-
-	$profiles=array(68103870);
-
-	foreach ($profiles as $profile){
-		$pl=new Vanquis($client,$service,$profile);
-		print_line("Profile $profile");
-		$pl->sessionData();
-	}
-
-	showTable("fctvsPlatform","dimDate",str_replace('-','',$date));
-	showTable("fctvsGeo","dimDate",str_replace('-','',$date));
-	showTable("fctvsPageTracking","dimDate",str_replace('-','',$date));
-	showTable("fctvsSystem","dimDate",str_replace('-','',$date));
-	showTable("fctvsTraffic","dimDate",str_replace('-','',$date));
-	die(__FILE__.":".__LINE__);
-}
-else {
-	foreach ($profiles as $profile){
+	$date="2013-01-29";
+	
+	if (isset($_GET['test'])) $cm_profiles=array(68103870); 
+	
+	foreach ($cm_profiles as $profile){
 		print("<H1>Profile $profile</H1>");
 		$pl=new Vanquis($client,$service,$profile);
 		print("<H2>Session Data</H2>");
-		$pl->sessionData();
-		//print("<H2>Page Tracking</H2>");
-		//$pl->getPageTracking();
+		if (isset($_GET['test'])) $pl->sessionData();
+		else $pl->sessionData();
 	}
-}
+	totalTimes();
+	
+	showTable("fctvsPageTracking");	
+	showTable("fctvsPlatform");	
+
+if (isset($_GET['test'])) die(__FILE__.":".__LINE__);
 
 $pl=new Vanquis($client,$service,55368687);
-if ($test){
+if (isset($_GET['test'])){
 	$pl->test();
 }
 else {	
@@ -53,7 +44,7 @@ $date=$res->format('Y-m-d');
 }
 
 $cm=new Vanquis($client,$service,61943476);
-if ($test){
+if (isset($_GET['test'])){
 	$cm->test();
 }
 else {	
