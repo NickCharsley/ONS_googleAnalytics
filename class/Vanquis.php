@@ -6,9 +6,13 @@
     	private $profile;
 		private $client;
 
-		function test(){			
-			$this->getGAFactOnly('2013-01-23', "vsPlatform");
-			showTable("fctvsPlatform");
+		function test(){
+			$this->sessionData('2013-01-31');
+			
+			showTable("fctvsCustomVar2");
+			showTable("fctvsCustomVar3");
+			showTable("fctvsCustomVar4");
+			showTable("fctvsCustomVar5");
 		}
     		    	
     	function __construct($client,$service,$profile){
@@ -401,7 +405,11 @@ order by f.dimDate");
 			}			
 /**/			
 			//Get 'New' Dimensions
-			startTimer("Dimensions");  						
+			startTimer("Dimensions");
+			$this->getGADimensionOnly($date, "CustomVar2");
+			$this->getGADimensionOnly($date, "CustomVar3");
+			$this->getGADimensionOnly($date, "CustomVar4");
+			$this->getGADimensionOnly($date, "CustomVar5");
 			$this->getGADimensionOnly($date, "Ecommerce");
 			$this->getGADimensionOnly($date, "Event");
 			$this->getGADimensionOnly($date, "Geo");
@@ -418,6 +426,10 @@ order by f.dimDate");
 			//Get Dates 'Facts'
 			startTimer("Facts");			
 /**/
+			$this->getGAFactOnly($date, "vsCustomVar2");
+			$this->getGAFactOnly($date, "vsCustomVar3");
+			$this->getGAFactOnly($date, "vsCustomVar4");
+			$this->getGAFactOnly($date, "vsCustomVar5");
 			$this->getGAFactOnly($date, "vsAllTraffic");
 			$this->getGAFactOnly($date, "vsPlatform");
 			$this->getGAFactOnly($date, "vsDevice");
