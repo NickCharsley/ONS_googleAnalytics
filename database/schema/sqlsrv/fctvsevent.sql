@@ -24,10 +24,10 @@ CREATE TABLE "DBO"."fctvsevent" (
 
 
 
-  CONSTRAINT "fk_fctvsEvent_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsEvent_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsEvent_dimEvent" FOREIGN KEY ("dimEvent") REFERENCES "dimevent" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsEvent_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT "fk_fctvsEvent_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctvsEvent_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
 ) 
 GO
 

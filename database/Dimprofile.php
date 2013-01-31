@@ -16,6 +16,7 @@ class doDimprofile extends dbRoot
     public $Currency;                        // varchar(45)   not_null
     public $WebsiteURL;                      // varchar(45)   not_null
     public $Type;                            // varchar(45)   not_null
+    public $hidden;                          // smallint(2)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimprofile',$k,$v); }

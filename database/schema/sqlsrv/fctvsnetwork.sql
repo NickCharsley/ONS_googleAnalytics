@@ -24,10 +24,10 @@ CREATE TABLE "DBO"."fctvsnetwork" (
 
 
 
-  CONSTRAINT "fk_fctvsNetwork_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsNetwork_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsNetwork_dimNetwork" FOREIGN KEY ("dimNetwork") REFERENCES "dimnetwork" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsNetwork_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT "fk_fctvsNetwork_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctvsNetwork_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
 ) 
 GO
 

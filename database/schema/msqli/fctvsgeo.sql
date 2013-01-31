@@ -24,8 +24,8 @@ CREATE TABLE `fctvsgeo` (
   KEY `fk_fctvsGeo_dimDate` (`dimDate`),
   KEY `fk_fctvsGeo_dimGeo` (`dimGeo`),
   KEY `fk_fctvsGeo_dimProfile` (`dimProfile`),
-  CONSTRAINT `fk_fctvsGeo_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsGeo_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsGeo_dimGeo` FOREIGN KEY (`dimGeo`) REFERENCES `dimgeo` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fctvsGeo_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1
+  CONSTRAINT `fk_fctvsGeo_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctvsGeo_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1

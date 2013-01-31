@@ -26,9 +26,9 @@ CREATE TABLE `fctvsvisitor` (
   KEY `fk_fctvsVisitor_dimDate` (`dimDate`),
   KEY `fk_fctvsVisitor_dimProfile` (`dimProfile`),
   KEY `fk_fctvsVisitor_dimVisitor` (`dimVisitor`),
-  CONSTRAINT `fk_fctvsVisitor_dimDaysSinceLastVisit` FOREIGN KEY (`dimDaysSinceLastVisit`) REFERENCES `dimdaysince` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fctvsVisitor_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsVisitor_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctvsVisitor_dimDaysSinceLastVisit` FOREIGN KEY (`dimDaysSinceLastVisit`) REFERENCES `dimdaysince` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsVisitor_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctvsVisitor_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsVisitor_dimVisitor` FOREIGN KEY (`dimVisitor`) REFERENCES `dimvisitor` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1

@@ -1,6 +1,7 @@
 CREATE TABLE "DBO"."fctadwords_one" (
   "ID" int NOT NULL IDENTITY,
   "dimDate" int NOT NULL,
+  "dimProfile" int NOT NULL,
   "dimAdwords_one" int NOT NULL,
   "Impressions" varchar(45) DEFAULT NULL,
   "AdClicks" varchar(45) DEFAULT NULL,
@@ -17,8 +18,10 @@ CREATE TABLE "DBO"."fctadwords_one" (
   PRIMARY KEY ("ID"),
 
 
+
   CONSTRAINT "fk_fctAdwords_one_dimAdwords_one" FOREIGN KEY ("dimAdwords_one") REFERENCES "dimadwords_one" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctAdwords_one_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT "fk_fctAdwords_one_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctAdwords_one_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
 ) 
 GO
 

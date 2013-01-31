@@ -24,8 +24,8 @@ CREATE TABLE `fctvsnetwork` (
   KEY `fk_fctvsNetwork_dimDate` (`dimDate`),
   KEY `fk_fctvsNetwork_dimNetwork` (`dimNetwork`),
   KEY `fk_fctvsNetwork_dimProfile` (`dimProfile`),
-  CONSTRAINT `fk_fctvsNetwork_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsNetwork_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsNetwork_dimNetwork` FOREIGN KEY (`dimNetwork`) REFERENCES `dimnetwork` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fctvsNetwork_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1
+  CONSTRAINT `fk_fctvsNetwork_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctvsNetwork_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1

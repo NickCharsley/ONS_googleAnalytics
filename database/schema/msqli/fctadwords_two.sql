@@ -1,6 +1,7 @@
 CREATE TABLE `fctadwords_two` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `dimDate` int(11) NOT NULL,
+  `dimProfile` int(11) NOT NULL,
   `dimAdwords_two` int(11) NOT NULL,
   `Impressions` varchar(45) DEFAULT NULL,
   `AdClicks` varchar(45) DEFAULT NULL,
@@ -15,8 +16,10 @@ CREATE TABLE `fctadwords_two` (
   `ROI` varchar(45) DEFAULT NULL,
   `Margin` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `fk_fctAdwords_two_dimDate_idx` (`dimDate`),
-  KEY `fk_fctAdwords_two_dimAdwords_two_idx` (`dimAdwords_two`),
+  KEY `fk_fctAdwords_two_dimAdwords_two` (`dimAdwords_two`),
+  KEY `fk_fctAdwords_two_dimProfile` (`dimProfile`),
+  KEY `fk_fctAdwords_two_dimDate` (`dimDate`),
   CONSTRAINT `fk_fctAdwords_two_dimAdwords_two` FOREIGN KEY (`dimAdwords_two`) REFERENCES `dimadwords_two` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctAdwords_two_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctAdwords_two_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1

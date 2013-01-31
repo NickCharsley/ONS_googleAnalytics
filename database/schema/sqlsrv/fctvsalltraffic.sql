@@ -29,10 +29,10 @@ CREATE TABLE "DBO"."fctvsalltraffic" (
 
 
 
-  CONSTRAINT "fk_fctvsAllTraffic_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctvsAllTraffic_dimAllTraffic" FOREIGN KEY ("dimAllTraffic") REFERENCES "dimalltraffic" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsAllTraffic_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT "fk_fctvsAllTraffic_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsAllTraffic_dimAllTraffic" FOREIGN KEY ("dimAllTraffic") REFERENCES "dimalltraffic" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT "fk_fctvsAllTraffic_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
 ) 
 GO
 

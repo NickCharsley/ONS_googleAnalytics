@@ -50,4 +50,4 @@ CREATE TABLE `fctvspagetracking` (
   CONSTRAINT `fk_fctvsPageTracking_dimSecondPagePath` FOREIGN KEY (`dimSecondPagePath`) REFERENCES `dimpagepath` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsPageTracking_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsPageTracking_dimVisitor` FOREIGN KEY (`dimVisitor`) REFERENCES `dimvisitor` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=385 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=409 DEFAULT CHARSET=latin1
