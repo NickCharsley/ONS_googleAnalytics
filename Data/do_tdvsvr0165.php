@@ -11,7 +11,7 @@
 		print("<H1>Profile $profile</H1>");
 		$pl=new Vanquis($client,$service,$profile);
 		print("<H2>Session Data</H2>");
-		if (isset($_GET['test'])) $pl->sessionData();
+		if (isset($_GET['test'])) $pl->test();
 		else $pl->sessionData();
 	}
 	totalTimes();

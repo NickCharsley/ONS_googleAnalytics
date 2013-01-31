@@ -7,7 +7,9 @@
 		private $client;
 
 		function test(){			
-			$this->getGAFactOnly('2013-01-23', "vsPlatform");
+			$this->sessionData('2013-01-31');
+			//$this->getGAFactOnly('2013-01-31', "vsPlatform");
+			
 			showTable("fctvsPlatform");
 		}
     		    	
