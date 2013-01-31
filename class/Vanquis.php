@@ -7,11 +7,8 @@
 		private $client;
 
 		function test(){			
-			$this->sessionData();
-			global $audit;
-			krumo($audit);
-			//krumo(dbRoot::$cache);
-				
+			$this->getGAFactOnly('2013-01-23', "vsPlatform");
+			showTable("fctvsPlatform");
 		}
     		    	
     	function __construct($client,$service,$profile){

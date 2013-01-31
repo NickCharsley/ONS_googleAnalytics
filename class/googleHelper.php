@@ -93,7 +93,44 @@
 	  	$aDims=split(",",$optParams['dimensions']);
 	  	$aMets=split(",",$metrics);
 		
-	  	if (in_array("ga:Goal",$aDims)){
+	  	if (strpos($optParams['dimensions'],"ga:IsMobile")) {
+			/**
+			 * IsMobile is odd so we filter it and then Merge
+			 * But on the Yes side we gather all the other Dimensions
+			 */
+			//Remove IsMobile & other Mobile dimensions from Dimensions
+			
+			
+			$newDims=array_diff(array_map('strtolower',$aDims),dbRoot::$mobile);
+						
+			if (isset($_GET['krumo_full'])) krumo($aDims);
+			if (isset($_GET['krumo_full'])) krumo($newDims);
+	  		
+	  		$optParams['dimensions']=join(",",$newDims); 
+			
+			$optParamsNo=$optParams;
+			$optParamsYes=$optParams;
+			
+			//Add IsMobile to Filters
+			if (isset($optParams['filters'])){
+				$optParamsNo['filters'].=";ga:IsMobile==No";;
+				$optParamsYes['filters'].=";ga:IsMobile==Yes";				
+			}
+			else {
+				$optParamsNo['filters'] ="ga:IsMobile==No";
+				$optParamsYes['filters']="ga:IsMobile==Yes";				
+			}
+			//Add Extra Dimensions to Yes Branch
+			$newDims=array_merge($newDims,array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"));
+			//Should Sort it again :)
+			usort($newDims,'dimCmp');			
+						
+			$optParamsYes['dimensions']=join(",",$newDims);
+
+			$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsNo, $metrics));
+	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsYes, $metrics));
+			
+		} else if (in_array("ga:Goal",$aDims)){
 	  		$newDims=array_diff($aDims,array("ga:Goal"));
 	  		
 	  		$goals=array();
@@ -151,41 +188,7 @@
 			googleHelper::splitMets($aMets, $newMets);
 	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams, join(",",$newMets)));
 	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams, join(",",$aMets  )));
-	  	}
-		else if (strpos($optParams['dimensions'],"ga:IsMobile")) {
-			/**
-			 * IsMobile is odd so we filter it and then Merge
-			 * But on the Yes side we gather all the other Dimensions
-			 */
-			//Remove IsMobile & other Mobile dimensions from Dimensions
-			$newDims=array_diff(array_map('strtolower',$aDims),dbRoot::$mobile);			
-
-	  		$optParams['dimensions']=join(",",$newDims); 
-			
-			$optParamsNo=$optParams;
-			$optParamsYes=$optParams;
-			
-			//Add IsMobile to Filters
-			if (isset($optParams['filters'])){
-				$optParamsNo['filters'].=";ga:IsMobile==No";;
-				$optParamsYes['filters'].=";ga:IsMobile==Yes";				
-			}
-			else {
-				$optParamsNo['filters'] ="ga:IsMobile==No";
-				$optParamsYes['filters']="ga:IsMobile==Yes";				
-			}
-			//Add Extra Dimensions to Yes Branch
-			$newDims=array_merge($newDims,array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"));
-			//Should Sort it again :)
-			usort($newDims,'dimCmp');			
-						
-			$optParamsYes['dimensions']=join(",",$newDims);
-
-			$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsNo, $metrics));
-	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParamsYes, $metrics));
-			
-		}
-	  	else {
+	  	} else  {
 	  		if (isset($date)){
 		  		$startdate=$date;			
 				$enddate  =$date;				
