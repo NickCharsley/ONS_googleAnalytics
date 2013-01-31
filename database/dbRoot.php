@@ -35,7 +35,7 @@ class dbRoot extends DB_DataObject {
 	static $f2t=array();
 	static $degrees=array();
 
-	protected $dims=array("ga:adcontent","ga:addestinationurl","ga:addisplayurl","ga:date","ga:addistributionnetwork","ga:adformat","ga:adgroup",
+	static $dims=array("ga:adcontent","ga:addestinationurl","ga:addisplayurl","ga:date","ga:addistributionnetwork","ga:adformat","ga:adgroup",
 			"ga:admatchtype","ga:admatchedquery","ga:adplacementdomain","ga:adplacementurl","ga:adslot","ga:adslotposition",
 			"ga:adtargetingoption","ga:adtargetingtype","ga:adwordsadgroupid","ga:adwordscampaignid","ga:adwordscreativeid",
 			"ga:adwordscriteriaid","ga:adwordscustomerid","ga:browser","ga:browserversion","ga:campaign",
@@ -57,16 +57,17 @@ class dbRoot extends DB_DataObject {
 			"ga:customvarname1","ga:customvarvalue1","ga:customvarname2","ga:customvarvalue2","ga:customvarname3","ga:customvarvalue3",
 			"ga:customvarname4","ga:customvarvalue4","ga:customvarname5","ga:customvarvalue5"
 						
-,"ga:productname"
-,"ga:productsku"
-,"ga:productcategory"
-,"ga:daystotransaction"
-,"ga:visitstotransaction"
-,"ga:affiliation"
-,"ga:transactionid"
-			);
+			,"ga:productname"
+			,"ga:productsku"
+			,"ga:productcategory"
+			,"ga:daystotransaction"
+			,"ga:visitstotransaction"
+			,"ga:affiliation"
+			,"ga:transactionid"
+			,"ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"
+		);
 	
-	protected $mets=array("ga:cpc","ga:cpm","ga:ctr","ga:roi","ga:rpc","ga:adclicks","ga:adcost","ga:appviews","ga:appviewspervisit",
+	static $mets=array("ga:cpc","ga:cpm","ga:ctr","ga:roi","ga:rpc","ga:adclicks","ga:adcost","ga:appviews","ga:appviewspervisit",
 			"ga:avgdomainlookuptime","ga:avgeventvalue","ga:avgpagedownloadtime","ga:avgpageloadtime","ga:avgredirectiontime",
 			"ga:avgsearchdepth","ga:avgsearchduration","ga:avgsearchresultviews","ga:avgserverconnectiontime","ga:avgserverresponsetime",
 			"ga:avgtimeonpage","ga:avgtimeonsite","ga:avgusertimingvalue","ga:bounces","ga:costperconversion","ga:costpergoalconversion",
@@ -107,8 +108,8 @@ class dbRoot extends DB_DataObject {
 			"ga:goal"//This is Special!!!	
 			);
 	
-	protected $mobile=array("ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
-	protected $pageLevel=array("ga:pagepathlevel1","ga:pagepathlevel2","ga:pagepathlevel3","ga:pagepathlevel4");
+	static $mobile=array("ga:ismobile","ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
+	static $pageLevel=array("ga:pagepathlevel1","ga:pagepathlevel2","ga:pagepathlevel3","ga:pagepathlevel4");
 
 	protected function logAction($action){
 		global $audit;
@@ -273,7 +274,7 @@ class dbRoot extends DB_DataObject {
 		//krumo($dims);
 		//krumo($extras);
 		for ($i=0;$i<count($dims);$i++){
-			if (in_array(strtolower("ga:".$dims[$i]), $this->dims,true))				
+			if (in_array(strtolower("ga:".$dims[$i]),dbRoot::$dims,true))				
 				$res[]="ga:".$dims[$i];
 			else if (substr($dims[$i],0,3)=='dim'){
 				if (in_array($dims[$i],$extras)){
@@ -299,11 +300,7 @@ class dbRoot extends DB_DataObject {
 	
 	function metrics(){
 		$mets=split(",",join(",ga:",array_keys($this->table())));
-		$res=array();
-		for ($i=0;$i<count($mets);$i++){
-			if (in_array(strtolower($mets[$i]), $this->mets,true))
-				$res[]=$mets[$i];
-		}
+		$res=array_intersect(array_map('strtolower',$mets), dbRoot::$mets);
 		$mets=join(",",$res);
 		return ($mets<>"")?$mets:"ga:visits";
 	}

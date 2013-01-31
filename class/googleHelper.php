@@ -157,11 +157,9 @@
 			 * IsMobile is odd so we filter it and then Merge
 			 * But on the Yes side we gather all the other Dimensions
 			 */
-			//Remove IsMobile from Dimensions
-			$newDims=array();
-	  		foreach ($aDims as $dim){
-	  			if ($dim!="ga:IsMobile") $newDims[]=$dim;	  			
-	  		}
+			//Remove IsMobile & other Mobile dimensions from Dimensions
+			$newDims=array_diff(array_map('strtolower',$aDims),dbRoot::$mobile);			
+
 	  		$optParams['dimensions']=join(",",$newDims); 
 			
 			$optParamsNo=$optParams;

@@ -14,7 +14,7 @@ foreach ($cm_profiles as $profile){
 	print("<H1>Profile $profile</H1>");
 	$pl=new Vanquis($client,$service,$profile);
 	print("<H2>Session Data</H2>");
-	if (isset($_GET['test'])) $pl->sessionData('2013-01-29');
+	if (isset($_GET['test'])) $pl->sessionData();
 	else $pl->sessionData();
 }
 	

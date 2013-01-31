@@ -23,18 +23,25 @@ class doDimmobile extends dbRoot
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     
+    public $fb_linkDisplayFields=array('MobileDeviceInfo');
+  
+    
     function filldata(){
     	if ($this->IsMobile=='No'){
 	    	//Special Handeling if IsMobile="No"!!!
 			$this->MobileDeviceBranding="(not set)";
     		$this->MobileDeviceModel="(not set)";
     		$this->MobileInputSelector="(not set)";
-    		$this->MobileDeviceInfo="(not set)";    		
+    		$this->MobileDeviceInfo="Non Mobile Device";    		
     	}
+		else if ($this->MobileDeviceInfo="(not set)"){
+			$this->MobileDeviceInfo="Unidentified Mobile Device";
+		}
+		
 	}
     
     function keyDimensions(){
-    	return array("ga:IsMobile");
+    	return array("ga:IsMobile","ga:MobileDeviceBranding","ga:MobileDeviceModel","ga:MobileInputSelector","ga:MobileDeviceInfo");
     }
 }
 ?>
