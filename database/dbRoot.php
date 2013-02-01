@@ -177,38 +177,54 @@ class dbRoot extends DB_DataObject {
 	
 	protected function getMetrics(){}
 	
+	function getGoogleKeys($row){
+		$keyDims=$this->keyDimensions();
+		if (count($keyDims)){
+			//Should Only be a dimXXXX table so no Linked Dims to worry about 
+			foreach($row['Dimensions'] as $dimName=>$dimValue){
+				$dimName="ga:".ucfirst(str_replace("ga:", "", $dimName));
+				if (in_array($dimName, $keyDims)){
+					$dimName=str_replace("ga:", "", $dimName);
+					$this->$dimName=$dimValue;
+				}					
+			}
+			return ($this->find(true))?"update":"insert";
+		}
+		return "";
+	}
+	
+	function getUnlinkedDimensions($row){
+		foreach($row['Dimensions'] as $dimName=>$dimValue){
+			$dimName=ucfirst(str_replace("ga:", "", $dimName));
+			$this->$dimName=$dimValue;
+		}
+	}
+	
+	function getLinkedDimensions($row){
+		$extra="";
+		foreach (array_keys($this->links()) as $extra){
+			if ($extra!="dimProfile" and substr($extra,0,3)=="dim"){
+				$doExtra=safe_DataObject_factory($extra);
+				$this->$extra=$doExtra->findDimensionID($row);	
+			}				
+		}		
+	}
+	
 	function saveGoogleResults($results=null){
 		print_line("Saving ".$this->__table);
 		foreach ($results->matrix as $row){
-			$action="";			
+						
 			$fact=safe_DataObject_factory($this->__table);
-			$fact->dimProfile=$results->dimProfile;			
-			$keyDims=$fact->keyDimensions();
-			if (count($keyDims)){
-				//Should Only be a dimXXXX table so no Linked Dims to worry about 
-				foreach($row['Dimensions'] as $dimName=>$dimValue){
-					$dimName="ga:".ucfirst(str_replace("ga:", "", $dimName));
-					if (in_array($dimName, $keyDims)){
-						$dimName=str_replace("ga:", "", $dimName);
-						$fact->$dimName=$dimValue;
-					}					
-				}
-				$action=($fact->find(true))?"update":"insert";
-			}
+			$fact->dimProfile=$results->dimProfile;
+			//Check if we have something already with our keys			
+			$action=$fact->getGoogleKeys($row);
 			//Get Un-linked Dimensions
-			foreach($row['Dimensions'] as $dimName=>$dimValue){
-				$dimName=ucfirst(str_replace("ga:", "", $dimName));
-				$fact->$dimName=$dimValue;
-			}			
+			$fact->getUnlinkedDimensions($row);				
 			//Get Linked Dimensions This may be heavy load on DB!
-			$extra="";
-			foreach (array_keys($this->links()) as $extra){
-				if ($extra!="dimProfile" and substr($extra,0,3)=="dim"){
-					$doExtra=safe_DataObject_factory($extra);
-					$fact->$extra=$doExtra->findDimensionID($row);	
-				}				
-			}
+			$extra=$fact->getLinkedDimensions($row);
+			
 			if ($action=="") $action=($fact->find(true))?"update":"insert";
+			
 			$old_fact=clone($fact);
 			
 			$fact->getMetrics($row);
@@ -271,8 +287,11 @@ class dbRoot extends DB_DataObject {
 		$dims=array_keys($this->table());
 		$res=array();
 		$extras=array_keys($this->links());
-		//krumo($dims);
-		//krumo($extras);
+		if (isset($_GET['krumo_full'])) {
+			krumo($dims);
+			krumo($extras);
+			krumo($this->links());
+		}
 		for ($i=0;$i<count($dims);$i++){
 			if (in_array(strtolower("ga:".$dims[$i]),dbRoot::$dims,true))				
 				$res[]="ga:".$dims[$i];

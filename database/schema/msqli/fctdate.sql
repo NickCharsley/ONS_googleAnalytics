@@ -66,4 +66,4 @@ CREATE TABLE `fctdate` (
   KEY `fk_fctDate_dimProfile_idx` (`dimProfile`),
   CONSTRAINT `fk_fctDate_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctDate_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5599 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=5600 DEFAULT CHARSET=latin1

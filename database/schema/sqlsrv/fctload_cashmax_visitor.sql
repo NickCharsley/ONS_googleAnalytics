@@ -1,0 +1,1 @@
+CREATE VIEW "DBO"."fctload_cashmax_visitor" AS select "fctcashmax"."ID" AS "ID","fctcashmax"."dimDate" AS "dimDate","fctcashmax"."dimProfile" AS "dimProfile","fctcashmax"."dimVanquisSession" AS "dimVanquisSession","fctcashmax"."dimVisitor" AS "dimVisitor","fctcashmax"."Visitors" AS "Visitors","fctcashmax"."NewVisits" AS "NewVisits" from "fctcashmax"

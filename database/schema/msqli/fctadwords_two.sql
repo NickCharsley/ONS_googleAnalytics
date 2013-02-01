@@ -20,6 +20,6 @@ CREATE TABLE `fctadwords_two` (
   KEY `fk_fctAdwords_two_dimProfile` (`dimProfile`),
   KEY `fk_fctAdwords_two_dimDate` (`dimDate`),
   CONSTRAINT `fk_fctAdwords_two_dimAdwords_two` FOREIGN KEY (`dimAdwords_two`) REFERENCES `dimadwords_two` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fctAdwords_two_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fctAdwords_two_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1
+  CONSTRAINT `fk_fctAdwords_two_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctAdwords_two_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1

@@ -10,10 +10,11 @@ $pl_profiles=array(55368687);
 
 if (isset($_GET['test'])) $cm_profiles=array(68103870); 
 
-foreach ($cm_profiles as $profile){
+foreach ($pl_profiles as $profile){
 	print("<H1>Profile $profile</H1>");
 	$pl=new Vanquis($client,$service,$profile);
-	print("<H2>Session Data</H2>");
+	
+	print("<H2>Data</H2>");
 	if (isset($_GET['test'])) $pl->test();
 	else $pl->sessionData();
 }

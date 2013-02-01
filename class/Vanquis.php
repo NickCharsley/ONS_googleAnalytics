@@ -7,12 +7,8 @@
 		private $client;
 
 		function test(){
-			$this->sessionData('2013-01-31');
-			
-			showTable("fctvsCustomVar2");
-			showTable("fctvsCustomVar3");
-			showTable("fctvsCustomVar4");
-			showTable("fctvsCustomVar5");
+			//$this->CashMax('2013-01-31');
+			$this->performance();			
 		}
     		    	
     	function __construct($client,$service,$profile){
@@ -87,7 +83,11 @@
 			
 			googleHelper::resetCount($fctName);
 			startTimer("Get Google Data");
-    		$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
+			if (isset($_GET['krumo_full'])){
+				krumo($fct->optParams());
+				krumo($fct->metrics());	
+			}
+			$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
 			stopTimer("Get Google Data");
     		//Krumo($res);
     		startTimer("Save Google Data");
@@ -110,7 +110,7 @@
 			return $fct->find();
 		}
 
-		protected function ValidateFact($fctName,$date=null){
+		protected function ValidateFact($fctName,$date=null,$compareTo="fctDate"){
 			global $db;			
 			
 			if ($date!=null){
@@ -119,7 +119,8 @@
 			}
 			
 			$fct=safe_DataObject_factory("fct$fctName");
-			$dte=safe_DataObject_factory("fctDate");
+			$dte=safe_DataObject_factory("$compareTo");
+			
 			$table=array_keys($fct->table());
 			//Now Add specials
 			$special=false;
@@ -155,7 +156,7 @@
 				
 			}
 			$sql.=" from fct$fctName where dimProfile=".$this->profile;
-			$sql1.=" from fctDate where dimProfile=".$this->profile;
+			$sql1.=" from $compareTo where dimProfile=".$this->profile;
 			if ($date!=null) $sql.=" and dimDate=".$date;
 			$sql.=" group by dimDate";
 			
@@ -206,6 +207,7 @@ order by f.dimDate");
 				$this->getGADimensionOnly($date, "Date");	
 			}			
     		$this->getGAFactResults($date,"PageTracking");				    		
+			$this->getGAFactOnly($date,"LandingPagePath");
     	}
 		 
 
@@ -373,6 +375,26 @@ order by f.dimDate");
     				
 		}
 
+  		function CashMax($date){
+  			//Load Date Based Dimension/Measures
+			//$this->getGAFactResults($date, "VanquisSession");			
+			$this->getGAFactResults($date, "Load_CashMax_Base");
+			$this->getGAFactResults($date, "Load_CashMax_BaseII");
+			$this->getGAFactResults($date, "Load_CashMax_Visitor");
+						
+			//$this->getGAFactResults($date, "CashMaxHour");
+			
+			$date=str_replace("-","",$date);
+			
+			$this->ValidateFact("CashMax",$date,"fctvsDate");
+			//$this->ValidateFact("CashMaxHour",$date,"fctvsDate");
+			
+			showTable("fctCashMax","dimDate",str_replace("-","",$date));
+			//showTable("fctCashMaxHour","dimDate",str_replace("-","",$date));
+			showTable("fctvsDate","dimDate",str_replace("-","",$date));
+			
+  		}
+  
   
   		function sessionData($date=null){
   						
@@ -449,6 +471,14 @@ order by f.dimDate");
 			totalTimes();
   		}
     	
+    	
+		function performance($date=null){
+			$this->getGAFactResults($date, "Performance");
+			
+			showTable("fctPerformance");
+		}
+		
+		
 		function google($date=NULL){
 			if (!isset($date)) 
 			{

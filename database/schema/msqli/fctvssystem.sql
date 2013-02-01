@@ -28,4 +28,4 @@ CREATE TABLE `fctvssystem` (
   CONSTRAINT `fk_fctvsSystem_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsSystem_dimSystem` FOREIGN KEY (`dimSystem`) REFERENCES `dimsystem` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsSystem_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1

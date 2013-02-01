@@ -12,11 +12,11 @@ CREATE TABLE `fctvspagetracking` (
   `dimPreviousPagePath` int(11) NOT NULL,
   `dimExitPagePath` int(11) NOT NULL,
   `dimVanquisSession` int(11) NOT NULL,
-  `Entrances` int(11) NOT NULL,
-  `Pageviews` int(11) NOT NULL,
-  `UniquePageviews` int(11) NOT NULL,
-  `TimeOnPage` int(11) NOT NULL,
-  `Exits` int(11) NOT NULL,
+  `Entrances` int(11) NOT NULL DEFAULT '0',
+  `Pageviews` int(11) NOT NULL DEFAULT '0',
+  `UniquePageviews` int(11) NOT NULL DEFAULT '0',
+  `TimeOnPage` int(11) NOT NULL DEFAULT '0',
+  `Exits` int(11) NOT NULL DEFAULT '0',
   `PageLoadTime` int(11) NOT NULL DEFAULT '0',
   `PageLoadSample` int(11) NOT NULL DEFAULT '0',
   `DomainLookupTime` int(11) NOT NULL DEFAULT '0',
@@ -50,4 +50,4 @@ CREATE TABLE `fctvspagetracking` (
   CONSTRAINT `fk_fctvsPageTracking_dimSecondPagePath` FOREIGN KEY (`dimSecondPagePath`) REFERENCES `dimpagepath` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsPageTracking_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsPageTracking_dimVisitor` FOREIGN KEY (`dimVisitor`) REFERENCES `dimvisitor` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=409 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=546 DEFAULT CHARSET=latin1

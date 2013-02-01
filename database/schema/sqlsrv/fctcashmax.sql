@@ -1,9 +1,9 @@
-CREATE TABLE "DBO"."fctvscustomvar3" (
+CREATE TABLE "DBO"."fctcashmax" (
   "ID" int NOT NULL IDENTITY,
   "dimDate" int NOT NULL,
   "dimProfile" int NOT NULL,
-  "dimCustomVar3" int NOT NULL,
   "dimVanquisSession" int NOT NULL,
+  "dimVisitor" int DEFAULT NULL,
   "Visits" int NOT NULL DEFAULT '0',
   "Visitors" int NOT NULL DEFAULT '0',
   "NewVisits" int NOT NULL DEFAULT '0',
@@ -24,10 +24,10 @@ CREATE TABLE "DBO"."fctvscustomvar3" (
 
 
 
-  CONSTRAINT "fk_fctvsCustomVar3_dimCustomVar3" FOREIGN KEY ("dimCustomVar3") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsCustomVar3_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsCustomVar3_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsCustomVar3_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT "fk_fctCashmax_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctCashmax_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctCashmax_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctCashmax_dimVisitor" FOREIGN KEY ("dimVisitor") REFERENCES "dimvisitor" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
 ) 
 GO
 

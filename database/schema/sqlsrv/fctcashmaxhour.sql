@@ -1,11 +1,10 @@
-CREATE TABLE "DBO"."fctvscustomvar3" (
+CREATE TABLE "DBO"."fctcashmaxhour" (
   "ID" int NOT NULL IDENTITY,
   "dimDate" int NOT NULL,
+  "dimHour" int NOT NULL,
   "dimProfile" int NOT NULL,
-  "dimCustomVar3" int NOT NULL,
   "dimVanquisSession" int NOT NULL,
   "Visits" int NOT NULL DEFAULT '0',
-  "Visitors" int NOT NULL DEFAULT '0',
   "NewVisits" int NOT NULL DEFAULT '0',
   "Bounces" int NOT NULL DEFAULT '0',
   "TimeOnSite" float NOT NULL DEFAULT '0',
@@ -24,10 +23,10 @@ CREATE TABLE "DBO"."fctvscustomvar3" (
 
 
 
-  CONSTRAINT "fk_fctvsCustomVar3_dimCustomVar3" FOREIGN KEY ("dimCustomVar3") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsCustomVar3_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsCustomVar3_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT "fk_fctvsCustomVar3_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT "fk_fctCashmaxHour_dimDate" FOREIGN KEY ("dimDate") REFERENCES "dimdate" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctCashmaxHour_dimHour" FOREIGN KEY ("dimHour") REFERENCES "dimhour" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctCashmaxHour_dimProfile" FOREIGN KEY ("dimProfile") REFERENCES "dimprofile" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT "fk_fctCashmaxHour_dimVanquisSession" FOREIGN KEY ("dimVanquisSession") REFERENCES "dimcustomvar" ("ID") ON DELETE NO ACTION ON UPDATE NO ACTION
 ) 
 GO
 

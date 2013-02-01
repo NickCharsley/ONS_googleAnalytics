@@ -24,8 +24,8 @@ CREATE TABLE `fctvscustomvar5` (
   KEY `fk_fctvsCustomVar5_dimCustomVar5` (`dimCustomVar5`),
   KEY `fk_fctvsCustomVar5_dimProfile` (`dimProfile`),
   KEY `fk_fctvsCustomVar5_dimVanquisSession` (`dimVanquisSession`),
-  CONSTRAINT `fk_fctvsCustomVar5_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsCustomVar5_dimCustomVar5` FOREIGN KEY (`dimCustomVar5`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fctvsCustomVar5_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsCustomVar5_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctvsCustomVar5_dimVanquisSession` FOREIGN KEY (`dimVanquisSession`) REFERENCES `dimcustomvar` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
