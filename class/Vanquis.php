@@ -513,6 +513,12 @@ order by f.dimDate;"
 			$this->getGAFactResults($date, "Performance");
 			
 			$this->ValidateFact("Performance",$date);
+			
+			
+			$date=str_replace("-","",$date);
+			showTable("fctPerformance","dimDate",$date);
+			showTable("fctDate","dimDate",$date);
+			
 		}
 		
 		
