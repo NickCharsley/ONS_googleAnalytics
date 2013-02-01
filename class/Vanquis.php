@@ -488,7 +488,7 @@ left join (
 	group by dimProfile,dimDate
 ) v
 on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate
-where (v.dimdate is null or f.visits>ifnull(v.visits,0))
+where (v.dimdate is null or f.visits>v.visits)
 and f.dimprofile={$this->profile}
 and f.visits>0
 and f.dimdate between 20121101 and 20121131 
@@ -512,7 +512,7 @@ order by f.dimDate;"
 			//$this->getGADimensionOnly($date, "Traffic");
 			$this->getGAFactResults($date, "Performance");
 			
-			$do=Safe_DataObject_factory("fctPerformance");
+			$this->ValidateFact("Performance",$date);
 		}
 		
 		
