@@ -4,4 +4,4 @@ CREATE TABLE `dimnetwork` (
   `NetworkLocation` varchar(512) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `indx_dimNetwork` (`NetworkDomain`,`NetworkLocation`)
-) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=326 DEFAULT CHARSET=latin1

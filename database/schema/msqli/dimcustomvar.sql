@@ -4,4 +4,4 @@ CREATE TABLE `dimcustomvar` (
   `CustomVarValue` varchar(70) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `dimCustomVar_indx` (`CustomVarName`,`CustomVarValue`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=latin1

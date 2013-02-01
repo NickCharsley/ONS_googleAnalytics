@@ -8,4 +8,4 @@ CREATE TABLE `dimgeo` (
   `SubContinent` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `dimGeo_indx` (`Latitude`,`Longitude`,`City`,`Country`)
-) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=280 DEFAULT CHARSET=latin1

@@ -5,4 +5,4 @@ CREATE TABLE `dimplatform` (
   `OperatingSystem` varchar(45) NOT NULL,
   `OperatingSystemVersion` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=latin1

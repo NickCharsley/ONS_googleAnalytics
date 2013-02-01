@@ -6,4 +6,4 @@ CREATE TABLE `dimmobile` (
   `MobileInputSelector` varchar(45) NOT NULL,
   `MobileDeviceInfo` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1

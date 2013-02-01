@@ -24,12 +24,12 @@ class doFctperformance extends dbRoot
     public $GoalStartsAll;                   // int(4)   not_null
     public $GoalCompletionsAll;              // int(4)   not_null
     public $GoalAbandonsAll;                 // int(4)   not_null
-    public $Impressions;                     // varchar(45)  
-    public $AdClicks;                        // varchar(45)  
-    public $AdCost;                          // varchar(45)  
-    public $CPM;                             // varchar(45)  
-    public $CPC;                             // varchar(45)  
-    public $CTR;                             // varchar(45)  
+    public $Impressions;                     // int(4)  
+    public $AdClicks;                        // int(4)  
+    public $AdCost;                          // int(4)  
+    public $CPM;                             // int(4)  
+    public $CPC;                             // int(4)  
+    public $CTR;                             // int(4)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctperformance',$k,$v); }

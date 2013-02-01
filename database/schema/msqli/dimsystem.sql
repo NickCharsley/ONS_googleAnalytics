@@ -7,4 +7,4 @@ CREATE TABLE `dimsystem` (
   `ScreenResolution` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `indx_dimSystem` (`FlashVersion`,`JavaEnabled`,`Language`,`ScreenColors`,`ScreenResolution`)
-) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=294 DEFAULT CHARSET=latin1

@@ -5,4 +5,4 @@ CREATE TABLE `dimevent` (
   `EventLabel` varchar(70) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `dimEvent_indx` (`EventCategory`,`EventAction`,`EventLabel`)
-) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=latin1
