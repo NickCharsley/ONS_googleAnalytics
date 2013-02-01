@@ -8,25 +8,14 @@
 	foreach ($pl_profiles as $profile){
 		$pl=new Vanquis($client,$service,$profile);
 		if (isset($_GET['test'])){
-			$pl->test();
+			print("<H2>Processing for $date</H2>");
+			$pl->performance();
 		}
 		else {	
-			print("<H2>Processing Page Tracking for $date</H2>");
+			
 			$pl->performance();
 			$pl->ProfileDates();
-			$sql="with data as (
-		select top 2 dimdate from fctdate fd
-		where dimprofile=55368687 and visits>0
-		and not exists(select 1 from fctpagetracking fp
-		where (fd.dimprofile=fp.dimprofile and fd.dimdate=fp.dimdate))
-		order by dimdate desc
-		)
-		select top 1 * from data where dimdate<convert(varchar(10),getdate(),112)";
-
-			$res=New DateTime($db->query($sql)->fetchOne()) ;
-			$date=$res->format('Y-m-d');
-
-			$pl->getPageTracking($date);
+			$pl->getPageTracking();
 		}
 	}
 
