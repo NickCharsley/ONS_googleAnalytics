@@ -473,9 +473,46 @@ order by f.dimDate");
     	
     	
 		function performance($date=null){
+			$this->getGAFactResults($date, "Date");				
+  			if ($date==null){
+  				
+				//Now find Oldest Unprocessed Day
+				//This will be a date in fctPerformance that has no row in ftcVanquisSession 
+				$do_date=safe_dataobject_factory("fctDate");
+				$do_date->query(
+"select distinct f.* 
+from fctDate f 
+left join (
+	select dimProfile,dimdate,sum(visits) visits 
+	from fctPerformance 
+	group by dimProfile,dimDate
+) v
+on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate
+where (v.dimdate is null or f.visits>ifnull(v.visits,0))
+and f.dimprofile={$this->profile}
+and f.visits>0
+and f.dimdate between 20121101 and 20121131 
+order by f.dimDate;"
+				);
+				if (!$do_date->fetch())
+				{
+					print_line("No Data to Process");
+					return;
+				}
+				print("<H3>Date to process=".$do_date->dimDate."</H3>");
+				if (isset($_GET['krumo_full'])) krumo($do_date);
+  				$dt_date=new DateTime($do_date->dimDate);
+				$date=$dt_date->format("Y-m-d");	
+  			}
+			else 
+			{//These are implied by getting CustomVar1
+				print("<H3>Date to process=$date</H3>");
+			}			
+
+			//$this->getGADimensionOnly($date, "Traffic");
 			$this->getGAFactResults($date, "Performance");
 			
-			showTable("fctPerformance");
+			$do=Safe_DataObject_factory("fctPerformance");
 		}
 		
 		
