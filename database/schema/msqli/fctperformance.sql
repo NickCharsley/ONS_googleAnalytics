@@ -15,10 +15,10 @@ CREATE TABLE `fctperformance` (
   `GoalAbandonsAll` int(11) NOT NULL DEFAULT '0',
   `Impressions` int(11) DEFAULT NULL,
   `AdClicks` int(11) DEFAULT NULL,
-  `AdCost` int(11) DEFAULT NULL,
-  `CPM` int(11) DEFAULT NULL,
-  `CPC` int(11) DEFAULT NULL,
-  `CTR` int(11) DEFAULT NULL,
+  `AdCost` float DEFAULT NULL,
+  `CPM` float DEFAULT NULL,
+  `CPC` float DEFAULT NULL,
+  `CTR` float DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fk_fctPerformance_dimDate` (`dimDate`),
   KEY `fk_fctPerformance_dimTraffic` (`dimTraffic`),
@@ -26,4 +26,4 @@ CREATE TABLE `fctperformance` (
   CONSTRAINT `fk_fctPerformance_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctPerformance_dimTraffic` FOREIGN KEY (`dimTraffic`) REFERENCES `dimtraffic` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctPerformance_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=533 DEFAULT CHARSET=latin1

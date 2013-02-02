@@ -484,7 +484,7 @@ order by f.dimDate");
 from fctDate f 
 left join (
 	select dimProfile,dimdate,sum(visits) visits 
-	from fctPerformance 
+	from fctPerformancePage 
 	group by dimProfile,dimDate
 ) v
 on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate
@@ -509,9 +509,10 @@ order by f.dimDate;"
 				print("<H3>Date to process=$date</H3>");
 			}			
 
-			//$this->getGADimensionOnly($date, "Traffic");
-			$this->getGAFactResults($date, "Performance");
+			$this->getGADimensionResults($date, "Traffic");
+			$this->getGADimensionOnly($date, "PagePath");
 			
+<<<<<<< HEAD
 			$this->ValidateFact("Performance",$date);
 			
 			
@@ -519,6 +520,17 @@ order by f.dimDate;"
 			showTable("fctPerformance","dimDate",$date);
 			showTable("fctDate","dimDate",$date);
 			
+=======
+			$this->getGAFactOnly($date, "Performance");
+			$this->getGAFactOnly($date, "PerformanceGoal");
+			$this->getGAFactOnly($date, "PerformancePage");
+			
+			$date=str_replace("-", "", $date);
+			
+			$this->ValidateFact("Performance",$date);
+			$this->ValidateFact("PerformanceGoal",$date);
+			$this->ValidateFact("PerformancePage",$date);
+>>>>>>> Added a couple more Performance Tables
 		}
 		
 		

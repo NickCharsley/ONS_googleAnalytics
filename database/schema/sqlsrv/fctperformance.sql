@@ -15,10 +15,10 @@ CREATE TABLE "DBO"."fctperformance" (
   "GoalAbandonsAll" int NOT NULL DEFAULT '0',
   "Impressions" int DEFAULT NULL,
   "AdClicks" int DEFAULT NULL,
-  "AdCost" int DEFAULT NULL,
-  "CPM" int DEFAULT NULL,
-  "CPC" int DEFAULT NULL,
-  "CTR" int DEFAULT NULL,
+  "AdCost" float DEFAULT NULL,
+  "CPM" float DEFAULT NULL,
+  "CPC" float DEFAULT NULL,
+  "CTR" float DEFAULT NULL,
   PRIMARY KEY ("ID"),
 
 

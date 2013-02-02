@@ -26,10 +26,10 @@ class doFctperformance extends dbRoot
     public $GoalAbandonsAll;                 // int(4)   not_null
     public $Impressions;                     // int(4)  
     public $AdClicks;                        // int(4)  
-    public $AdCost;                          // int(4)  
-    public $CPM;                             // int(4)  
-    public $CPC;                             // int(4)  
-    public $CTR;                             // int(4)  
+    public $AdCost;                          // float  
+    public $CPM;                             // float  
+    public $CPC;                             // float  
+    public $CTR;                             // float  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctperformance',$k,$v); }
