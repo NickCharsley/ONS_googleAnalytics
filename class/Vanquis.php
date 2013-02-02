@@ -512,25 +512,14 @@ order by f.dimDate;"
 			$this->getGADimensionResults($date, "Traffic");
 			$this->getGADimensionOnly($date, "PagePath");
 			
-<<<<<<< HEAD
-			$this->ValidateFact("Performance",$date);
-			
-			
-			$date=str_replace("-","",$date);
-			showTable("fctPerformance","dimDate",$date);
-			showTable("fctDate","dimDate",$date);
-			
-=======
+
 			$this->getGAFactOnly($date, "Performance");
 			$this->getGAFactOnly($date, "PerformanceGoal");
 			$this->getGAFactOnly($date, "PerformancePage");
-			
-			$date=str_replace("-", "", $date);
-			
+					
 			$this->ValidateFact("Performance",$date);
 			$this->ValidateFact("PerformanceGoal",$date);
 			$this->ValidateFact("PerformancePage",$date);
->>>>>>> Added a couple more Performance Tables
 		}
 		
 		
