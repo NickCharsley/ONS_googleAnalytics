@@ -16,7 +16,6 @@ class doFctperformancegoal extends dbRoot
     public $dimProfile;                      // int(4)   not_null
     public $dimTraffic;                      // int(4)   not_null
     public $dimGoal;                         // int(4)   not_null
-    public $Visits;                          // int(4)   not_null
     public $GoalCompletions;                 // int(4)   not_null
     public $GoalConversionRate;              // float   not_null
 

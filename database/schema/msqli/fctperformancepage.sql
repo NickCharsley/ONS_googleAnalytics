@@ -6,12 +6,6 @@ CREATE TABLE `fctperformancepage` (
   `dimTraffic` int(11) NOT NULL,
   `dimPagePath` int(11) NOT NULL,
   `Visits` int(11) NOT NULL DEFAULT '0',
-  `Goal1Completions` int(11) NOT NULL DEFAULT '0',
-  `Goal1ConversionRate` float NOT NULL DEFAULT '0',
-  `Goal6Completions` int(11) NOT NULL DEFAULT '0',
-  `Goal6ConversionRate` float NOT NULL DEFAULT '0',
-  `GoalCompletionsAll` int(11) NOT NULL DEFAULT '0',
-  `GoalConversionRate` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `fk_fctPerformancePage_dimDate` (`dimDate`),
   KEY `fk_fctPerformancePage_dimHour` (`dimHour`),
@@ -23,4 +17,4 @@ CREATE TABLE `fctperformancepage` (
   CONSTRAINT `fk_fctPerformancePage_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctPerformancePage_dimTraffic` FOREIGN KEY (`dimTraffic`) REFERENCES `dimtraffic` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctPerformancePage_dimPagePath` FOREIGN KEY (`dimPagePath`) REFERENCES `dimpagepath` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=841 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=4063 DEFAULT CHARSET=latin1

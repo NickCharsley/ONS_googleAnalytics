@@ -17,12 +17,6 @@ class doFctperformancepage extends dbRoot
     public $dimTraffic;                      // int(4)   not_null
     public $dimPagePath;                     // int(4)   not_null
     public $Visits;                          // int(4)   not_null
-    public $Goal1Completions;                // int(4)   not_null
-    public $Goal1ConversionRate;             // float   not_null
-    public $Goal6Completions;                // int(4)   not_null
-    public $Goal6ConversionRate;             // float   not_null
-    public $GoalCompletionsAll;              // int(4)   not_null
-    public $GoalConversionRate;              // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctperformancepage',$k,$v); }

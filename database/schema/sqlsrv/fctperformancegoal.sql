@@ -5,7 +5,6 @@ CREATE TABLE "DBO"."fctperformancegoal" (
   "dimProfile" int NOT NULL,
   "dimTraffic" int NOT NULL,
   "dimGoal" int NOT NULL,
-  "Visits" int NOT NULL DEFAULT '0',
   "GoalCompletions" int NOT NULL DEFAULT '0',
   "GoalConversionRate" float NOT NULL DEFAULT '0',
   PRIMARY KEY ("ID"),

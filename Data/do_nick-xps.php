@@ -15,7 +15,7 @@ foreach ($pl_profiles as $profile){
 	$pl=new Vanquis($client,$service,$profile);
 	
 	print("<H2>Data</H2>");
-	if (isset($_GET['test'])) $pl->test();
+	if (isset($_GET['test'])) $pl->test(pg_value("date"));
 	else $pl->sessionData();
 }
 totalTimes();	

@@ -6,9 +6,9 @@
     	private $profile;
 		private $client;
 
-		function test(){
+		function test($date=null){
 			//$this->CashMax('2013-01-31');
-			$this->performance();			
+			$this->performance($date);			
 		}
     		    	
     	function __construct($client,$service,$profile){

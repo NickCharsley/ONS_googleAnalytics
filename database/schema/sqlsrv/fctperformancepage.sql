@@ -6,12 +6,6 @@ CREATE TABLE "DBO"."fctperformancepage" (
   "dimTraffic" int NOT NULL,
   "dimPagePath" int NOT NULL,
   "Visits" int NOT NULL DEFAULT '0',
-  "Goal1Completions" int NOT NULL DEFAULT '0',
-  "Goal1ConversionRate" float NOT NULL DEFAULT '0',
-  "Goal6Completions" int NOT NULL DEFAULT '0',
-  "Goal6ConversionRate" float NOT NULL DEFAULT '0',
-  "GoalCompletionsAll" int NOT NULL DEFAULT '0',
-  "GoalConversionRate" int NOT NULL DEFAULT '0',
   PRIMARY KEY ("ID"),
 
 
