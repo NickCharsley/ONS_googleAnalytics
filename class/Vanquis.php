@@ -7,8 +7,9 @@
 		private $client;
 
 		function test($date=null){
-			//$this->CashMax('2013-01-31');
-			$this->performance($date);			
+			//$this->CashMax('2012-11-29');
+			$this->getGAFactOnly('2012-11-29', "PerformanceGoal");
+			//$this->performance($date);			
 		}
     		    	
     	function __construct($client,$service,$profile){
@@ -510,8 +511,7 @@ order by f.dimDate;"
 			}			
 
 			$this->getGADimensionResults($date, "Traffic");
-			$this->getGADimensionOnly($date, "PagePath");
-			
+			$this->getGADimensionOnly($date, "PagePath");			
 
 			$this->getGAFactOnly($date, "Performance");
 			$this->getGAFactOnly($date, "PerformanceGoal");
