@@ -8,8 +8,8 @@
 	foreach ($pl_profiles as $profile){
 		$pl=new Vanquis($client,$service,$profile);
 		if (isset($_GET['test'])){
-			print("<H2>Processing for $date</H2>");
-			$pl->performance();
+			print("<H2>Testing for $date</H2>");
+			$pl->test($date);
 		}
 		else {	
 			

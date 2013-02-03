@@ -87,7 +87,7 @@
 
 
 	  static function getGAResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){
-	  	//krumo($optParams);	  	
+	  	if (isset($_GET['krumo_full'])) krumo($optParams);	  	
 	  	$results=new googleGAResultsWrapper();
 		$results->dimProfile=$profile;
 	  	$aDims=split(",",$optParams['dimensions']);
@@ -160,16 +160,16 @@
 					));
 					$goals[]=$goal->GoalNumber;
 					
-					//krumo($agMets);
+					if (isset($_GET['krumo_full'])) krumo($agMets);
 					$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams,join(",",$agMets)));
-					//krumo($results);	
+					if (isset($_GET['krumo_full'])) krumo($results);	
 				}
 	  		}
 			//Need to be ; to be an 'and' in Google Filters
 			$optParams['filters']="ga:Goal".join("Starts==0;ga:Goal",$goals)."Starts==0";
 	  		
 	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams,$metrics));			
-			//krumo($results);				  	
+			if (isset($_GET['krumo_full'])) krumo($results);				  	
 	  	}
 		else if (count($aDims)>7){
 	  		//die("Too Many Dimensions! ".__FILE__.":".__LINE__);
