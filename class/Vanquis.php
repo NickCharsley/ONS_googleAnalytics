@@ -518,6 +518,9 @@ order by f.dimDate;"
 			$this->getGAFactOnly($date, "Performance");
 			$this->getGAFactOnly($date, "PerformanceGoal");
 			$this->getGAFactOnly($date, "PerformancePage");
+
+			//PageTracking is Problamatic so we get as FactResults to save all the data
+			$this->getGAFactResults($date, "PageTracking");
 					
 			$this->ValidateFact("Performance",$date);
 			$this->ValidateFact("PerformanceGoal",$date);
