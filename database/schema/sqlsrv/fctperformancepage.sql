@@ -5,6 +5,10 @@ CREATE TABLE "DBO"."fctperformancepage" (
   "dimTraffic" int NOT NULL,
   "dimPagePath" int NOT NULL,
   "Visits" int NOT NULL DEFAULT '0',
+  "Visitors" int NOT NULL DEFAULT '0',
+  "Bounces" int NOT NULL DEFAULT '0',
+  "Entrances" int NOT NULL DEFAULT '0',
+  "Exits" int NOT NULL DEFAULT '0',
   PRIMARY KEY ("ID"),
 
 

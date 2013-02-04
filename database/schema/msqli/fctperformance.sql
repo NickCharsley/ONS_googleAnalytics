@@ -4,6 +4,7 @@ CREATE TABLE `fctperformance` (
   `dimProfile` int(11) NOT NULL,
   `dimTraffic` int(11) NOT NULL,
   `Visits` int(11) NOT NULL DEFAULT '0',
+  `Visitors` int(11) NOT NULL DEFAULT '0',
   `Entrances` int(11) NOT NULL DEFAULT '0',
   `Exits` int(11) NOT NULL DEFAULT '0',
   `Goal1Starts` int(11) NOT NULL DEFAULT '0',
@@ -28,4 +29,4 @@ CREATE TABLE `fctperformance` (
   CONSTRAINT `fk_fctPerformance_dimDate` FOREIGN KEY (`dimDate`) REFERENCES `dimdate` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctPerformance_dimTraffic` FOREIGN KEY (`dimTraffic`) REFERENCES `dimtraffic` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctPerformance_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2256 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=1741 DEFAULT CHARSET=latin1

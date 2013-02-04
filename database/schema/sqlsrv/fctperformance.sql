@@ -4,6 +4,7 @@ CREATE TABLE "DBO"."fctperformance" (
   "dimProfile" int NOT NULL,
   "dimTraffic" int NOT NULL,
   "Visits" int NOT NULL DEFAULT '0',
+  "Visitors" int NOT NULL DEFAULT '0',
   "Entrances" int NOT NULL DEFAULT '0',
   "Exits" int NOT NULL DEFAULT '0',
   "Goal1Starts" int NOT NULL DEFAULT '0',
