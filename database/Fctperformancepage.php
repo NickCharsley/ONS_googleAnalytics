@@ -16,7 +16,8 @@ class doFctperformancepage extends dbRoot
     public $dimTraffic;                      // int(4)   not_null
     public $dimPagePath;                     // int(4)   not_null
     public $Visits;                          // int(4)   not_null
-    public $Visitors;                        // int(4)   not_null
+    public $Pageviews;                       // int(4)   not_null
+    public $UniquePageviews;                 // int(4)   not_null
     public $Bounces;                         // int(4)   not_null
     public $Entrances;                       // int(4)   not_null
     public $Exits;                           // int(4)   not_null

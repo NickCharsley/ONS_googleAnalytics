@@ -15,7 +15,9 @@ class doFctperformance extends dbRoot
     public $dimProfile;                      // int(4)   not_null
     public $dimTraffic;                      // int(4)   not_null
     public $Visits;                          // int(4)   not_null
-    public $Visitors;                        // int(4)   not_null
+    public $Bounces;                         // int(4)   not_null
+    public $Pageviews;                       // int(4)   not_null
+    public $UniquePageviews;                 // int(4)   not_null
     public $Entrances;                       // int(4)   not_null
     public $Exits;                           // int(4)   not_null
     public $Goal1Starts;                     // int(4)   not_null
