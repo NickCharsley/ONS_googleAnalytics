@@ -12,7 +12,6 @@ class doFctperformancepage extends dbRoot
     public $__table = 'fctperformancepage';    // table name
     public $ID;                              // int(4)  primary_key not_null
     public $dimDate;                         // int(4)   not_null
-    public $dimHour;                         // int(4)   not_null
     public $dimProfile;                      // int(4)   not_null
     public $dimTraffic;                      // int(4)   not_null
     public $dimPagePath;                     // int(4)   not_null

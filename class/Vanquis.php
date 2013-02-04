@@ -7,9 +7,11 @@
 		private $client;
 
 		function test($date=null){
-			//$this->CashMax('2012-11-29');
-			$this->getGAFactOnly('2012-11-29', "PerformanceGoal");
-			//$this->performance($date);			
+			$date='2012-11-29';
+			
+			//$this->CashMax($date);
+						
+			$this->performance($date);			
 		}
     		    	
     	function __construct($client,$service,$profile){
