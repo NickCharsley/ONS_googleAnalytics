@@ -6,6 +6,8 @@ CREATE TABLE "DBO"."dimpagepath" (
   "Shortcode" varchar(1024) DEFAULT NULL,
   "hasURN" int NOT NULL DEFAULT '0',
   "URN" varchar(24) DEFAULT NULL,
+  "FormType" varchar(45) DEFAULT NULL,
+  "ApplicationProgress" varchar(45) DEFAULT NULL,
   PRIMARY KEY ("ID")
 ) 
 GO

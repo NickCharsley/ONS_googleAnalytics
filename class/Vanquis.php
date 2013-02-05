@@ -7,7 +7,7 @@
 		private $client;
 
 		function test($date=null){
-			$date='2012-11-29';
+			$date='2012-11-07';
 			
 			//$this->CashMax($date);
 						

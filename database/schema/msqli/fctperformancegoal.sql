@@ -15,4 +15,4 @@ CREATE TABLE `fctperformancegoal` (
   CONSTRAINT `fk_fctPerformanceGoal_dimGoal` FOREIGN KEY (`dimGoal`) REFERENCES `dimgoal` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctPerformanceGoal_dimProfile` FOREIGN KEY (`dimProfile`) REFERENCES `dimprofile` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fctPerformanceGoal_dimTraffic` FOREIGN KEY (`dimTraffic`) REFERENCES `dimtraffic` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=427 DEFAULT CHARSET=latin1

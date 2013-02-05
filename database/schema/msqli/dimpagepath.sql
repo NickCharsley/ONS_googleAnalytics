@@ -6,5 +6,7 @@ CREATE TABLE `dimpagepath` (
   `Shortcode` varchar(1024) DEFAULT NULL,
   `hasURN` int(11) NOT NULL DEFAULT '0',
   `URN` varchar(24) DEFAULT NULL,
+  `FormType` varchar(45) DEFAULT NULL,
+  `ApplicationProgress` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2435 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=2893 DEFAULT CHARSET=latin1
