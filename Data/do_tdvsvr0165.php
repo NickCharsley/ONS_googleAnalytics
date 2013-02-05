@@ -6,19 +6,22 @@
 	$date="2013-01-29";
 
 	foreach ($pl_profiles as $profile){
+		print("<H1>Profile $profile</H1>");
 		$pl=new Vanquis($client,$service,$profile);
 		if (isset($_GET['test'])){
 			print("<H2>Testing for $date</H2>");
 			$pl->test($date);
 		}
 		else {	
-			
+			print("<H2>Profile Dates</H2>");
+			$pl->ProfileDates();			
+			print("<H2>Performance Data</H2>");
 			$pl->performance();
-			$pl->ProfileDates();
-			$pl->getPageTracking();
+			
+//			$pl->getPageTracking();
 		}
 	}
-
+/*
 	if (isset($_GET['test'])) $cm_profiles=array(68103870); 
 	
 	foreach ($cm_profiles as $profile){
@@ -28,8 +31,6 @@
 		if (isset($_GET['test'])) $pl->test();
 		else $pl->sessionData();
 	}
-
-
-
+*/
 
 ?>
