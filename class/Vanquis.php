@@ -494,7 +494,7 @@ on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate
 where (v.dimdate is null or f.visits>v.visits)
 and f.dimprofile={$this->profile}
 and f.visits>0
-and f.dimdate between 20121101 and 20121131 
+/* and f.dimdate between 20121101 and 20121131 */
 order by f.dimDate;"
 				);
 				if (!$do_date->fetch())

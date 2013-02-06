@@ -21,7 +21,7 @@
 //			$pl->getPageTracking();
 		}
 	}
-/*
+
 	if (isset($_GET['test'])) $cm_profiles=array(68103870); 
 	
 	foreach ($cm_profiles as $profile){
@@ -31,6 +31,6 @@
 		if (isset($_GET['test'])) $pl->test();
 		else $pl->sessionData();
 	}
-*/
+
 
 ?>
