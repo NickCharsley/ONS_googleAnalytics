@@ -13,6 +13,10 @@
 						
 			$this->performance($date);			
 		}
+
+		function Date(){
+			$this->getGADimensionResults($date, "Date");	
+		}			
     		    	
     	function __construct($client,$service,$profile){
     		$this->client=$client;
@@ -426,50 +430,29 @@ order by f.dimDate");
 			else 
 			{//These are implied by getting CustomVar1
 			print("<H3>Date to process=$date</H3>");
-				$this->getGADimensionOnly($date, "Date");	
+				$this->getGADimensionResults($date, "Date");	
 			}			
-/**/			
-			//Get 'New' Dimensions
-			startTimer("Dimensions");
-			$this->getGADimensionOnly($date, "CustomVar2");
-			$this->getGADimensionOnly($date, "CustomVar3");
-			$this->getGADimensionOnly($date, "CustomVar4");
-			$this->getGADimensionOnly($date, "CustomVar5");
-			$this->getGADimensionOnly($date, "Ecommerce");
-			$this->getGADimensionOnly($date, "Event");
-			$this->getGADimensionOnly($date, "Geo");
-			$this->getGADimensionOnly($date, "Network");
-			$this->getGADimensionOnly($date, "Mobile");
-			$this->getGADimensionOnly($date, "Platform");
-			$this->getGADimensionOnly($date, "System");			
-			$this->getGADimensionOnly($date, "Traffic");
-			$this->getGADimensionOnly($date, "AllTraffic");
-			$this->getGADimensionOnly($date, "Visitor");
-			$this->getGADimensionOnly($date, "DaysSinceLastVisit");
-			stopTimer("Dimensions");
-/**/							
 			//Get Dates 'Facts'
-			startTimer("Facts");			
+			startTimer("Facts & Dimensions");			
 /**/
-			$this->getGAFactOnly($date, "vsCustomVar2");
-			$this->getGAFactOnly($date, "vsCustomVar3");
-			$this->getGAFactOnly($date, "vsCustomVar4");
-			$this->getGAFactOnly($date, "vsCustomVar5");
-			$this->getGAFactOnly($date, "vsAllTraffic");
-			$this->getGAFactOnly($date, "vsPlatform");
-			$this->getGAFactOnly($date, "vsDevice");
-			$this->getGAFactOnly($date, "vsEcommerce");
-			$this->getGAFactOnly($date, "vsEvent");
-			$this->getGAFactOnly($date, "vsGeo");
-			$this->getGAFactOnly($date, "vsNetwork");
-			$this->getGAFactOnly($date, "vsSystem");
-			$this->getGAFactOnly($date, "vsTraffic");
-			$this->getGAFactOnly($date, "vsVisitor");
-			//PageTracking is Problamatic so we get as FactResults to save all the data
+			$this->getGAFactResults($date, "vsCustomVar2");
+			$this->getGAFactResults($date, "vsCustomVar3");
+			$this->getGAFactResults($date, "vsCustomVar4");
+			$this->getGAFactResults($date, "vsCustomVar5");
+			$this->getGAFactResults($date, "vsAllTraffic");
+			$this->getGAFactResults($date, "vsPlatform");
+			$this->getGAFactResults($date, "vsDevice");
+			$this->getGAFactResults($date, "vsEcommerce");
+			$this->getGAFactResults($date, "vsEvent");
+			$this->getGAFactResults($date, "vsGeo");
+			$this->getGAFactResults($date, "vsNetwork");
+			$this->getGAFactResults($date, "vsSystem");
+			$this->getGAFactResults($date, "vsTraffic");
+			$this->getGAFactResults($date, "vsVisitor");
 			$this->getGAFactResults($date, "vsPageTracking");
 /**/			
 			$this->getGADimensionResults($date, "VanquisSession");			
-			stopTimer("Facts");
+			stopTimer("Facts & Dimensions");
 /**/			
 			totalTimes();
   		}
