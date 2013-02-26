@@ -19,6 +19,7 @@ class doDimpagepath extends dbRoot
     public $URN;                             // varchar(24)  
     public $FormType;                        // varchar(45)  
     public $ApplicationProgress;             // varchar(45)  
+    public $Page;                            // varchar(1024)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimpagepath',$k,$v); }

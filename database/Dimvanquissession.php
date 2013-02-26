@@ -31,10 +31,23 @@ class doDimvanquissession extends dbRoot
 		
 	
     function insert(){
-    	$proxy=safe_dataobject_factory('dimCustomVar');
-		$proxy->ID=$this->ID;
-		$proxy->CustomVarName=$this->CustomVarName1;
-		$proxy->CustomVarValue=$this->CustomVarValue1;
-		return $proxy->insert();
+    	if (strtolower($this->CustomVarName1)<>'sessionid'){
+    		$proxy=safe_dataobject_factory('dimCustomVar');
+			$proxy->CustomVarName=$this->CustomVarName1;
+			$proxy->CustomVarValue=$this->CustomVarValue1;
+			if ($proxy->find(true)){
+				//Has been inserted but isn't a SessionID
+				$this->ID=$proxy->ID;
+				return true;
+			} 
+			else return $proxy->insert();
+    	}
+		else {
+	    	$proxy=safe_dataobject_factory('dimCustomVar');
+			$proxy->ID=$this->ID;
+			$proxy->CustomVarName=$this->CustomVarName1;
+			$proxy->CustomVarValue=$this->CustomVarValue1;
+			return $proxy->insert();			
+		}
     }
 }

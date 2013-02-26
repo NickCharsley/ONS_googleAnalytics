@@ -43,4 +43,38 @@ class doFctvanquissession extends dbRoot
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    
+    	function insert(){
+		$this->logAction(__FUNCTION__);
+		//krumo($this);
+    	$this->filldata();
+		if (!isset($this->dimVanquisSession)) return false;
+    	try {
+    		return parent::insert();	
+    	}
+    	catch (Exception $e){
+    		krumo($this);
+    		krumo($e);
+    		die(__FILE__.":".__LINE__);
+    	}
+    }
+   	 	      
+    function update($do=false){
+    	$this->filldata();
+		if (!isset($this->dimVanquisSession)) return false;
+    	$ret=parent::update($do);
+    	if (!($ret===TRUE)) 
+    	{
+    		$this->logAction(__FUNCTION__);
+    		if (isset($_GET['krumo_full'])){
+	    		DB_DataObject::debugLevel(5);
+				parent::update($do);
+				DB_DataObject::debugLevel(0);
+    			krumo($do);
+				krumo($this);
+			}
+    	}
+    	return $ret;	
+    }
+
 }

@@ -10,12 +10,13 @@ $pl_profiles=array(55368687);
 
 if (isset($_GET['test'])) $cm_profiles=array(61943476); 
 
-foreach ($pl_profiles as $profile){
+foreach ($cm_profiles as $profile){
 	print("<H1>Profile $profile</H1>");
 	$pl=new Vanquis($client,$service,$profile);
+	$pl->Date();
 	
 	print("<H2>Data</H2>");
-	if (isset($_GET['test'])) $pl->test(pg_value("date"));
+	if (isset($_GET['test'])) $pl->test();
 	else $pl->sessionData();
 }
 totalTimes();	

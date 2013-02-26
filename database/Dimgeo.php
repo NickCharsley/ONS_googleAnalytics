@@ -13,10 +13,10 @@ class doDimgeo extends dbRoot
     public $ID;                              // int(4)  primary_key not_null
     public $Latitude;                        // decimal(9,6)  unique_key not_null
     public $Longitude;                       // decimal(9,6)  unique_key not_null
-    public $City;                            // varchar(45)  unique_key not_null
-    public $Country;                         // varchar(45)  unique_key not_null
-    public $Continent;                       // varchar(45)   not_null
-    public $SubContinent;                    // varchar(45)   not_null
+    public $City;                            // varchar(45)  unique_key not_null default_Unknown
+    public $Country;                         // varchar(45)  unique_key not_null default_Unknown
+    public $Continent;                       // varchar(45)   not_null default_Unknown
+    public $SubContinent;                    // varchar(45)   not_null default_Unknown
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimgeo',$k,$v); }

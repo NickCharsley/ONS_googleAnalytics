@@ -6,15 +6,14 @@
     	private $profile;
 		private $client;
 
-		function test($date=null){
-			$date='2012-11-07';
+		function test($date=null){			
 			
-			//$this->CashMax($date);
+			//DB_DataObject::debugLevel(5);
 						
-			$this->performance($date);			
+			$this->sessionData($date);			
 		}
 
-		function Date(){
+		function Date($date=null){
 			$this->getGADimensionResults($date, "Date");	
 		}			
     		    	
@@ -403,8 +402,7 @@ order by f.dimDate");
   		}
   
   
-  		function sessionData($date=null){
-  						
+  		function sessionData($date=null){  						
   			if ($date==null){
   				$this->getGAFactResults($date, "CustomVar1");
 				//Now find Oldest Unprocessed Day
@@ -431,6 +429,7 @@ order by f.dimDate");
 			{//These are implied by getting CustomVar1
 			print("<H3>Date to process=$date</H3>");
 				$this->getGADimensionResults($date, "Date");	
+				$this->getGAFactResults($date, "CustomVar1");
 			}			
 			//Get Dates 'Facts'
 			startTimer("Facts & Dimensions");			
@@ -450,7 +449,8 @@ order by f.dimDate");
 			$this->getGAFactResults($date, "vsTraffic");
 			$this->getGAFactResults($date, "vsVisitor");
 			$this->getGAFactResults($date, "vsPageTracking");
-/**/			
+/**/
+			//DB_DataObject::debugLevel(5);			
 			$this->getGADimensionResults($date, "VanquisSession");			
 			stopTimer("Facts & Dimensions");
 /**/			
