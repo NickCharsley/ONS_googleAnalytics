@@ -8,13 +8,17 @@
 
 		function test($date=null){			
 			
-			//DB_DataObject::debugLevel(5);
+			if (isset($_GET['debug'])) DB_DataObject::debugLevel($_GET['debug']);
 						
-			$this->sessionData($date);			
+			$this->getGADimensionOnly($date, "AllTraffic");
+			
+			showTable("dimAllTraffic");
+			
+			//showTable("fctvsAllTraffic","dimDate",str_replace("-", "", $date));			
 		}
 
 		function Date($date=null){
-			$this->getGADimensionResults($date, "Date");	
+			$this->getGADimensionResults($date, "Date");				
 		}			
     		    	
     	function __construct($client,$service,$profile){
@@ -95,7 +99,7 @@
 			}
 			$res=googleHelper::getGAResults($date,$this->client,$this->service,$this->profile,$fct->optParams(),$fct->metrics());
 			stopTimer("Get Google Data");
-    		//Krumo($res);
+    		Krumo($res);
     		startTimer("Save Google Data");
 			$extras=array_keys($fct->links());
 			foreach ($extras as $dim){

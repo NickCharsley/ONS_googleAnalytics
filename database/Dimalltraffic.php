@@ -18,7 +18,7 @@ class doDimalltraffic extends dbRoot
     public $HasSocialSourceReferral;         // varchar(45)  
     public $ReferralPath;                    // varchar(512)  
     public $Medium;                          // varchar(45)  
-    public $adContent;                       // varchar(45)  
+    public $AdContent;                       // varchar(45)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimalltraffic',$k,$v); }
@@ -27,7 +27,7 @@ class doDimalltraffic extends dbRoot
     ###END_AUTOCODE
     
     function  keyDimensions(){
-    	return array("ga:Campaign","ga:Source","ga:Keyword","ga:SocialNetwork","ga:HasSocialSourceReferral","ga:ReferralPath","ga:Medium","ga:adContent");
+    	return array("ga:Campaign","ga:Source","ga:Keyword","ga:SocialNetwork","ga:HasSocialSourceReferral","ga:ReferralPath","ga:Medium","ga:AdContent");
     }
     
 }

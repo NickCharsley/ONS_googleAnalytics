@@ -127,7 +127,9 @@ class dbRoot extends DB_DataObject {
 		//krumo($this);
     	$this->filldata();
     	try {
-    		return parent::insert();	
+    		$ret=parent::insert();	
+    		if (isset($_GET['krumo_full'])) krumo($this);
+    		return $ret;
     	}
     	catch (Exception $e){
     		krumo($this);
@@ -150,6 +152,7 @@ class dbRoot extends DB_DataObject {
 				krumo($this);
 			}
     	}
+		if (isset($_GET['krumo_full'])) krumo($this);
     	return $ret;	
     }
 	
@@ -160,7 +163,9 @@ class dbRoot extends DB_DataObject {
 			
 	function fetch(){
 		$this->logAction(__FUNCTION__);
-		return parent::fetch();
+		$ret=parent::fetch();
+		if (isset($_GET['krumo_full'])) krumo($this);
+		return $ret;
 	}
 	
 	function findDimensionID($row){
