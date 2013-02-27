@@ -1,12 +1,12 @@
 <?php
-	$cm_profiles=array(68103870,68232661,68243329,61943476);
+	$cm_profiles=array(61943476);//68103870,68232661,68243329,61943476);
 	$dl_profiles=array(67348193,68081878,68085948,68086044,64920522,42209706,42476341,42506344);
 	$pl_profiles=array(55368687);
 		
 	if (!isset($type)) $type='loans:poland';
 	
 	if (!(strpos(strtolower($type),'loans')===false)){
-		if (isset($_GET['test'])) $cm_profiles=array(68103870); 	
+		if (isset($_GET['test'])) $cm_profiles=array(61943476); 	
 	
 		foreach ($cm_profiles as $profile){
 			
