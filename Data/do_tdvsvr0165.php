@@ -48,6 +48,7 @@
 			$pl=new Vanquis($client,$service,$profile);
 			$pl->Date($date);
 			print("<H2>Page Tracking</H2>");
+			$pl->sessionData($date);
 			if (isset($_GET['test'])) $pl->getPageTracking($date);
 			else $pl->getPageTracking($date);
 		}
