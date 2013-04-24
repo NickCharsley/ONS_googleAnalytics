@@ -87,6 +87,7 @@
 
 
 	  static function getGAResults($date,$client,$service,$profile,$optParams,$metrics='ga:visits'){
+	  	global $dbRoot_mobile;
 	  	if (isset($_GET['krumo_full'])) krumo($optParams);	  	
 	  	$results=new googleGAResultsWrapper();
 		$results->dimProfile=$profile;
@@ -101,7 +102,7 @@
 			//Remove IsMobile & other Mobile dimensions from Dimensions
 			
 			
-			$newDims=array_diff(array_map('strtolower',$aDims),dbRoot::$mobile);
+			$newDims=array_diff(array_map('strtolower',$aDims),$dbRoot_mobile);
 						
 			if (isset($_GET['krumo_full'])) krumo($aDims);
 			if (isset($_GET['krumo_full'])) krumo($newDims);

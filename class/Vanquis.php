@@ -27,8 +27,21 @@
     		$this->profile=$profile;
     	}    	    	
 
+		private function stampAudit($date,$table){
+			if ($table=="fct") {
+				krumo::backtrace();
+				die("no table!");
+			}
+			
+		
+			$sql="insert into [dbo].[googleAudit](dimDate,Query) values ('".str_replace("-","",$date)."','$table')"; 
+			global $db;
+			if ($date!=null) $db->exec($sql);  				
+		}
+
     	private function getGADimensionOnly($date,$dimName,$metrics='ga:visits'){
     		$dim=safe_DataObject_factory("dim$dimName");
+    		$this->stampAudit($date,"dim$dimName");
 			googleHelper::resetCount($dimName);
 			
 			print_line(__FUNCTION__." $dimName");
@@ -40,21 +53,26 @@
 			startTimer("Save Google Data");	
     		$dim->saveGoogleResults($res);
 			stopTimer("Save Google Data");
+			unset($res);
 			print("<hr/>");
     	}    	 
 
     	private function getMCFDimensionOnly($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
+    		$this->stampAudit($date,"dim$dimName");
 			print_line(__FUNCTION__." $dimName");
 			
 			googleHelper::resetCount($dimName);
     		$res=googleHelper::getMCFResults($date,$this->client,$this->service,$this->profile,$dim->optParams());  	
     		$dim->saveGoogleResults($res);
+    		unset($res);
     	}    	 
     					
     	private function getGADimensionResults($date,$dimName){
     		$dim=safe_DataObject_factory("dim$dimName");
+    		$this->stampAudit($date,"dim$dimName");
     		$fct=safe_DataObject_factory("fct$dimName");
+    		$this->stampAudit($date,"fct$dimName");
 			
 			print_line(__FUNCTION__." $dimName");
 			
@@ -67,11 +85,13 @@
     		$dim->saveGoogleResults($res);
     		$fct->saveGoogleResults($res);
 			stopTimer("Save Google Data");
+			unset($res);
 			print("<hr/>");
     	}
 
     	private function getGAFactOnly($date,$dimName){
     		$fct=safe_DataObject_factory("fct$dimName");
+    		$this->stampAudit($date,"fct$dimName");
 			
 			print_line(__FUNCTION__." $dimName");
 			
@@ -83,12 +103,15 @@
 			startTimer("Save Google Data");
     		$fct->saveGoogleResults($res);
 			stopTimer("Save Google Data");
+			unset($res);			
 			print("<hr/>");
     	}
 
     	
     	private function getGAFactResults($date,$fctName){
+    		$rows=0;
     		$fct=safe_DataObject_factory("fct$fctName");
+    		$this->stampAudit($date,"fct$fctName");
     		print_line(__FUNCTION__." $fctName");
 			
 			googleHelper::resetCount($fctName);
@@ -109,7 +132,11 @@
 			flush_buffers();
     		$fct->saveGoogleResults($res);
 			stopTimer("Save Google Data");
+			$rows=$res->rowCount;
+			
+			unset($res);
 			print("<hr/>");						
+			return $rows;
     	}    	
     	
 		private function factLoaded($fctName,$date=null){
@@ -189,38 +216,6 @@
 			//die(__FILE__.":".__LINE__);	
 		}
 
-		function getPageTracking($date=NULL){
-  			if ($date==null){
-  				$this->getGAFactResults($date, "Date");
-				//Now find Oldest Unprocessed Day
-				//This will be a date in fctCustomVar1 that has no row in ftcVanquisSession 
-				$do_date=safe_dataobject_factory("fctCustomVar1");
-				$do_date->query("select distinct f.* 
-from fctCustomVar1 f 
-left join fctVanquisSession v
-on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate and dimCustomVar1=dimVanquisSession
-where v.dimdate is null
-and f.dimprofile={$this->profile}
-order by f.dimDate");
-				if (!$do_date->fetch())
-				{
-					print_line("No Data to Process");
-					return;
-				}
-				print("<H3>Date to process=".$do_date->dimDate."</H3>");
-				if (isset($_GET['krumo_full'])) krumo($do_date);
-  				$dt_date=new DateTime($do_date->dimDate);
-				$date=$dt_date->format("Y-m-d");	
-  			}
-			else 
-			{//These are implied by getting CustomVar1
-				$this->getGADimensionOnly($date, "Date");	
-			}			
-    		$this->getGAFactResults($date,"PageTracking");				    		
-			$this->getGAFactOnly($date,"LandingPagePath");
-    	}
-		 
-
     	function getResults($date=NULL){
 			if (!isset($date)) 
 			{
@@ -230,32 +225,7 @@ order by f.dimDate");
 					return true;
 				}
 			}
-			/*Profile Dimension*/
-    			$this->getGADimensionOnly($date, "Profile");    		    	
-    		/*Date Dimension*/
-    			$this->getGADimensionResults($date, "Date");
-    		/*Visitor Dimension*/
-    			$this->getGADimensionResults($date, "Visitor");
-    		/*Session Dimension*/
-    			$this->getGADimensionResults($date,"Session");
-    		/* Network Dimension */
-    			$this->getGADimensionResults($date,"Network");
-    		/* Geo Dimension */
-    			$this->getGADimensionResults($date,"Geo");
-    		/* System Dimension */
-    			$this->getGADimensionResults($date,"System");
-    		/* Event Dimension */
-    			$this->getGADimensionResults($date,"Event");
-    		/*Page Dimensions */
-				//$this->getGADimensionResults($date, "LandingPagePath");
-    		/* Traffic Sources Dimension(s) */
-    			//$this->getGADimensionResults($date,"Traffic");
-    		/* AdWords Dimensions */
-    			//$this->getGADimensionResults($date,"Adwords");
-    		/* Transaction Dimensions */
-    			$this->getGADimensionResults($date,"Transaction");
-    		/* Custom Var(s) Fact */
-    			$this->getGAFactResults($date,"CustomVar");				    		
+			    		
     	}
     	
     	function waterfall($date=NULL){
@@ -404,60 +374,119 @@ order by f.dimDate");
 			showTable("fctvsDate","dimDate",str_replace("-","",$date));
 			
   		}
-  
-  
-  		function sessionData($date=null){  						
+  		 		
+		function getPageTracking($date=NULL){
+		/*
   			if ($date==null){
-  				$this->getGAFactResults($date, "CustomVar1");
+  				$this->getGAFactResults($date, "Date");
 				//Now find Oldest Unprocessed Day
 				//This will be a date in fctCustomVar1 that has no row in ftcVanquisSession 
-				$do_date=safe_dataobject_factory("fctCustomVar1");
-				$do_date->query("select distinct f.* 
-from fctCustomVar1 f 
-left join fctVanquisSession v
-on v.dimProfile=f.dimProfile and v.dimDate=f.dimDate and dimCustomVar1=dimVanquisSession
-where v.dimdate is null
-and f.dimprofile={$this->profile}
-order by f.dimDate");
-				if (!$do_date->fetch())
-				{
-					print_line("No Data to Process");
-					return;
-				}
-				print("<H3>Date to process=".$do_date->dimDate."</H3>");
-				if (isset($_GET['krumo_full'])) krumo($do_date);
-  				$dt_date=new DateTime($do_date->dimDate);
-				$date=$dt_date->format("Y-m-d");	
+				if (!($date=getvsDateToQuery("vsPageTracking") return;
   			}
 			else 
 			{//These are implied by getting CustomVar1
-			print("<H3>Date to process=$date</H3>");
-				$this->getGADimensionResults($date, "Date");	
-				$this->getGAFactResults($date, "CustomVar1");
+				$this->getGADimensionOnly($date, "Date");	
 			}			
+			$this->getGAFactResults($date, "vsPageTracking");
+		*/
+    	}
+  
+  
+		function getvsDateToQuery141($fact){
+			$do_date=safe_dataobject_factory("fctCustomVar1");
+			$do_date->query("select distinct f.* 
+				from fctCustomVar1 f 
+				left join fct$fact v
+				on v.dimProfile=f.dimProfile 
+				and v.dimDate=f.dimDate 
+				and v.dimVanquisSession=f.dimCustomVar1
+				where v.dimdate is null
+				and f.dimprofile={$this->profile}
+				and f.dimdate not in (select dimdate from emptyFactDate where factTable='fct$fact')
+				order by f.dimDate");
+			if (!$do_date->fetch(true))
+			{
+				print_line("$fact No Data to Process");
+				return false;
+			}
+			print("<H3>$fact Date to process=".$do_date->dimDate."</H3>");
+			if (isset($_GET['krumo_full'])) krumo($do_date);
+			$dt_date=new DateTime($do_date->dimDate);
+			return $dt_date->format("Y-m-d");	
+		}  		
+
+
+		function getvsDateToQuery($fact){
+			/*Not available for every Session so just block out on a Day having Happened*/
+			$do_date=safe_dataobject_factory("fctCustomVar1");
+			$do_date->query("select distinct f.* 
+				from fctCustomVar1 f 
+				left join fct$fact v
+				on v.dimProfile=f.dimProfile 
+				and v.dimDate=f.dimDate 				
+				where v.dimdate is null
+				and f.dimdate<".date("Ymd")."
+				and f.dimprofile={$this->profile}
+				and f.dimdate not in (select dimdate from emptyFactDate where factTable='fct$fact')
+				order by f.dimDate");
+			if (!$do_date->fetch(true))
+			{
+				print_line("$fact No Data to Process");
+				return false;
+			}
+			print("<H3>$fact Date to process=".$do_date->dimDate."</H3>");
+			if (isset($_GET['krumo_full'])) krumo($do_date);
+			$dt_date=new DateTime($do_date->dimDate);
+			return $dt_date->format("Y-m-d");	
+		}
+  
+  
+  		private function getvsData($date,$fact){
+  			if ($date==null){
+  				if (!($date=$this->getvsDateToQuery($fact))) return;
+  			}
+  			if($this->getGAFactResults($date,$fact)==0 and $date!=date("Y-m-d"))
+  			{
+  				print_line("No Data for $fact for $date");  				
+  				$sql="insert into emptyFactDate values ('".str_replace("-","",$date)."','fct$fact')"; 
+  				global $db;
+  				$db->exec($sql);  				
+  			}
+  		}
+  
+  		private function getvsData141($date,$fact){
+  			if ($date==null){
+  				if (!($date=$this->getvsDateToQuery141($fact))) return;
+  			}
+  			$this->getGAFactResults($date,$fact);
+  		}
+  
+  		function sessionData($date=null){  						
 			//Get Dates 'Facts'
 			startTimer("Facts & Dimensions");			
-/**/
-			$this->getGAFactResults($date, "vsCustomVar2");
-			$this->getGAFactResults($date, "vsCustomVar3");
-			$this->getGAFactResults($date, "vsCustomVar4");
-			$this->getGAFactResults($date, "vsCustomVar5");
-			$this->getGAFactResults($date, "vsAllTraffic");
-			$this->getGAFactResults($date, "vsPlatform");
-			$this->getGAFactResults($date, "vsDevice");
+			$this->getGAFactResults($date, "CustomVar1");
+			
+			$this->getvsData141($date,"VanquisSession");
+			
+			$this->getvsData($date,"vsCustomVar2");
+			$this->getvsData($date,"vsCustomVar3");
+			$this->getvsData($date,"vsCustomVar4");
+			$this->getvsData($date,"vsCustomVar5");
+			$this->getvsData141($date,"vsAllTraffic");
+			$this->getvsData141($date,"vsPlatform");
+			$this->getvsData141($date,"vsDevice");
+			$this->getvsData141($date,"vsGeo");
+			$this->getvsData141($date,"vsNetwork");
+			$this->getvsData141($date,"vsSystem");
+			$this->getvsData141($date,"vsTraffic");
+			$this->getvsData141($date,"vsVisitor");
+			
+			$this->getvsData141($date,"vsPageTracking");
+/** /					
 			$this->getGAFactResults($date, "vsEcommerce");
 			$this->getGAFactResults($date, "vsEvent");
-			$this->getGAFactResults($date, "vsGeo");
-			$this->getGAFactResults($date, "vsNetwork");
-			$this->getGAFactResults($date, "vsSystem");
-			$this->getGAFactResults($date, "vsTraffic");
-			$this->getGAFactResults($date, "vsVisitor");
-			$this->getGAFactResults($date, "vsPageTracking");
-/**/
-			//DB_DataObject::debugLevel(5);			
-			$this->getGADimensionResults($date, "VanquisSession");			
-			stopTimer("Facts & Dimensions");
 /**/			
+			stopTimer("Facts & Dimensions");
 			totalTimes();
   		}
     	

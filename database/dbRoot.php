@@ -28,6 +28,88 @@ define('DB_DATAOBJECT_DELETED'     ,12348);  // Needs to Be deleted
 
 $audit['DataObject']=array();
 
+global $dbRoot_dims;
+global $dbRoot_mets;
+global $dbRoot_mobile;
+global $dbRoot_pageLevel;
+
+
+$dbRoot_dims=array("ga:adcontent","ga:addestinationurl","ga:addisplayurl","ga:date","ga:addistributionnetwork","ga:adformat","ga:adgroup",
+		"ga:admatchtype","ga:admatchedquery","ga:adplacementdomain","ga:adplacementurl","ga:adslot","ga:adslotposition",
+		"ga:adtargetingoption","ga:adtargetingtype","ga:adwordsadgroupid","ga:adwordscampaignid","ga:adwordscreativeid",
+		"ga:adwordscriteriaid","ga:adwordscustomerid","ga:browser","ga:browserversion","ga:campaign",
+		"ga:city","ga:continent","ga:country","ga:date","ga:day","ga:dayofweek","ga:dayssincelastvisit",
+		"ga:eventaction","ga:eventcategory","ga:eventlabel","ga:exitpagepath","ga:flashversion","ga:hassocialsourcereferral",
+		"ga:hostname","ga:hour","ga:ismobile","ga:javaenabled","ga:keyword","ga:landingpagepath","ga:language","ga:latitude",
+		"ga:longitude","ga:medium","ga:metro",
+		"ga:month","ga:networkdomain","ga:networklocation","ga:nextpagepath","ga:nthday","ga:nthmonth","ga:nthweek","ga:operatingsystem",
+		"ga:operatingsystemversion","ga:pagedepth","ga:pagepath","ga:pagetitle","ga:previouspagepath",
+		"ga:referralpath","ga:region","ga:screencolors","ga:screenresolution","ga:searchcategory","ga:searchdestinationpage",
+		"ga:searchkeyword","ga:searchkeywordrefinement","ga:searchresultviews","ga:searchstartpage","ga:searchuniques","ga:searchused",
+		"ga:secondpagepath","ga:socialactivityaction","ga:socialactivitycontenturl","ga:socialactivitydisplayname","ga:socialactivityendorsingurl",
+		"ga:socialactivitynetworkaction","ga:socialactivitypost","ga:socialactivitytagssummary","ga:socialactivitytimestamp",
+		"ga:socialactivityuserhandle","ga:socialactivityuserphotourl","ga:socialactivityuserprofileurl","ga:socialinteractionaction",
+		"ga:socialinteractionnetwork","ga:socialinteractionnetworkaction","ga:socialinteractiontarget","ga:socialinteractions",
+		"ga:socialinteractionspervisit","ga:socialnetwork","ga:source","ga:subcontinent","ga:uniquesocialinteractions",
+		"ga:userdefinedvalue","ga:usertimingcategory","ga:usertiminglabel","ga:usertimingvariable","ga:visitcount","ga:visitlength",
+		"ga:visitortype","ga:week","ga:year",
+		"ga:customvarname1","ga:customvarvalue1","ga:customvarname2","ga:customvarvalue2","ga:customvarname3","ga:customvarvalue3",
+		"ga:customvarname4","ga:customvarvalue4","ga:customvarname5","ga:customvarvalue5"
+
+		,"ga:productname"
+		,"ga:productsku"
+		,"ga:productcategory"
+		,"ga:daystotransaction"
+		,"ga:visitstotransaction"
+		,"ga:affiliation"
+		,"ga:transactionid"
+		,"ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"
+	);
+
+$dbRoot_mets=array("ga:cpc","ga:cpm","ga:ctr","ga:roi","ga:rpc","ga:adclicks","ga:adcost","ga:appviews","ga:appviewspervisit",
+		"ga:avgdomainlookuptime","ga:avgeventvalue","ga:avgpagedownloadtime","ga:avgpageloadtime","ga:avgredirectiontime",
+		"ga:avgsearchdepth","ga:avgsearchduration","ga:avgsearchresultviews","ga:avgserverconnectiontime","ga:avgserverresponsetime",
+		"ga:avgtimeonpage","ga:avgtimeonsite","ga:avgusertimingvalue","ga:bounces","ga:costperconversion","ga:costpergoalconversion",
+		"ga:costpertransaction","ga:domainlookuptime","ga:entrancebouncerate","ga:entrancerate","ga:entrances","ga:eventvalue",
+		"ga:eventspervisitwithevent","ga:exceptions","ga:exitrate","ga:exits","ga:fatalexceptions","ga:goalvalueallpersearch",
+		"ga:impressions","ga:itemquantity","ga:itemrevenue","ga:itemsperpurchase","ga:margin","ga:newvisits","ga:organicsearches",
+		"ga:pagedownloadtime","ga:pageloadsample","ga:pageloadtime","ga:pageviews","ga:pageviewspervisit","ga:percentnewvisits",
+		"ga:percentvisitswithsearch","ga:redirectiontime","ga:revenueperitem","ga:revenuepertransaction","ga:searchdepth",
+		"ga:searchduration","ga:searchexitrate","ga:searchexits","ga:searchgoalconversionrateall","ga:searchrefinements",
+		"ga:searchvisits","ga:serverconnectiontime","ga:serverresponsetime","ga:socialactivities","ga:speedmetricssample",
+		"ga:timeonpage","ga:timeonsite","ga:totalevents","ga:totalvalue","ga:transactionrevenue","ga:transactionrevenuepervisit",
+		"ga:transactionshipping","ga:transactiontax","ga:transactions","ga:transactionspervisit","ga:uniqueappviews",
+		"ga:uniqueevents","ga:uniquepageviews","ga:uniquepurchases","ga:usertimingsample","ga:usertimingvalue","ga:visitbouncerate",
+		"ga:visitors","ga:visits","ga:visitswithevent","ga:goal1starts","ga:goal1completions","ga:goal1value","ga:goal1conversionrate",
+		"ga:goal1abandons","ga:goal1abandonrate","ga:goal2starts","ga:goal2completions","ga:goal2value","ga:goal2conversionrate",
+		"ga:goal2abandons","ga:goal2abandonrate","ga:goal3starts","ga:goal3completions","ga:goal3value","ga:goal3conversionrate",
+		"ga:goal3abandons","ga:goal3abandonrate","ga:goal4starts","ga:goal4completions","ga:goal4value","ga:goal4conversionrate",
+		"ga:goal4abandons","ga:goal4abandonrate","ga:goal5starts","ga:goal5completions","ga:goal5value","ga:goal5conversionrate",
+		"ga:goal5abandons","ga:goal5abandonrate","ga:goal6starts","ga:goal6completions","ga:goal6value","ga:goal6conversionrate",
+		"ga:goal6abandons","ga:goal6abandonrate","ga:goal7starts","ga:goal7completions","ga:goal7value","ga:goal7conversionrate",
+		"ga:goal7abandons","ga:goal7abandonrate","ga:goal8starts","ga:goal8completions","ga:goal8value","ga:goal8conversionrate",
+		"ga:goal8abandons","ga:goal8abandonrate","ga:goal9starts","ga:goal9completions","ga:goal9value","ga:goal9conversionrate",			
+		"ga:goal9abandons","ga:goal9abandonrate","ga:goal10starts","ga:goal10completions","ga:goal10value","ga:goal10conversionrate",
+		"ga:goal10abandons","ga:goal10abandonrate","ga:goal11abandons","ga:goal11abandonrate","ga:goal12starts","ga:goal12completions",
+		"ga:goal12value","ga:goal12conversionrate",
+		"ga:goal12abandons","ga:goal12abandonrate","ga:goal13starts","ga:goal13completions","ga:goal13value","ga:goal13conversionrate",
+		"ga:goal13abandons","ga:goal13abandonrate","ga:goal14starts","ga:goal14completions","ga:goal14value","ga:goal14conversionrate",
+		"ga:goal14abandons","ga:goal14abandonrate","ga:goal15starts","ga:goal15completions","ga:goal15value","ga:goal15conversionrate",
+		"ga:goal15abandons","ga:goal15abandonrate","ga:goal16starts","ga:goal16completions","ga:goal16value","ga:goal16conversionrate",
+		"ga:goal16abandons","ga:goal16abandonrate","ga:goal17starts","ga:goal17completions","ga:goal17value","ga:goal17conversionrate",
+		"ga:goal17abandons","ga:goal17abandonrate","ga:goal18starts","ga:goal18completions","ga:goal18value","ga:goal18conversionrate",
+		"ga:goal18abandons","ga:goal18abandonrate","ga:goal19starts","ga:goal19completions","ga:goal19value","ga:goal19conversionrate",
+		"ga:goal19abandons","ga:goal19abandonrate",
+		"ga:goal20starts","ga:goal20completions","ga:goal20value","ga:goal20conversionrate",
+		"ga:goal20abandons","ga:goal20abandonrate",
+		"ga:goalstartsall","ga:goalcompletionsall","ga:goalvalueall","ga:goalvaluepervisit",
+		"ga:goalconversionrateall","ga:goalabandonsall","ga:goalabandonrateall",
+		"ga:goal"//This is Special!!!	
+		);
+
+$dbRoot_mobile=array("ga:ismobile","ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
+$dbRoot_pageLevel=array("ga:pagepathlevel1","ga:pagepathlevel2","ga:pagepathlevel3","ga:pagepathlevel4");
+
 class DB_DataObject_Exception extends PEAR_Exception {};
 
 class dbRoot extends DB_DataObject {
@@ -35,83 +117,8 @@ class dbRoot extends DB_DataObject {
 	static $f2t=array();
 	static $degrees=array();
 
-	static $dims=array("ga:adcontent","ga:addestinationurl","ga:addisplayurl","ga:date","ga:addistributionnetwork","ga:adformat","ga:adgroup",
-			"ga:admatchtype","ga:admatchedquery","ga:adplacementdomain","ga:adplacementurl","ga:adslot","ga:adslotposition",
-			"ga:adtargetingoption","ga:adtargetingtype","ga:adwordsadgroupid","ga:adwordscampaignid","ga:adwordscreativeid",
-			"ga:adwordscriteriaid","ga:adwordscustomerid","ga:browser","ga:browserversion","ga:campaign",
-			"ga:city","ga:continent","ga:country","ga:date","ga:day","ga:dayofweek","ga:dayssincelastvisit",
-			"ga:eventaction","ga:eventcategory","ga:eventlabel","ga:exitpagepath","ga:flashversion","ga:hassocialsourcereferral",
-			"ga:hostname","ga:hour","ga:ismobile","ga:javaenabled","ga:keyword","ga:landingpagepath","ga:language","ga:latitude",
-			"ga:longitude","ga:medium","ga:metro",
-			"ga:month","ga:networkdomain","ga:networklocation","ga:nextpagepath","ga:nthday","ga:nthmonth","ga:nthweek","ga:operatingsystem",
-			"ga:operatingsystemversion","ga:pagedepth","ga:pagepath","ga:pagetitle","ga:previouspagepath",
-			"ga:referralpath","ga:region","ga:screencolors","ga:screenresolution","ga:searchcategory","ga:searchdestinationpage",
-			"ga:searchkeyword","ga:searchkeywordrefinement","ga:searchresultviews","ga:searchstartpage","ga:searchuniques","ga:searchused",
-			"ga:secondpagepath","ga:socialactivityaction","ga:socialactivitycontenturl","ga:socialactivitydisplayname","ga:socialactivityendorsingurl",
-			"ga:socialactivitynetworkaction","ga:socialactivitypost","ga:socialactivitytagssummary","ga:socialactivitytimestamp",
-			"ga:socialactivityuserhandle","ga:socialactivityuserphotourl","ga:socialactivityuserprofileurl","ga:socialinteractionaction",
-			"ga:socialinteractionnetwork","ga:socialinteractionnetworkaction","ga:socialinteractiontarget","ga:socialinteractions",
-			"ga:socialinteractionspervisit","ga:socialnetwork","ga:source","ga:subcontinent","ga:uniquesocialinteractions",
-			"ga:userdefinedvalue","ga:usertimingcategory","ga:usertiminglabel","ga:usertimingvariable","ga:visitcount","ga:visitlength",
-			"ga:visitortype","ga:week","ga:year",
-			"ga:customvarname1","ga:customvarvalue1","ga:customvarname2","ga:customvarvalue2","ga:customvarname3","ga:customvarvalue3",
-			"ga:customvarname4","ga:customvarvalue4","ga:customvarname5","ga:customvarvalue5"
-						
-			,"ga:productname"
-			,"ga:productsku"
-			,"ga:productcategory"
-			,"ga:daystotransaction"
-			,"ga:visitstotransaction"
-			,"ga:affiliation"
-			,"ga:transactionid"
-			,"ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector"
-		);
-	
-	static $mets=array("ga:cpc","ga:cpm","ga:ctr","ga:roi","ga:rpc","ga:adclicks","ga:adcost","ga:appviews","ga:appviewspervisit",
-			"ga:avgdomainlookuptime","ga:avgeventvalue","ga:avgpagedownloadtime","ga:avgpageloadtime","ga:avgredirectiontime",
-			"ga:avgsearchdepth","ga:avgsearchduration","ga:avgsearchresultviews","ga:avgserverconnectiontime","ga:avgserverresponsetime",
-			"ga:avgtimeonpage","ga:avgtimeonsite","ga:avgusertimingvalue","ga:bounces","ga:costperconversion","ga:costpergoalconversion",
-			"ga:costpertransaction","ga:domainlookuptime","ga:entrancebouncerate","ga:entrancerate","ga:entrances","ga:eventvalue",
-			"ga:eventspervisitwithevent","ga:exceptions","ga:exitrate","ga:exits","ga:fatalexceptions","ga:goalvalueallpersearch",
-			"ga:impressions","ga:itemquantity","ga:itemrevenue","ga:itemsperpurchase","ga:margin","ga:newvisits","ga:organicsearches",
-			"ga:pagedownloadtime","ga:pageloadsample","ga:pageloadtime","ga:pageviews","ga:pageviewspervisit","ga:percentnewvisits",
-			"ga:percentvisitswithsearch","ga:redirectiontime","ga:revenueperitem","ga:revenuepertransaction","ga:searchdepth",
-			"ga:searchduration","ga:searchexitrate","ga:searchexits","ga:searchgoalconversionrateall","ga:searchrefinements",
-			"ga:searchvisits","ga:serverconnectiontime","ga:serverresponsetime","ga:socialactivities","ga:speedmetricssample",
-			"ga:timeonpage","ga:timeonsite","ga:totalevents","ga:totalvalue","ga:transactionrevenue","ga:transactionrevenuepervisit",
-			"ga:transactionshipping","ga:transactiontax","ga:transactions","ga:transactionspervisit","ga:uniqueappviews",
-			"ga:uniqueevents","ga:uniquepageviews","ga:uniquepurchases","ga:usertimingsample","ga:usertimingvalue","ga:visitbouncerate",
-			"ga:visitors","ga:visits","ga:visitswithevent","ga:goal1starts","ga:goal1completions","ga:goal1value","ga:goal1conversionrate",
-			"ga:goal1abandons","ga:goal1abandonrate","ga:goal2starts","ga:goal2completions","ga:goal2value","ga:goal2conversionrate",
-			"ga:goal2abandons","ga:goal2abandonrate","ga:goal3starts","ga:goal3completions","ga:goal3value","ga:goal3conversionrate",
-			"ga:goal3abandons","ga:goal3abandonrate","ga:goal4starts","ga:goal4completions","ga:goal4value","ga:goal4conversionrate",
-			"ga:goal4abandons","ga:goal4abandonrate","ga:goal5starts","ga:goal5completions","ga:goal5value","ga:goal5conversionrate",
-			"ga:goal5abandons","ga:goal5abandonrate","ga:goal6starts","ga:goal6completions","ga:goal6value","ga:goal6conversionrate",
-			"ga:goal6abandons","ga:goal6abandonrate","ga:goal7starts","ga:goal7completions","ga:goal7value","ga:goal7conversionrate",
-			"ga:goal7abandons","ga:goal7abandonrate","ga:goal8starts","ga:goal8completions","ga:goal8value","ga:goal8conversionrate",
-			"ga:goal8abandons","ga:goal8abandonrate","ga:goal9starts","ga:goal9completions","ga:goal9value","ga:goal9conversionrate",			
-			"ga:goal9abandons","ga:goal9abandonrate","ga:goal10starts","ga:goal10completions","ga:goal10value","ga:goal10conversionrate",
-			"ga:goal10abandons","ga:goal10abandonrate","ga:goal11abandons","ga:goal11abandonrate","ga:goal12starts","ga:goal12completions",
-			"ga:goal12value","ga:goal12conversionrate",
-			"ga:goal12abandons","ga:goal12abandonrate","ga:goal13starts","ga:goal13completions","ga:goal13value","ga:goal13conversionrate",
-			"ga:goal13abandons","ga:goal13abandonrate","ga:goal14starts","ga:goal14completions","ga:goal14value","ga:goal14conversionrate",
-			"ga:goal14abandons","ga:goal14abandonrate","ga:goal15starts","ga:goal15completions","ga:goal15value","ga:goal15conversionrate",
-			"ga:goal15abandons","ga:goal15abandonrate","ga:goal16starts","ga:goal16completions","ga:goal16value","ga:goal16conversionrate",
-			"ga:goal16abandons","ga:goal16abandonrate","ga:goal17starts","ga:goal17completions","ga:goal17value","ga:goal17conversionrate",
-			"ga:goal17abandons","ga:goal17abandonrate","ga:goal18starts","ga:goal18completions","ga:goal18value","ga:goal18conversionrate",
-			"ga:goal18abandons","ga:goal18abandonrate","ga:goal19starts","ga:goal19completions","ga:goal19value","ga:goal19conversionrate",
-			"ga:goal19abandons","ga:goal19abandonrate",
-			"ga:goal20starts","ga:goal20completions","ga:goal20value","ga:goal20conversionrate",
-			"ga:goal20abandons","ga:goal20abandonrate",
-			"ga:goalstartsall","ga:goalcompletionsall","ga:goalvalueall","ga:goalvaluepervisit",
-			"ga:goalconversionrateall","ga:goalabandonsall","ga:goalabandonrateall",
-			"ga:goal"//This is Special!!!	
-			);
-	
-	static $mobile=array("ga:ismobile","ga:mobiledevicebranding","ga:mobiledeviceinfo","ga:mobiledevicemodel","ga:mobileinputselector");
-	static $pageLevel=array("ga:pagepathlevel1","ga:pagepathlevel2","ga:pagepathlevel3","ga:pagepathlevel4");
-
 	protected function logAction($action){
+/*	
 		global $audit;
 		if (!isset($audit['DataObject'][$this->__table]))
 			$audit['DataObject'][$this->__table][$action][]=debug_backtrace();//=1;
@@ -119,6 +126,7 @@ class dbRoot extends DB_DataObject {
 			$audit['DataObject'][$this->__table][$action][]=debug_backtrace();//=1;
 		else
 			$audit['DataObject'][$this->__table][$action][]=debug_backtrace();//++;
+*/			
 	}
 	
 	
@@ -289,6 +297,7 @@ class dbRoot extends DB_DataObject {
 	}
 	
 	protected function dimensions(){
+		global $dbRoot_dims;
 		$dims=array_keys($this->table());
 		$res=array();
 		$extras=array_keys($this->links());
@@ -297,8 +306,9 @@ class dbRoot extends DB_DataObject {
 			krumo($extras);
 			krumo($this->links());
 		}
+		
 		for ($i=0;$i<count($dims);$i++){
-			if (in_array(strtolower("ga:".$dims[$i]),dbRoot::$dims,true))				
+			if (in_array(strtolower("ga:".$dims[$i]),$dbRoot_dims,true))				
 				$res[]="ga:".$dims[$i];
 			else if (substr($dims[$i],0,3)=='dim'){
 				if (in_array($dims[$i],$extras)){
@@ -307,7 +317,6 @@ class dbRoot extends DB_DataObject {
 				}
 			}
 		}
-		//krumo($res);
 		if (count($res)==0){
 			$dims=array("ga:Date");
 		}
@@ -323,8 +332,9 @@ class dbRoot extends DB_DataObject {
 	}
 	
 	function metrics(){
+		global $dbRoot_mets;
 		$mets=split(",",join(",ga:",array_keys($this->table())));
-		$res=array_intersect(array_map('strtolower',$mets), dbRoot::$mets);
+		$res=array_intersect(array_map('strtolower',$mets), $dbRoot_mets);
 		$mets=join(",",$res);
 		return ($mets<>"")?$mets:"ga:visits";
 	}

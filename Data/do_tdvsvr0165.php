@@ -4,18 +4,52 @@
 	$pl_profiles=array(55368687);
 		
 	if (!isset($type)) $type='loans:poland';
+	$date=isset($_GET['date'])?$_GET['date']:null;	
 	
+	sql="insert into workcommer.dbo.emptyFactDate
+	select dimdate,query 
+	from workcommer.dbo.googleaudit ga
+	where query like 'fctvs%'
+	and not exists (
+		select 1
+		from workcommer.dbo.emptyFactDate ef
+		where ga.dimDate=ef.dimDate
+		and ga.Query=ef.factTable
+	)
+	group by query,dimdate
+	having count(*)>5
+	order by count(*) desc";
+	
+	global $db;
+	$db->exec($sql);  				
+
 	if (!(strpos(strtolower($type),'loans')===false)){
+		if (isset($_GET['test'])) $cm_profiles=array(61943476); 	
+		
+		
+	
+		foreach ($cm_profiles as $profile){
+			
+			print("<H1>Profile $profile</H1>");
+			$pl=new Vanquis($client,$service,$profile);
+			$pl->Date($date);
+			print("<H2>Session Data</H2>");
+			if (isset($_GET['test'])) $pl->sessionData($date);
+			else $pl->sessionData($date);
+		}
+	}
+
+	if (!(strpos(strtolower($type),'loans-PT')===false)){
 		if (isset($_GET['test'])) $cm_profiles=array(61943476); 	
 	
 		foreach ($cm_profiles as $profile){
 			
 			print("<H1>Profile $profile</H1>");
 			$pl=new Vanquis($client,$service,$profile);
-			$pl->Date();
-			print("<H2>Session Data</H2>");
-			if (isset($_GET['test'])) $pl->sessionData();
-			else $pl->sessionData();
+			$pl->Date($date);
+			print("<H2>Page Tracking</H2>");
+			if (isset($_GET['test'])) $pl->getPageTracking($date);
+			else $pl->getPageTracking($date);
 		}
 	}
 	
@@ -23,16 +57,16 @@
 		foreach ($pl_profiles as $profile){
 			print("<H1>Profile $profile</H1>");
 			$pl=new Vanquis($client,$service,$profile);
-			$pl->Date();
+			$pl->Date($date);
 			if (isset($_GET['test'])){
 				print("<H2>Testing for $date</H2>");
 				$pl->test($date);
 			}
 			else {	
 				print("<H2>Profile Dates</H2>");
-				$pl->ProfileDates();			
+				$pl->ProfileDates($date);			
 				print("<H2>Performance Data</H2>");
-				$pl->performance();
+				$pl->performance($date);
 
 	//			$pl->getPageTracking();
 			}
