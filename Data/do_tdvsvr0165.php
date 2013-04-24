@@ -6,7 +6,7 @@
 	if (!isset($type)) $type='loans:poland';
 	$date=isset($_GET['date'])?$_GET['date']:null;	
 	
-	sql="insert into workcommer.dbo.emptyFactDate
+	$sql="insert into workcommer.dbo.emptyFactDate
 	select dimdate,query 
 	from workcommer.dbo.googleaudit ga
 	where query like 'fctvs%'
