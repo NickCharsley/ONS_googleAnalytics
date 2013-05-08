@@ -18,9 +18,6 @@ class doFctload_cashmax_visitor extends dbRoot
     public $Visitors;                        // int(4)   not_null
     public $NewVisits;                       // int(4)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctload_cashmax_visitor',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     

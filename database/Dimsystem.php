@@ -17,9 +17,6 @@ class doDimsystem extends dbRoot
     public $ScreenColors;                    // varchar(45)  unique_key not_null
     public $ScreenResolution;                // varchar(45)  unique_key not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimsystem',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     public $fb_linkDisplayFields=array("Language","ScreenColors","ScreenResolution");

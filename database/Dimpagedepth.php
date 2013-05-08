@@ -14,9 +14,6 @@ class doDimpagedepth extends dbRoot
     public $PageDepth;                       // int(4)  unique_key
     public $Description;                     // varchar(45)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimpagedepth',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     public $fb_linkDisplayFields=array('Description');

@@ -36,9 +36,6 @@ class doFctvsdate extends dbRoot
     public $ServerResponseTime;              // decimal(32,0)  
     public $SpeedMetricsSample;              // decimal(32,0)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctvsdate',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

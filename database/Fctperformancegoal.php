@@ -18,9 +18,6 @@ class doFctperformancegoal extends dbRoot
     public $GoalCompletions;                 // int(4)   not_null
     public $GoalConversionRate;              // float   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctperformancegoal',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

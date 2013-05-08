@@ -19,9 +19,6 @@ class doFctload_cashmax_baseii extends dbRoot
     public $TimeOnPage;                      // float   not_null
     public $Exits;                           // int(4)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctload_cashmax_baseii',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     //As this is a View we need to do the work here!

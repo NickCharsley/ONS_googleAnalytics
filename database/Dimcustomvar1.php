@@ -14,9 +14,6 @@ class doDimcustomvar1 extends dbRoot
     public $CustomVarName1;                  // varchar(70)   not_null
     public $CustomVarValue1;                 // varchar(70)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimcustomvar1',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     function keys(){

@@ -22,9 +22,6 @@ class doFctperformancemaster extends dbRoot
     public $SuccessPageViews;                // decimal(32,0)  
     public $SuccessPageUniqueViews;          // decimal(32,0)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctperformancemaster',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

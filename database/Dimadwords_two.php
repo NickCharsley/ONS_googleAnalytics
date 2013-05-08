@@ -21,9 +21,6 @@ class doDimadwords_two extends dbRoot
     public $AdwordsCreativeID;               // varchar(45)  
     public $AdwordsCriteriaID;               // varchar(45)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimadwords_two',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

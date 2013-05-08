@@ -15,9 +15,6 @@ class doDimgoal extends dbRoot
     public $GoalNumber;                      // int(4)  unique_key not_null
     public $GoalLabel;                       // varchar(70)  unique_key not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimgoal',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     

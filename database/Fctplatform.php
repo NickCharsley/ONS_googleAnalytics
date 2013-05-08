@@ -30,9 +30,6 @@ class doFctplatform extends dbRoot
     public $TimeOnPage;                      // float   not_null
     public $Exits;                           // int(4)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctplatform',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

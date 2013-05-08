@@ -21,9 +21,6 @@ class doDimpagepath extends dbRoot
     public $ApplicationProgress;             // varchar(45)  
     public $Page;                            // varchar(1024)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimpagepath',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     public $fb_linkDisplayFields=array('PagePath');

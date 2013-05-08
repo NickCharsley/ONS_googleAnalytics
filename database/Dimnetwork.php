@@ -14,9 +14,6 @@ class doDimnetwork extends dbRoot
     public $NetworkDomain;                   // varchar(45)  unique_key not_null
     public $NetworkLocation;                 // varchar(512)  unique_key not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimnetwork',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     

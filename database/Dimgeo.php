@@ -18,9 +18,6 @@ class doDimgeo extends dbRoot
     public $Continent;                       // varchar(45)   not_null default_Unknown
     public $SubContinent;                    // varchar(45)   not_null default_Unknown
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimgeo',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     public $fb_linkDisplayFields=array('City','Country');

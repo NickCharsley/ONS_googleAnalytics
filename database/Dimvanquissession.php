@@ -15,9 +15,6 @@ class doDimvanquissession extends dbRoot
     public $CustomVarValue1;                 // varchar(70)   not_null
     public $SessionID;                       // varchar(70)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimvanquissession',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     

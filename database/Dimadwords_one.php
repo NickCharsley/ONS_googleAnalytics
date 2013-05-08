@@ -19,9 +19,6 @@ class doDimadwords_one extends dbRoot
     public $AdTargetingOption;               // varchar(45)  
     public $AdDestinationUrl;                // varchar(2048)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimadwords_one',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

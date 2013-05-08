@@ -2,7 +2,7 @@
 <!--  This is a skeleton phpDox config file - Check http://phpDox.de for latest version and more info -->
 
 <phpdox xmlns="http://phpdox.de/config">
-	<project name="ShowManager" source="." workdir="build/phpdox">
+	<project name="ons_GoogleAnalytics" source="." workdir="build/phpdox">
 		<collector publiconly="false">
 			<include mask="*.php" />
 		</collector>
@@ -11,10 +11,6 @@
 			<build engine="html" enabled="true" output="api"/>
 			<build engine="todo" enabled="true" output="todo">
 				<file name="todolist.txt" encoding="utf-8" />
-			</build>
-			
-			<build engine="graph" enabled="true" output="graph">
-				<dot executable="c:\Program Files (x86)\Graphviz 2.28\bin\dot" render="true" format="png" />
 			</build>
 		</generator>
 	</project>

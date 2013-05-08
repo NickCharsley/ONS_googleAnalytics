@@ -14,9 +14,6 @@ class doDimvisitor extends dbRoot
     public $VisitCount;                      // int(4)  unique_key
     public $VisitorType;                     // varchar(45)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimvisitor',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 	public $fb_linkDisplayFields=array("VisitorType",'VisitCount');    

@@ -16,9 +16,6 @@ class doDimhour extends dbRoot
     public $StartTime;                       // datetime   not_null
     public $EndTime;                         // datetime   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimhour',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     public $fb_linkDisplayFields=array('Description');

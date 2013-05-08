@@ -118,9 +118,6 @@ class doFctloanhistory extends dbRoot
     public $Goal20Abandons;                  // int(4)   not_null
     public $Goal20Value;                     // float   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctloanhistory',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

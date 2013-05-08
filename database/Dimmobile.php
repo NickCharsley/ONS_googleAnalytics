@@ -17,9 +17,6 @@ class doDimmobile extends dbRoot
     public $MobileInputSelector;             // varchar(45)   not_null
     public $MobileDeviceInfo;                // varchar(45)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimmobile',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     

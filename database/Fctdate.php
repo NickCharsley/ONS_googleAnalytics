@@ -72,9 +72,6 @@ class doFctdate extends dbRoot
     public $Goal19Starts;                    // int(4)   not_null
     public $Goal20Starts;                    // int(4)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctdate',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

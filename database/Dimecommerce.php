@@ -19,9 +19,6 @@ class doDimecommerce extends dbRoot
     public $ProductName;                     // varchar(70)  
     public $ProductCategory;                 // varchar(70)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimecommerce',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

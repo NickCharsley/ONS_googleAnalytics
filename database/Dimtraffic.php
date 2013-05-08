@@ -15,9 +15,6 @@ class doDimtraffic extends dbRoot
     public $Source;                          // varchar(45)  
     public $Keyword;                         // varchar(512)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimtraffic',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     public $fb_linkDisplayFields=array('Campaign','Source','Keyword');

@@ -145,7 +145,6 @@
 \************************************************************/    
     if ($debug) print(__FILE__."(".__LINE__.")<br/>\n");
     include_once "script/utils.php";
-    include_once "sm_scripts/utils.php";
 	krumo::disable() ;
     ini_set('error_log',$root_path."/test/php_error.log");
     ini_set('max_execution_time',30000);

@@ -36,9 +36,6 @@ class doFctvsalltraffic extends dbRoot
     public $Goal15Completions;               // int(4)   not_null
     public $GoalCompletionsAll;              // int(4)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctvsalltraffic',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }

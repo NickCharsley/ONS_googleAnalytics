@@ -16,9 +16,6 @@ class doDimplatform extends dbRoot
     public $OperatingSystem;                 // varchar(45)   not_null
     public $OperatingSystemVersion;          // varchar(45)   not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimplatform',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     

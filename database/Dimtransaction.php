@@ -16,9 +16,6 @@ class doDimtransaction extends dbRoot
     public $VisitsToTransaction;             // int(4)  
     public $DaysToTransaction;               // int(4)  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimtransaction',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 	function keys(){

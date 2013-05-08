@@ -15,9 +15,6 @@ class doDimevent extends dbRoot
     public $EventAction;                     // varchar(70)  unique_key not_null
     public $EventLabel;                      // varchar(70)  unique_key not_null
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doDimevent',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     public $fb_linkDisplayFields=array('EventAction','EventLabel');

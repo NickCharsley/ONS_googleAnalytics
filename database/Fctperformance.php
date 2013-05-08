@@ -36,9 +36,6 @@ class doFctperformance extends dbRoot
     public $CPC;                             // float  
     public $CTR;                             // float  
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('doFctperformance',$k,$v); }
-
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 }
