@@ -6,32 +6,30 @@
          verbose="true">
        
 	<testsuites>
-		<testsuite name="Workcommer">
-			<!-- I think we have to run tests in the workspace directory because that's were the webserver looks!! -->
+		<testsuite name="ons_GoogleAnalytics">
 			<directory suffix="Test.php">.</directory>							
 		</testsuite>
 	</testsuites>
 
 	<logging>
-		<log type="coverage-html" target="../build/coverage" title="Workcommer"
+		<log type="coverage-html" target="../build/coverage" title="ons_GoogleAnalytics"
 			charset="UTF-8" yui="true" highlight="true"
 			lowUpperBound="35" highLowerBound="70"/>
 		<log type="coverage-clover" target="../build/logs/clover.xml"/>
 		<log type="junit" target="../build/logs/junit.xml" logIncompleteSkipped="false"/>
 	</logging>
 
-	<filter_off>
+	<filter>
 		<blacklist>
-			<directory>C:/Users/nick/workspace/Workcommer/test</directory>
+			<directory>../test</directory>
 		</blacklist>
-		<whitelist addUncoveredFilesFromWhitelist="true">
-			<!-- I think we have to run tests in the workspace directory because that's were the webserver looks!! -->
+		<whitelist addUncoveredFilesFromWhitelist="true">			
 			<directory suffix=".php">..</directory>
 			<exclude>
 				<directory>../test</directory>
 			</exclude>
 		</whitelist>
-	</filter_off>
+	</filter>
 
 	<php>
 		<var name="DB_DSN" value="mysql:host=localhost;dbname=test_Workcommer" />
