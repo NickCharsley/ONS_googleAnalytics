@@ -65,9 +65,9 @@
 			}
 			else {	
 				print("<H2>Profile Dates</H2>");
-				$pl->ProfileDates($date);			
+				$pl->Date($date);			
 				print("<H2>Performance Data</H2>");
-				$pl->performance($date);
+				$pl->sessiondata($date);
 
 	//			$pl->getPageTracking();
 			}

@@ -198,8 +198,9 @@
 	  		$results->mergeResults(googleHelper::getGAResults($date,$client,$service,$profile, $optParams, join(",",$aMets  )));
 	  	} else  {
 	  		if (isset($date)){
-		  		$startdate=$date;			
-				$enddate  =$date;				
+	  			$sdt=new DateTime($date);
+		  		$startdate=$sdt->format("Y-m-d");			
+				$enddate  =$startdate;
 	  		}	else {
 	  			if (!isset($_GET['history'])){
 		  			$sdt=new DateTime();

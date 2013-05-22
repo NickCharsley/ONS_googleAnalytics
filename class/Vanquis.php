@@ -482,6 +482,7 @@
 			$this->getvsData141($date,"vsVisitor");
 			
 			$this->getvsData141($date,"vsPageTracking");
+			
 /** /					
 			$this->getGAFactResults($date, "vsEcommerce");
 			$this->getGAFactResults($date, "vsEvent");
@@ -527,6 +528,12 @@ order by f.dimDate;"
 			{//These are implied by getting CustomVar1
 				print("<H3>Date to process=$date</H3>");
 			}			
+
+			$this->getGAFactResults($date, "CustomVar1");
+			$this->getGAFactResults($date, "CustomVar2");
+			$this->getGAFactResults($date, "CustomVar3");
+			$this->getGAFactResults($date, "CustomVar4");
+			$this->getGAFactResults($date, "CustomVar5");
 
 			$this->getGADimensionResults($date, "Traffic");
 			$this->getGADimensionOnly($date, "PagePath");			
