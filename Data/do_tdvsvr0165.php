@@ -3,8 +3,21 @@
 	$dl_profiles=array(67348193,68081878,68085948,68086044,64920522,42209706,42476341,42506344);
 	$pl_profiles=array(55368687);
 		
+        $vars=array();
+        
 	if (!isset($type)) $type='loans:poland';
-	$date=isset($_GET['date'])?$_GET['date']:null;	
+        if (isset($argv)){
+            $ini="";
+            for($i=1;$i<count($argv);$i++){
+                $ini.=$argv[$i]."\n";
+            }
+            $vars=parse_ini_string($ini);
+            foreach($vars as $var=>$value);
+            $var=$value;
+        }
+        
+        $date=isset($_GET['date'])?$_GET['date']:(isset($vars['date'])?$vars['date']:null);	
+        
 	
 	$sql="insert into workcommer.dbo.emptyFactDate
 	select dimdate,query 
@@ -64,7 +77,7 @@
 				$pl->test($date);
 			}
 			else {	
-				print("<H2>Profile Dates</H2>");
+				print("<H2>Profile Dates ($date)</H2>");
 				$pl->Date($date);			
 				print("<H2>Performance Data</H2>");
 				$pl->sessiondata($date);

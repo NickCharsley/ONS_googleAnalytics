@@ -481,7 +481,7 @@
 			$this->getvsData141($date,"vsTraffic");
 			$this->getvsData141($date,"vsVisitor");
 			
-			$this->getvsData141($date,"vsPageTracking");
+//			$this->getvsData141($date,"vsPageTracking");
 			
 /** /					
 			$this->getGAFactResults($date, "vsEcommerce");
